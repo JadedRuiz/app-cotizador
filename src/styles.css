@@ -1,0 +1,8 @@
+/* You can add global styles to this file, and also import other style files */
+.p-normal {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: sans-serif;
+    font-size: 17px;
+}

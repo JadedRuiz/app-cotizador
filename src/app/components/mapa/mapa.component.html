@@ -1,0 +1,153 @@
+<div class="section-mapa w-100">
+    <div class="cuadro">
+        <ul class="nav nav-tabs">
+            <li class="nav-item p-normal">
+              <a class="nav-link active">Num. Etapa</a>
+            </li>
+        </ul>
+        <div class="etapas"></div>
+        <div class="svg">
+            <app-svg (click)="abrirModal($event)" ></app-svg>
+        </div>
+    </div>
+</div>
+
+<ng-template #cotizadorModal let-modal>
+    <div class="container-fluid modal-completo">
+        <span class="cerrarModal" (click)="modal.dismiss('Cross click')"><i class="fa fa-times" aria-hidden="true"></i></span>
+        <div class="row">
+            <div class="col-lg-8 mx-0 px-0">
+                <div class="contenido">
+                    <div class="cotizador">
+                        <div class="row">
+                            @if(lote.sFotografia != '') {
+                                <div class="col-lg-5 col-sm-12">
+                                    <img [src]="lote.sFotografia" class="imgCotizador">
+                                </div>
+                            }                            
+                            <div [class]="lote.sFotografia != '' ?  'col-lg-7 col-sm-12' : 'col-12'" class="py-3">
+                                <div class="title-lote d-flex align-items-center p-normal">
+                                    <h2>{{lote.sNombre}}</h2>
+                                    <div class="division mx-2"></div>
+                                    <h2 style="color: #065D62;">{{lote.sEtapa}}</h2>
+                                </div>
+                                <div class="info-lote mt-3">
+                                    <div class="superficie d-flex align-items-center p-normal flex-nowrap">
+                                        <p>Superficie:</p><strong>{{lote.sSuperficie}}</strong>
+                                        <div class="division mx-2"></div>
+                                        <p>Dimensiones:</p><strong>{{lote.sDimension}}</strong>
+                                    </div>
+                                    <div class="preciom2 d-flex p-normal mt-2">
+                                        <p>Precio por ㎡:</p><strong>{{cotizacion.sPrecioM2 | currency: '$ '}}</strong>
+                                    </div>
+                                    <div class="precioTotal d-flex align-items-end p-normal mt-2">
+                                        <p>Precio:</p><strong>{{precioTotal | currency: '$ '}}</strong>
+                                    </div>
+                                    <div class="financiamiento p-normal mt-4">
+                                        <p>Financiamiento:</p>
+                                    </div>
+                                    <div class="cotizacion">
+                                        <select #sel (change)="seleccionarPlazo(sel.value)">
+                                            @for(plazo of lote.objPlazos; track plazo) {
+                                                <option class="p-normal" [value]="plazo.iIdPlazo">{{plazo.sPlazo}}</option>
+                                            }
+                                        </select>
+                                        @if(bCotizacion) {
+                                            <div class="info-cotizacion row mx-0 w-100">
+                                                <div class="col-6 enganche">
+                                                    <div class="p-enganche d-flex align-items-center">
+                                                        <p class="p-normal">% de enganche</p>
+                                                        <input type="number" [value]="lote.iMinEnganche">
+                                                    </div>
+                                                    <strong>{{precioEnganche | currency: '$ '}}</strong>
+                                                </div>
+                                                <div class="col-6 mensualidad">
+                                                    <p class="p-normal">Pago Mensual</p>
+                                                    <strong>{{precioMensualidad | currency: '$ '}}</strong>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>                                
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <small class="avisos p-normal">- Consulta promociones vigentes con tu asesor de confianza.</small>
+                            </div>
+                            <div class="col-12">
+                                <small class="avisos p-normal">- Los precios estan sujetos a cambios sin previo aviso.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 px-0 mx-0">
+                <div class="contacto">
+                    <form [formGroup]="form" (ngSubmit)="registrarCotizacion()">
+                        <p class="p-normal text-white titleForm"><strong>CONTACTO</strong></p>
+                        <div class="form-group mt-2">
+                            <input 
+                            type="text" 
+                            class="form-control" 
+                            id="sNombre"
+                            [ngClass]="{ 'is__invalid-input': submitted && f['sNombre'].errors }"
+                            formControlName="sNombre"
+                            placeholder="Nombre"
+                            >
+                        </div>
+                        <div *ngIf="submitted && f['sNombre'].errors" class="is__invalid-error">
+                            <div *ngIf="f['sNombre'].errors['required']">*Este campo es obligatorio</div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input 
+                            type="text" 
+                            class="form-control" 
+                            id="sCorreo"
+                            [ngClass]="{ 'is__invalid-input': submitted && f['sCorreo'].errors }"
+                            formControlName="sCorreo"
+                            placeholder="Correo electrónico"
+                            >
+                        </div>
+                        <div *ngIf="submitted && f['sCorreo'].errors" class="is__invalid-error">
+                            <div *ngIf="f['sCorreo'].errors['required']">*Este campo es obligatorio</div>
+                            <div *ngIf="f['sCorreo'].errors['email']">*Ingresa un correo valido</div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input 
+                            type="text" 
+                            class="form-control" 
+                            id="iTelefono"
+                            maxlength="10"
+                            [ngClass]="{ 'is__invalid-input': submitted && f['iTelefono'].errors }"
+                            formControlName="iTelefono"
+                            placeholder="Teléfono"
+                            >
+                        </div>
+                        <div *ngIf="submitted && f['iTelefono'].errors" class="is__invalid-error">
+                            <div *ngIf="f['iTelefono'].errors['required']">*Este campo es obligatorio</div>
+                            <div *ngIf="f['iTelefono'].errors['pattern']">*Este campo solo acepta números</div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input 
+                            type="text" 
+                            class="form-control" 
+                            id="sCiudad"
+                            maxlength="10"
+                            [ngClass]="{ 'is__invalid-input': submitted && f['sCiudad'].errors }"
+                            formControlName="sCiudad"
+                            placeholder="Ciudad"
+                            >
+                        </div>
+                        <div *ngIf="submitted && f['sCiudad'].errors" class="is__invalid-error">
+                            <div *ngIf="f['sCiudad'].errors['required']">*Este campo es obligatorio</div>
+                            <div *ngIf="f['sCiudad'].errors['pattern']">*Este campo solo acepta números</div>
+                        </div>
+                        <button type="submit" class="btnEnviar mt-5">ENVIAR</button>
+                        <small class="text-white w-100">Toda la información personal es confidencial y no será usada ni vendida para fines publicitarios</small>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
