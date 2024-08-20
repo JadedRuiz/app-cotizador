@@ -1,0 +1,141 @@
+.pantalla {
+    height: 100vh;
+    width: 100%;
+    overflow-y: auto;
+}
+.bg-img {
+    background-image: url("../../../assets/Imagenes/img-login.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.title-reporte {
+    border-top: 1px black solid;
+    border-right: 1px black solid;
+    border-left: 1px black solid;
+}
+.inp-no-style {
+    border: none;
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+}
+.inp-no-style:focus {
+    border: none;
+    outline: none;
+}
+.info-reporte {
+    border: 1px black solid;
+}
+.b-style {
+    border-right: 1px black solid;
+}
+.inp-no-style-data {
+    border: none;
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    color: #E8651B;
+}
+.inp-no-style-data:focus {
+    border: none;
+    outline: none;
+}
+.inp-no-style-date {
+    border: none;
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    color: #E8651B;
+    background-color: transparent;
+}
+.inp-style-card {
+    border: none;
+    width: 100%;
+    color: black;
+    font-weight: 700;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+    background-color: transparent;
+}
+.inp-style-card:focus {
+    border: none;
+    outline: none;
+}
+.text-area-style {
+    margin: 0px;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+}
+.text-area-style:focus {
+    outline: none;
+}
+.title-input {
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+}
+.text-buttons{
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.evidencias-cards {
+    max-height: 600px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: row;
+    align-content: start;
+}
+.card-aunt {
+    position: relative;
+    border: 2px black solid;
+    border-radius: 5px;
+    background-color: #E2E3E5;
+    padding: 0px 15px;
+}
+.ico-close {
+    position: absolute;
+    font-size: 20px;
+    cursor: pointer;
+    color: black;
+    top: -5px;
+    right: 5px;
+}
+.label-style {
+    color: black;
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.cuadrado {
+    position: relative;
+    border: 1px black solid;
+    border-radius: 2px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    background-color: white;
+}
+.img-cuadrado {
+    display: block;
+    width: 100%;
+}
+.deshabilidato{
+    background-color: transparent;
+    cursor: default;
+}
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) { 
+    .b-style {
+        border-right: none;
+        border-bottom: 1px black solid;
+    }
+}
