@@ -1,0 +1,144 @@
+
+*::-webkit-scrollbar {
+    height: 7px;
+    width: 7px;
+}
+*::-webkit-scrollbar-track {
+    border-radius: 4px;
+    background-color: #F8F9FD;
+}
+
+*::-webkit-scrollbar-track:hover {
+    background-color: #F8F9FD;
+}
+
+*::-webkit-scrollbar-track:active {
+    background-color: #F8F9FD;
+}
+
+*::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background-color: #834979;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background-color: #834979;
+}
+
+*::-webkit-scrollbar-thumb:active {
+    background-color: #834979;
+}
+.cp {
+    cursor: pointer;
+}
+.sinEtapas li {
+    font-size: 16px;
+    color: #000;
+    font-weight: bold;
+}
+.box-content {
+    padding: 10px 10px;
+    box-shadow: 0px 1px 4px 2px #00000029;
+    border-radius: 0px;
+    background: white;
+    height: fit-content !important;
+    max-height: 100% !important;
+    overflow: hidden;
+    display: flex;
+}
+.box-content-two {
+    padding: 10px 10px;
+    box-shadow: 0px 1px 4px 2px #00000029;
+    border-radius: 0px;
+    background: white;    
+    width: 65% !important;
+    margin-left: 25px;
+    height: fit-content !important;
+    max-height: 100% !important;
+}
+.box-title {
+    color: #065D62;
+    font-size: 22px !important;
+    margin-top: 0;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.box-header input[type="search"]{
+    width: 90%;
+}
+.box-header button {
+    width: 40px;
+    border-radius: 5px;
+    background-color: #0F888E;
+    border: none;
+    color: white;
+}
+.etapas-body {
+    height: fit-content !important;
+    overflow-y: auto !important;
+    padding: 0px 10px 1px 0px;
+}
+.etapas-body .card {
+    padding: 10px 15px;
+    height: auto;
+}
+.formEtapa .card {
+    height: auto;
+    padding: 20px 5px 15px 5px;
+}
+.formClose i{
+    color: #666;
+    font-size: 20px;
+    padding: 0px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+.title-form {
+    position: relative;
+    color: #0F8A91;
+    font-weight: bold;
+    font-size: 19px;
+    text-transform: uppercase;
+}
+.c-active {
+    background-color: #0f8b9123;
+}
+.m-card-body strong {
+    color: #834979;
+    font-size: 45px;
+    font-weight: bold;
+}
+.m-card-body p {
+    color: #000;
+    font-size: 20px;
+    font-weight: bold;
+}
+.dropdown-toggle::after {
+    display:none;
+}
+.btn-menu {
+    color: #666;
+    text-decoration: none;
+    padding: 0px 5px;
+}
+.inp-default {
+    border: none;
+    cursor: pointer;
+}
+@media only screen and (max-width: 575px){
+    .h-100 {
+        height: auto !important;
+    }
+    .etapas-body {
+        height: 155px;
+    }   
+    .etapas-body .card {
+        height: 150px;
+    }
+    .box-content:last-child {
+        margin-top: 15px;
+        width: 100% !important;
+        margin-left: 0px;
+    }
+}

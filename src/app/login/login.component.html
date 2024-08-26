@@ -1,0 +1,79 @@
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4 px-0">
+                <div class="wrap">
+                    <div class="img">
+                        <img src="/assets/Imagenes/logo-admin.svg">
+                        <div class="bg-black"></div>
+                    </div>
+                    <div class="login-wrap p-4 p-md-5">
+                        <div class="d-flex">
+                            <div class="w-100">
+                                <h3 class="mb-4  ">Panel Administrativo</h3>
+                            </div>
+                                    <div class="w-100">
+                                        <p class="social-media d-flex justify-content-end">
+                                            <a href="https://sanjeronimo.com.mx/" target="_blank" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-globe"></span></a>
+                                        </p>
+                                    </div>
+                        </div>
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="signin-form">
+                        <div class="form-group mt-3">
+                            <input 
+                            type="text" 
+                            class="form-control" 
+                            [ngClass]="{ 'is__invalid-input': submitted && f['sUsuario'].errors }"
+                            formControlName="sUsuario"
+                            >
+                            <label class="form-control-placeholder" for="username">Usuario</label>
+                        </div>
+                        <div *ngIf="submitted && f['sUsuario'].errors" class="is__invalid-error">
+                            <div *ngIf="f['sUsuario'].errors['required']">*Este campo es obligatorio</div>
+                        </div>
+                        <div class="form-group" style="margin-top: 40px !important;">
+                        <input 
+                            id="sContra" 
+                            [type]="passwordTextType ? 'text' : 'password'"
+                            [ngClass]="{ 'is__invalid-input': submitted && f['sContra'].errors }"
+                            class="form-control p-normal"
+                            formControlName="sContra" />
+                            <label class="form-control-placeholder" for="sContra">Contraseña</label>
+                            <span
+                                (click)="togglePasswordTextType()">
+                                <i
+                                    class="h-5 w-5"
+                                    [class]="
+                                    !passwordTextType
+                                        ? 'fa fa-fw fa-eye field-icon toggle-password'  
+                                        : 'fa fa-fw fa-eye-slash field-icon toggle-password'
+                                    "
+                                ></i>
+                            </span>                                
+                        </div>
+                        <div *ngIf="submitted && f['sContra'].errors" class="is__invalid-error">
+                            <div *ngIf="f['sContra'].errors['required']">*Este campo es obligatorio</div>
+                        </div>                
+                        <div class="form-group mt-4">
+                            <button type="submit" class="form-control btn btn-primary rounded submit px-3">Iniciar sesión</button>
+                        </div>
+                        <div class="form-group d-md-flex">
+                            <div class="w-50 text-left">
+                                <label class="checkbox-wrap checkbox-primary mb-0">Recuerda me
+                                    <input type="checkbox" checked>
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="alertError.show">
+                            <div class="alert alert-secondary" role="alert">
+                                {{alertError.message}}
+                            </div>
+                        </div>
+                      </form>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+</section>

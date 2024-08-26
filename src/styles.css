@@ -1,8 +1,90 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: sans-serif;
+    font-size: 17px;
+}
 .p-normal {
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: sans-serif;
     font-size: 17px;
+}
+.is__invalid-input {
+    border-color: #e57373;
+}
+  
+.is__invalid-error {
+    color: #e57373;
+    font-size: 13px;
+    padding: 0px;
+}
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 80px;
+    height: 25px;
+}
+  
+/* Hide default HTML checkbox */
+    .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+  
+  /* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    color: white;
+    font-size: 13px;
+    padding: 2px 5px;
+    font-weight: bold;
+    top: 0;
+    left: 0;
+    right: -4px;
+    bottom: 0;
+    background-color: #e57373;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+  
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+  
+input:checked + .slider {
+    background-color: #81c784;
+}
+  
+input:focus + .slider {
+    box-shadow: 0 0 1px #81c784;
+}
+  
+input:checked + .slider:before {
+    -webkit-transform: translateX(516px);
+    -ms-transform: translateX(56px);
+    transform: translateX(56px); 
+}
+  
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+  
+.slider.round:before {
+    border-radius: 50%;
 }
