@@ -8,7 +8,7 @@
             </div>
             <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="formEtapa">
                 <div class="card w-100 mt-2">
-                    <form class="row mx-0 px-0 positio-relative" [formGroup]="formEtapa" (ngSubmit)="guardarEtapa()">
+                    <form class="row mx-0 px-0 positio-relative" [formGroup]="formEtapa" (ngSubmit)="nuevaEtapa()">
                         <a class="cp formClose" (click)="collapse.toggle()"><i class="fa fa-times-circle" aria-hidden="true"></i></a>                        
                         <div class="col-12 title-form p-normal mb-2 d-flex justify-content-between align-items-center">
                             Añadir Etapa
@@ -81,107 +81,130 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-8 col-sm-12 box-content-two">
-        <div class="row">
-            <p class="box-title p-normal my-0 col-12">{{ loteSeleccionado.titulo }}</p>
-            @if(loteSeleccionado.seleccionado) {
-                <div class="col-lg-5 col-sm-12 d-flex flex-column mt-2">
-                    <div class="box-header d-flex justify-content-between">
-                        <input type="text" class="form-control" placeholder="Buscar Etapa">
-                        <button (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" class="d-none"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                    </div>
-                    <div class="lotes mt-2">
-                        @if(arrayEtapas.length == 0) {
-                            <ul class="list-group sinEtapas">
-                                <li class="list-group-item p-normal text-center">Aún no se han agregado lotes</li>
-                            </ul>
-                        }
-                    </div>
-                </div>
-                <div class="col-lg-7 col-sm-12">
-                    <div #collapseLote="ngbCollapse" [(ngbCollapse)]="!isCollapsed" class="formEtapa">
-                        <div class="card w-100 mt-2">
-                            <form class="row mx-0 px-0 positio-relative" [formGroup]="formEtapa" (ngSubmit)="guardarEtapa()">
-                                <a class="cp formClose d-none" (click)="collapseLote.toggle()"><i class="fa fa-times-circle" aria-hidden="true"></i></a>                        
-                                <div class="col-12 mb-2 d-flex justify-content-between align-items-center">
-                                    <input type="text" name="" id="" value="Nombre lote" class="title-form p-normal inp-default">
-                                    <label class="switch mx-3">
-                                        <input type="checkbox" formControlName="bActivo">
-                                        <span class="slider round" [class]="formEtapa.controls['bActivo'].value ? 'text-start' : 'text-end'">
-                                            {{formEtapa.controls['bActivo'].value ? 'Activo' : 'Oculto'}}
-                                        </span>
-                                    </label>            
-                                </div>
-                                <div class="form-group col-lg-7 col-sm-12">
-                                    <label for="sEtapa">Tipo lote</label>
-                                    <input formControlName="sEtapa" type="text" class="form-control" id="sEtapa" placeholder="Ingrese el nombre">
-                                    <div *ngIf="submitted && formEtapa.controls['sEtapa'].errors" class="is__invalid-error">
-                                        <div *ngIf="formEtapa.controls['sEtapa'].errors['required']">*Este campo es obligatorio</div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-lg-5 col-sm-12">
-                                    <label for="iEtapa">Superficie (㎡)</label>
-                                    <input formControlName="iEtapa" type="number" class="form-control" id="iEtapa" placeholder="Ingrese el número">
-                                    <div *ngIf="submitted && formEtapa.controls['iEtapa'].errors" class="is__invalid-error">
-                                        <div *ngIf="formEtapa.controls['iEtapa'].errors['required']">*Este campo es obligatorio</div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-12 mt-3">
-                                    <label for="exampleInputEmail1">Dimensiones (㎡)</label>
-                                    <div class="dimensiones d-flex justify-content-between">
-                                        <input type="text" class="form-control w-90" placeholder="Ancho">
-                                        <input type="text" class="form-control" placeholder="Largo">
-                                    </div>
-                                </div>
-                                <p class="mt-3 col-12">PLANES DE PAGO</p>
-                                <div class="form-group col-lg-9 col-sm-12">
-                                    <label for="iEtapa">Nombre</label>
-                                    <input  type="text" class="form-control" id="iEtapa" placeholder="Ingrese el nombre del plazo">
-                                    <div *ngIf="submitted && formEtapa.controls['iEtapa'].errors" class="is__invalid-error">
-                                        <div *ngIf="formEtapa.controls['iEtapa'].errors['required']">*Este campo es obligatorio</div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-lg-4 col-sm-4 mt-2">
-                                    <label for="iEtapa">No. Plazo</label>
-                                    <input type="number" class="form-control" id="iEtapa" placeholder="Ingrese el número">
-                                    <div *ngIf="submitted && formEtapa.controls['iEtapa'].errors" class="is__invalid-error">
-                                        <div *ngIf="formEtapa.controls['iEtapa'].errors['required']">*Este campo es obligatorio</div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-lg-6 col-sm-12 mt-2">
-                                    <label for="iEtapa">Precio por (㎡)</label>
-                                    <input type="text" class="form-control" id="iEtapa" placeholder="Ingrese el número">
-                                    <div *ngIf="submitted && formEtapa.controls['iEtapa'].errors" class="is__invalid-error">
-                                        <div *ngIf="formEtapa.controls['iEtapa'].errors['required']">*Este campo es obligatorio</div>
-                                    </div>
-                                </div>
-                                <div class="col-2 d-flex align-items-end">
-                                    <button class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                                </div>
-                                <div class="col-12 mt-2">
-                                    <table class="table border rounded">
-                                        <thead>
-                                          <tr>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">Plazo</th>
-                                            <th scope="col">Precio por (㎡) </th>
-                                          </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td colspan="3" class="text-center">Aún no se agregan plazos</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="btnNuevo d-flex justify-content-end mt-2">
-                                    <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> &nbsp;Guardar</button>
-                                </div>
-                            </form>
+    <div class="col-lg-8 col-sm-12 box-content-two" [class]="arrayEtapas.length == 0 ? 'b-h-fit' : null">
+        <p class="box-title p-normal my-0 col-12">{{etapaSeleccionada.seleccionado ? etapaSeleccionada.etapa.sEtapa+' - LOTES' : '*AGREGUE UNA NUEVA ETAPA*'}}</p>
+        @if(arrayEtapas.length > 0) {
+            <div class="row box-row">
+                <div class="box-body col-lg-5 col-sm-12 mt-2">
+                    <div class="row">
+                        <div class="box-header d-flex justify-content-between col-12">
+                            <input type="text" class="form-control" placeholder="Buscar Etapa">
+                            <button (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" class="d-none"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        </div>
+                        <div class="box-lotes col-12 mt-2">
+                            @if(arrayLotes.length == 0) {
+                                <ul class="list-group sinEtapas">
+                                    <li class="list-group-item p-normal text-center">Aún no se han agregado lotes</li>
+                                </ul>
+                            }
                         </div>
                     </div>
                 </div>
-            }
-        </div>
+                <div class="box-form col-lg-7 col-sm-12">
+                    <div #collapseLote="ngbCollapse" [(ngbCollapse)]="isCollapsedLote" class="">
+                        <form class="row mt-2" [formGroup]="formLote" (ngSubmit)="nuevoLote()">
+                            <a class="cp formClose d-none" (click)="collapseLote.toggle()"><i class="fa fa-times-circle" aria-hidden="true"></i></a>                        
+                            <div class="col-12 mb-3 d-flex justify-content-between align-items-center">
+                                <div class="name-lote">
+                                    <input formControlName="sLote" type="text" class="title-form p-normal inp-default" id="sLote" placeholder="Nombre lote">
+                                    <div *ngIf="submittedLote && formLote.controls['sLote'].errors" class="is__invalid-error">
+                                        <div *ngIf="formLote.controls['sLote'].errors['required']">*Este campo es obligatorio</div>
+                                    </div>
+                                </div>
+                                <label class="switch mx-3">
+                                    <input type="checkbox" formControlName="bActivo">
+                                    <span class="slider round" [class]="formLote.controls['bActivo'].value ? 'text-start' : 'text-end'">
+                                        {{formLote.controls['bActivo'].value ? 'Activo' : 'Oculto'}}
+                                    </span>
+                                </label>            
+                            </div>
+                            <div class="form-group col-lg-6 col-sm-12">
+                                <label for="sTipoLote">Tipo Lote</label>
+                                <input [(ngModel)]="lote.sTipoLote" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="sTipoLote" placeholder="Ingrese el nombre">
+                            </div>
+                            <div class="form-group col-lg-6 col-sm-12">
+                                <label for="sSuperficie">Superficie (㎡)</label>
+                                <input formControlName="sSuperficie" type="number" class="form-control" id="sSuperficie" placeholder="Ingrese el número">
+                                <div *ngIf="submittedLote && formLote.controls['sSuperficie'].errors" class="is__invalid-error">
+                                    <div *ngIf="formLote.controls['sSuperficie'].errors['required']">*Este campo es obligatorio</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-sm-12 form-group mt-3 mx-0 px-0">
+                                <div class="row mx-0 px-0">
+                                    <label for="exampleInputEmail1">Dimensiones (㎡)</label>
+                                    <div class="col-6">
+                                        <input type="number" formControlName="sAncho" class="form-control w-90" placeholder="Ancho">
+                                        <div *ngIf="submittedLote && formLote.controls['sAncho'].errors" class="is__invalid-error">
+                                            <div *ngIf="formLote.controls['sAncho'].errors['required']">*Este campo es obligatorio</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="number" formControlName="sLargo" class="form-control" placeholder="Largo">
+                                        <div *ngIf="submittedLote && formLote.controls['sLargo'].errors" class="is__invalid-error">
+                                            <div *ngIf="formLote.controls['sLargo'].errors['required']">*Este campo es obligatorio</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-12 mt-3">
+                                <label for="iMinEnganche">Min. Enganche</label>
+                                <input type="text" formControlName="iMinEnganche" class="form-control" placeholder="Enganche">
+                                <div *ngIf="submittedLote && formLote.controls['iMinEnganche'].errors" class="is__invalid-error">
+                                    <div *ngIf="formLote.controls['iMinEnganche'].errors['required']">*Este campo es obligatorio</div>
+                                </div>
+                            </div>
+                            <div class="row mt-3 mx-0 px-0">
+                                <p class="col-12">PLANES DE PAGO</p>
+                                <div class="form-group col-7">
+                                    <label for="iEtapa">Nombre</label>
+                                    <input [(ngModel)]="plazo.sPlazo" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="iEtapa" placeholder="Nombre del plazo">
+                                    <div *ngIf="submittedPlazo && plazo.sPlazo == ''" class="is__invalid-error">
+                                        <div>*Este campo es obligatorio</div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-5">
+                                    <label for="iPlazo">No. Plazo</label>
+                                    <input [(ngModel)]="plazo.iPlazo" [ngModelOptions]="{standalone: true}" type="number" class="form-control" id="iPlazo" placeholder="Ingresa el No.">
+                                    <div *ngIf="submittedPlazo && plazo.iPlazo == ''" class="is__invalid-error">
+                                        <div>*Este campo es obligatorio</div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3 mx-0 px-0 align-items-end">                                    
+                                    <div class="col-5">
+                                        <label for="iPlazo">Precio M2</label>
+                                        <input [(ngModel)]="plazo.sPrecioM2" [ngModelOptions]="{standalone: true}" type="number" class="form-control" id="sPrecioM2" placeholder="Precio por (㎡)">
+                                        <div *ngIf="submittedPlazo && plazo.sPrecioM2 == ''" class="is__invalid-error">
+                                            <div>*Este campo es obligatorio</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <button class="btn btn-info text-white"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <table class="table border rounded">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col" class="text-start">Nombre</th>
+                                        <th scope="col" class="text-center">Plazo</th>
+                                        <th scope="col" class="text-center">Precio por (㎡) </th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="3" class="text-center">Aún no se agregan plazos</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="btnNuevo d-flex justify-content-end mt-2">
+                                <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> &nbsp;Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }        
     </div>
 </div>
