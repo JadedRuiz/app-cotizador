@@ -4,6 +4,7 @@ import { NgbCollapse, NgbCollapseModule, NgbDropdownModule } from '@ng-bootstrap
 import { RxFormBuilder, RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 import { Etapa } from '../../core/models/etapa.model';
 import { NgIf } from '@angular/common';
+import { Lote } from '../../core/models/lote.model';
 
 @Component({
   selector: 'app-proyectos',
@@ -25,6 +26,11 @@ export class ProyectosComponent {
   @ViewChild('collapse') collapse ?: NgbCollapse ;
   formEtapa !: FormGroup;
   arrayEtapas : Etapa[] = [];
+  objLote!: Lote;
+  loteSeleccionado= {
+    seleccionado: false,
+    titulo: "SELECCIONE UNA ETAPA, PARA MOSTRAR SUS LOTES",
+  };
 
   constructor(private _formBuilder: RxFormBuilder) { }
 
@@ -41,8 +47,9 @@ export class ProyectosComponent {
     //Aqui se guarda en la BD
     //Se agrega al Arreglo
     this.formEtapa.controls["bActive"].setValue(true);
-    console.log(this.formEtapa.value);
     this.arrayEtapas.push(this.formEtapa.value);
+    this.loteSeleccionado.seleccionado= true;
+    this.loteSeleccionado.titulo= this.formEtapa.controls["sEtapa"].value + "- LOTES";
     this.formEtapa.reset();
     this.submitted=false;
   }
