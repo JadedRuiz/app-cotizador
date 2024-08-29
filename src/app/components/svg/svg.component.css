@@ -2,6 +2,9 @@ text{
     cursor: pointer;
     text-decoration: none;
 }
+.st0 {
+    fill: #448F99;
+}
 .st0:hover{
     fill: rgba(150, 229, 243, 0.703);
     cursor: pointer;

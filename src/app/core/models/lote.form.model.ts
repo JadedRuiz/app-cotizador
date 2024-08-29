@@ -1,7 +1,4 @@
-import { required } from "@rxweb/reactive-form-validators";
-import { PlazoForm } from "./plazo.form.model";
-import { Lote } from "./lote.model";
-import { FormGroup } from "@angular/forms";
+import { disable, required } from "@rxweb/reactive-form-validators";
 
 export class LoteForm {
     
@@ -23,5 +20,8 @@ export class LoteForm {
     public iMinEnganche: string = "%20";
 
     @required()
-    public bActivo?: boolean = true;
+    public iStatus?: number = 1;
+
+    @required()
+    public objPlazos: any = [];
 }

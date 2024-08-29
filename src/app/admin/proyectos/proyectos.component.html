@@ -96,6 +96,23 @@
                                 <ul class="list-group sinEtapas">
                                     <li class="list-group-item p-normal text-center">Aún no se han agregado lotes</li>
                                 </ul>
+                            } @else {
+                                <!-- [class]="etapa.bActive ? 'c-active' : ''" -->
+                                @for(lote_row of etapaSeleccionada.lotes; track lote_row;) {
+                                    <div class="card m-card-lote w-100 mb-2 cp">
+                                        <div class="m-card-header d-flex justify-content-between align-items-center py-0">
+                                            <p class="title-form py-0 my-0">
+                                                <i class="fa fa-caret-down" aria-hidden="true"></i> &nbsp; {{lote_row.sLote}}
+                                            </p>
+                                            <div class="options d-flex">
+                                                <a class="btn-lote-close cp" placement="top" ngbTooltip="Eliminar lote">
+                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                </a>
+                                            </div>                            
+                                        </div>
+                                        <small class="subtitle-card">Tipo: {{lote_row.sTipoLote}}</small>
+                                    </div>
+                                }
                             }
                         </div>
                     </div>
@@ -104,29 +121,35 @@
                     <div #collapseLote="ngbCollapse" [(ngbCollapse)]="isCollapsedLote" class="">
                         <form class="row mt-2" [formGroup]="formLote" (ngSubmit)="nuevoLote()">
                             <a class="cp formClose d-none" (click)="collapseLote.toggle()"><i class="fa fa-times-circle" aria-hidden="true"></i></a>                        
-                            <div class="col-12 mb-3 d-flex justify-content-between align-items-center">
+                            <div class="col-12 d-flex justify-content-between align-items-center">
                                 <div class="name-lote">
                                     <input formControlName="sLote" type="text" class="title-form p-normal inp-default" id="sLote" placeholder="Nombre lote">
-                                    <div *ngIf="submittedLote && formLote.controls['sLote'].errors" class="is__invalid-error">
-                                        <div *ngIf="formLote.controls['sLote'].errors['required']">*Este campo es obligatorio</div>
-                                    </div>
                                 </div>
-                                <label class="switch mx-3">
-                                    <input type="checkbox" formControlName="bActivo">
-                                    <span class="slider round" [class]="formLote.controls['bActivo'].value ? 'text-start' : 'text-end'">
-                                        {{formLote.controls['bActivo'].value ? 'Activo' : 'Oculto'}}
-                                    </span>
-                                </label>            
+                                <div ngbDropdown>
+                                    <span class="badge text-bg-success cp" ngbDropdownToggle><i class="fa fa-caret-down" aria-hidden="true"></i> &nbsp;Disponible</span>
+                                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                        <a class="cp" ngbDropdownItem><span class="ico-status-disp"><i class="fa fa-circle" aria-hidden="true"></i></span> Disponible</a>
+                                        <a class="cp" ngbDropdownItem><span class="ico-status-apar"><i class="fa fa-circle" aria-hidden="true"></i></span> Apartado</a>
+                                        <a class="cp" ngbDropdownItem><span class="ico-status-ven"><i class="fa fa-circle" aria-hidden="true"></i></span> Vendido</a>
+                                    </div>
+                                </div>         
                             </div>
-                            <div class="form-group col-lg-6 col-sm-12">
-                                <label for="sTipoLote">Tipo Lote</label>
-                                <input [(ngModel)]="lote.sTipoLote" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="sTipoLote" placeholder="Ingrese el nombre">
+                            <div class="col-12" *ngIf="submittedLote && formLote.controls['sLote'].errors">
+                                <div class="is__invalid-error">
+                                    <div *ngIf="formLote.controls['sLote'].errors['required']">*Este campo es obligatorio</div>
+                                </div>
                             </div>
-                            <div class="form-group col-lg-6 col-sm-12">
-                                <label for="sSuperficie">Superficie (㎡)</label>
-                                <input formControlName="sSuperficie" type="number" class="form-control" id="sSuperficie" placeholder="Ingrese el número">
-                                <div *ngIf="submittedLote && formLote.controls['sSuperficie'].errors" class="is__invalid-error">
-                                    <div *ngIf="formLote.controls['sSuperficie'].errors['required']">*Este campo es obligatorio</div>
+                            <div class="row mx-0 px-0 mt-3">
+                                <div class="form-group col-lg-6 col-sm-12">
+                                    <label for="sTipoLote">Tipo Lote</label>
+                                    <input [(ngModel)]="lote.sTipoLote" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="sTipoLote" placeholder="Ingrese el nombre">
+                                </div>
+                                <div class="form-group col-lg-6 col-sm-12">
+                                    <label for="sSuperficie">Superficie (㎡)</label>
+                                    <input formControlName="sSuperficie" type="number" class="form-control" id="sSuperficie" placeholder="Ingrese el número">
+                                    <div *ngIf="submittedLote && formLote.controls['sSuperficie'].errors" class="is__invalid-error">
+                                        <div *ngIf="formLote.controls['sSuperficie'].errors['required']">*Este campo es obligatorio</div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-8 col-sm-12 form-group mt-3 mx-0 px-0">
@@ -163,9 +186,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-5">
-                                    <label for="iPlazo">No. Plazo</label>
+                                    <label for="iPlazo">No. Plazos</label>
                                     <input [(ngModel)]="plazo.iPlazo" [ngModelOptions]="{standalone: true}" type="number" class="form-control" id="iPlazo" placeholder="Ingresa el No.">
-                                    <div *ngIf="submittedPlazo && plazo.iPlazo == ''" class="is__invalid-error">
+                                    <div *ngIf="submittedPlazo && plazo.iPlazo == 0" class="is__invalid-error">
                                         <div>*Este campo es obligatorio</div>
                                     </div>
                                 </div>
@@ -173,12 +196,14 @@
                                     <div class="col-5">
                                         <label for="iPlazo">Precio M2</label>
                                         <input [(ngModel)]="plazo.sPrecioM2" [ngModelOptions]="{standalone: true}" type="number" class="form-control" id="sPrecioM2" placeholder="Precio por (㎡)">
-                                        <div *ngIf="submittedPlazo && plazo.sPrecioM2 == ''" class="is__invalid-error">
-                                            <div>*Este campo es obligatorio</div>
-                                        </div>
                                     </div>
                                     <div class="col-2">
-                                        <button class="btn btn-info text-white"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                        <a class="btn btn-info text-white cp" (click)="nuevoPlazoLote()"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                                    </div>
+                                    <div class="col-12">
+                                        <div *ngIf="submittedPlazo && plazo.sPrecioM2 == 0" class="is__invalid-error">
+                                            <div>*Este campo es obligatorio</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -187,16 +212,30 @@
                                     <thead>
                                       <tr>
                                         <th scope="col" class="text-start">Nombre</th>
-                                        <th scope="col" class="text-center">Plazo</th>
+                                        <th scope="col" class="text-center">Plazos</th>
                                         <th scope="col" class="text-center">Precio por (㎡) </th>
                                       </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td colspan="3" class="text-center">Aún no se agregan plazos</td>
-                                        </tr>
+                                        @if(lote.objPlazos.length > 0) {
+                                            @for(plazo_row of lote.objPlazos; track plazo_row) {
+                                                <tr>
+                                                    <td class="text-start">{{plazo_row.sPlazo}}</td>
+                                                    <td class="text-center">{{plazo_row.iPlazo}}</td>
+                                                    <td class="text-center">{{plazo_row.sPrecioM2 | currency: '$ '}}</td>
+                                                </tr>
+                                            }
+                                        } 
+                                        @else {
+                                            <tr>
+                                                <td colspan="3" class="text-center">Aún no se agregan plazos</td>
+                                            </tr>
+                                        }                                        
                                     </tbody>
                                 </table>
+                                <div *ngIf="submittedLote && lote.objPlazos.length == 0" class="is__invalid-error">
+                                    <div>*No se puede guardar un lote sin plazos</div>
+                                </div>
                             </div>
                             <div class="btnNuevo d-flex justify-content-end mt-2">
                                 <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> &nbsp;Guardar</button>

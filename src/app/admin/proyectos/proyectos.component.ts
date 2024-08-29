@@ -1,11 +1,12 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { Form, FormGroup, FormsModule, NgControl, ReactiveFormsModule } from '@angular/forms';
-import { NgbCollapse, NgbCollapseModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { Component, ViewChild } from '@angular/core';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbCollapse, NgbCollapseModule, NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { RxFormBuilder, RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
+import { CurrencyPipe } from '@angular/common';
+
 import { Etapa } from '../../core/models/etapa.model';
 import { NgIf } from '@angular/common';
-import { Lote } from '../../core/models/lote.model';
-import { PlazoForm } from '../../core/models/plazo.form.model';
+import { Plazo } from '../../core/models/plazo.model';
 import { LoteForm } from '../../core/models/lote.form.model';
 
 @Component({
@@ -17,7 +18,9 @@ import { LoteForm } from '../../core/models/lote.form.model';
     NgbCollapseModule,
     NgbDropdownModule,
     RxReactiveFormsModule,
-    NgIf
+    NgIf,
+    CurrencyPipe,
+    NgbTooltipModule
   ],
   templateUrl: './proyectos.component.html',
   styleUrl: './proyectos.component.css'
@@ -41,14 +44,15 @@ export class ProyectosComponent {
       bActive: true
     }
   ];
-  arrayLotes: Lote[] = [];
+  arrayLotes: LoteForm[] = [];
+  arrayPlazos: Plazo[] = [];
   etapaSeleccionada = {
-    seleccionado: false,
+    seleccionado: true,
     etapa: new Etapa,
     lotes: this.arrayLotes
   }
   
-  plazo = new PlazoForm();
+  plazo = new Plazo();
   lote = new LoteForm();
 
   constructor(private _formBuilder: RxFormBuilder) { }
@@ -56,6 +60,7 @@ export class ProyectosComponent {
   ngOnInit() {
     this.formEtapa = this._formBuilder.formGroup(Etapa);
     this.formLote = this._formBuilder.formGroup(LoteForm);
+    this.formLote.controls['iMinEnganche'].disable();
   }
 
   nuevaEtapa() {
@@ -83,6 +88,30 @@ export class ProyectosComponent {
     if(!this.formLote.valid){
       return;
     }
-    console.log(this.formLote.value);
+    
+    this.lote.sLote = this.formLote.controls['sLote'].value;
+    this.lote.sSuperficie = this.formLote.controls['sSuperficie'].value;
+    this.lote.sAncho = this.formLote.controls['sAncho'].value;
+    this.lote.sLargo = this.formLote.controls['sLargo'].value;
+    this.lote.iMinEnganche = this.formLote.controls['iMinEnganche'].value;
+    // this.etapaSeleccionada.etapa.iTotalLotes++;
+    this.arrayLotes.push(this.lote);
+    console.log(this.lote);
+  }
+
+  cambiarStatusLote() {
+    
+  }
+
+  nuevoPlazoLote() {
+    this.submittedPlazo = true;
+
+    if(!this.plazo.isValid()) {
+      return;
+    }
+
+    this.lote.objPlazos.push(this.plazo);
+    this.plazo = new Plazo();
+    this.submittedPlazo = false;
   }
 }
