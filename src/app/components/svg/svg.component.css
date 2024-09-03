@@ -1,11 +1,26 @@
-text{
+.disponible {
     cursor: pointer;
     text-decoration: none;
 }
-.st0 {
-    fill: #448F99;
+
+.no-disponible {
+    cursor: none;
+    text-decoration: none;
 }
-.st0:hover{
-    fill: rgba(150, 229, 243, 0.703);
+
+.p-disponible {
+    fill: #448F99 !important;
+}
+
+.p-disponible:hover {
+    fill: rgba(150, 229, 243, 0.703) !important;
     cursor: pointer;
+}
+
+.p-apartado {
+    fill: #c36e00 !important;
+}
+
+.p-vendido {
+    fill: #d30d0d !important;
 }

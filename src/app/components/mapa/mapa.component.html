@@ -1,13 +1,15 @@
 <div class="section-mapa w-100">
     <div class="cuadro">
         <ul class="nav nav-tabs">
-            <li class="nav-item p-normal">
-              <a class="nav-link active">Num. Etapa</a>
-            </li>
+            @for(etapa of arrayEtapas; track etapa) {
+                <li class="nav-item p-normal">
+                    <a class="nav-link active">{{etapa.sEtapa}}</a>
+                </li>
+            }            
         </ul>
         <div class="etapas"></div>
         <div class="svg">
-            <app-svg (click)="abrirModal($event)" ></app-svg>
+            <app-svg (click)="abrirModal($event)"></app-svg>
         </div>
     </div>
 </div>
@@ -20,25 +22,29 @@
                 <div class="contenido">
                     <div class="cotizador">
                         <div class="row">
-                            @if(lote.sFotografia != '') {
+                            @if(lote.sFotografia != '' && lote.sFotografia != undefined) {
                                 <div class="col-lg-5 col-sm-12">
                                     <img [src]="lote.sFotografia" class="imgCotizador">
                                 </div>
                             }                            
-                            <div [class]="lote.sFotografia != '' ?  'col-lg-7 col-sm-12' : 'col-12'" class="py-3">
+                            <div [class]="lote.sFotografia != '' && lote.sFotografia != undefined ?  'col-lg-7 col-sm-12' : 'col-lg-9 col-sm-12'" class="py-3">
                                 <div class="title-lote d-flex align-items-center p-normal">
-                                    <h2>{{lote.sNombre}}</h2>
+                                    <h2>LOTE {{lote.iLote}}-{{etapaSeleccionada.iEtapa}}</h2>
                                     <div class="division mx-2"></div>
-                                    <h2 style="color: #065D62;">{{lote.sEtapa}}</h2>
+                                    <h2 style="color: #065D62;">{{lote.sTipoLote}} -  {{etapaSeleccionada.sEtapa}}</h2>
                                 </div>
                                 <div class="info-lote mt-3">
                                     <div class="superficie d-flex align-items-center p-normal flex-nowrap">
-                                        <p>Superficie:</p><strong>{{lote.sSuperficie}}</strong>
+                                        <p>Superficie:</p><strong>{{lote.iSuperficie}} ㎡</strong>
                                         <div class="division mx-2"></div>
-                                        <p>Dimensiones:</p><strong>{{lote.sDimension}}</strong>
+                                        <p>Dimensiones:</p>
+                                        <strong>
+                                            {{lote.bIrregular == 0  ? lote.iLargo+' '+lote.iAncho+' (㎡)' 
+                                            : 'IRREGULAR'}}
+                                        </strong>
                                     </div>
                                     <div class="preciom2 d-flex p-normal mt-2">
-                                        <p>Precio por ㎡:</p><strong>{{cotizacion.sPrecioM2 | currency: '$ '}}</strong>
+                                        <p>Precio por ㎡:</p><strong>{{precioM2 | currency: '$ '}}</strong>
                                     </div>
                                     <div class="precioTotal d-flex align-items-end p-normal mt-2">
                                         <p>Precio:</p><strong>{{precioTotal | currency: '$ '}}</strong>
@@ -48,6 +54,7 @@
                                     </div>
                                     <div class="cotizacion">
                                         <select #sel (change)="seleccionarPlazo(sel.value)">
+                                            <option class="p-normal" selected value="-1">CONTADO</option>
                                             @for(plazo of lote.objPlazos; track plazo) {
                                                 <option class="p-normal" [value]="plazo.iIdPlazo">{{plazo.sPlazo}}</option>
                                             }
@@ -56,8 +63,8 @@
                                             <div class="info-cotizacion row mx-0 w-100">
                                                 <div class="col-6 enganche">
                                                     <div class="p-enganche d-flex">
-                                                        <p class="p-normal">% de enganche</p>
-                                                        <input type="number" [value]="lote.iMinEnganche">
+                                                        <p class="p-normal py-0">% de enganche</p>
+                                                        <input type="number" [(ngModel)]="iMinEnganche" (change)="calcularMensualidad()">
                                                     </div>
                                                     <strong>{{precioEnganche | currency: '$ '}}</strong>
                                                 </div>
@@ -143,7 +150,14 @@
                             <div *ngIf="f['sCiudad'].errors['required']">*Este campo es obligatorio</div>
                             <div *ngIf="f['sCiudad'].errors['pattern']">*Este campo solo acepta números</div>
                         </div>
-                        <button type="submit" class="btnEnviar mt-5">ENVIAR</button>
+                        <button type="submit" class="btnEnviar mt-5 d-flex align-items-center justify-content-center" [disabled]="buttonEnv.disabled">
+                            @if(buttonEnv.load){
+                                <div class="spinner-border" role="status" style="width: 20px;height: 20px;">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            }                                                    
+                            <div>&nbsp; {{buttonEnv.texto}}</div>                            
+                        </button>
                         <small class="text-white w-100">Toda la información personal es confidencial y no será usada ni vendida para fines publicitarios</small>
                     </form>
                 </div>

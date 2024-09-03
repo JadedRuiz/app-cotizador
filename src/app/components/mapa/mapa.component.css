@@ -175,7 +175,7 @@
 }
 .enganche {
     border-right: 1px #065D62 solid;
-    padding: 20px 0px 15px 0px;
+    padding: 20px 0px 15px 10px;
 }
 .p-enganche p {
     font-size: 15px !important;
@@ -201,7 +201,7 @@
     color: #834979;
 }
 .mensualidad {
-    padding: 20px 0px 15px 0px;
+    padding: 20px 0px 15px 10px;
 }
 .mensualidad p {
     font-size: 15px !important;

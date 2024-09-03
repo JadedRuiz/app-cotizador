@@ -5,15 +5,13 @@ export class Cotizacion {
     public sCorreo: string;
     public sTelefono: string;
     public sCiudad: string;
-    public iIdPlazo: number;
-    public sPrecioM2: string;
+    public iIdLote: number;
 
     constructor() {
         this.sNombre= "";
         this.sCorreo= "";
         this.sTelefono= "";
         this.sCiudad= "";
-        this.iIdPlazo= 0;
-        this.sPrecioM2="";
+        this.iIdLote= 0;
     }
 }
