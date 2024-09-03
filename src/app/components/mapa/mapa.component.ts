@@ -106,6 +106,12 @@ export class MapaComponent {
     };
     this.cotizacion = this.form.value;
     this.cotizacion.iIdLote = parseInt(this.lote.iIdLote+"");
+    this.cotizacion.iIdPlazo=0;
+    this.cotizacion.iEnganche=100;
+    if(this.plazoSeleccionado != undefined) {
+      this.cotizacion.iIdPlazo= this.plazoSeleccionado.iIdPlazo;
+      this.cotizacion.iEnganche= this.iMinEnganche;
+    }
     this._servCotizador.guardarCotizacion(this.cotizacion)
     .subscribe((resp: any) => {
       if(resp.ok) {
@@ -178,15 +184,6 @@ export class MapaComponent {
     }
     
   }
-
-  // mostrarInfo(event : any) {
-  //   let arrayString= (event.target.nextSibling.outerHTML).split('>');
-  //   let lote="";
-  //   arrayString.forEach((element:string) => {
-  //     element = element.replaceAll("</text", "");
-  //     parseInt(element) ? lote= element : null;
-  //   });
-  // }
 
   openModal(){
     this.modalService.open(this._modal, {centered: true, backdrop: false, fullscreen: true });

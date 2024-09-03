@@ -34,14 +34,18 @@
                                     <h2 style="color: #065D62;">{{lote.sTipoLote}} -  {{etapaSeleccionada.sEtapa}}</h2>
                                 </div>
                                 <div class="info-lote mt-3">
-                                    <div class="superficie d-flex align-items-center p-normal flex-nowrap">
-                                        <p>Superficie:</p><strong>{{lote.iSuperficie}} ㎡</strong>
-                                        <div class="division mx-2"></div>
-                                        <p>Dimensiones:</p>
-                                        <strong>
-                                            {{lote.bIrregular == 0  ? lote.iLargo+' '+lote.iAncho+' (㎡)' 
-                                            : 'IRREGULAR'}}
-                                        </strong>
+                                    <div class="superficie p-normal">
+                                        <div class="d-flex">
+                                            <p>Superficie:</p><strong>{{lote.iSuperficie}} ㎡</strong>
+                                        </div>
+                                        <div class="division mx-2 esconder_div"></div>
+                                        <div class="d-flex dimension">
+                                            <p>Dimensiones:</p>
+                                            <strong>
+                                                {{lote.bIrregular == 0  ? lote.iLargo+' '+lote.iAncho+' (㎡)' 
+                                                : 'IRREGULAR'}}
+                                            </strong>
+                                        </div>
                                     </div>
                                     <div class="preciom2 d-flex p-normal mt-2">
                                         <p>Precio por ㎡:</p><strong>{{precioM2 | currency: '$ '}}</strong>

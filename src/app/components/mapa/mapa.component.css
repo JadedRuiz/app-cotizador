@@ -97,6 +97,10 @@
     background-color: #834979;
     height: 23px;
 }
+.superficie {
+    display: flex;
+    align-items: center;
+}
 .superficie p {
     font-size: 16px !important;
     color: #0a0a0a;
@@ -217,5 +221,48 @@
     .contacto {
         height: auto;
         padding: 15px 20px;
+    }
+    .title-lote h2 {
+        font-size: 16px !important;
+    }
+    .title-lote .division {
+        width: 3px;
+        background-color: #834979;
+        height: 15px;
+    }
+    .contenido {
+        height: auto;
+    }
+    .cotizador {
+        height: 100%;
+        padding-top: 25px;
+    }
+    .esconder_div {
+        display: none;
+    }
+    .superficie {
+        flex-direction: column;
+        align-items: start;
+    }
+    .superficie .dimension {
+        margin-top: .5rem !important;
+    }
+    .avisos {
+        font-size: 14px;
+    }
+    .cerrarModal i{
+        font-size: 30px;
+        color: black;
+    }
+    .p-enganche p {
+        font-size: 13px !important;
+    }
+    .p-enganche input[type="number"] {
+        width: 35px;
+        height: 20px;
+        font-size: 15px;
+    }
+    .mensualidad p {
+        font-size: 13px !important;
     }
 }
