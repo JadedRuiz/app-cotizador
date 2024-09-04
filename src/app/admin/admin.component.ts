@@ -10,4 +10,9 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AdminComponent {
   bSidebar= true;
+
+  logOut() {
+    localStorage.removeItem("token");
+    location.reload();
+  }
 }

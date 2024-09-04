@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Router } from '@angular/router';
 import { Auth } from '../core/models/auth.model';
 import { RxFormBuilder, RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
+import { AuthService } from '../core/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +29,10 @@ export class LoginComponent {
     show: false
   };
 
-  constructor(private readonly _formBuilder: RxFormBuilder, private readonly _router: Router
+  constructor(
+    private readonly _formBuilder: RxFormBuilder, 
+    private readonly _router: Router,
+    private _usrService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -49,6 +54,15 @@ export class LoginComponent {
       return;
     }
     //Service login
-    this._router.navigate(["/panel/proyectos"]);
+    this._usrService.login(this.form.value)
+    .subscribe((resp : any) => {
+      if(resp.ok) {
+        localStorage.setItem("token",resp.data);
+        this._router.navigate(["/panel/proyectos"]);
+      }else{
+        Swal.fire("Ocurrio un problema",resp.data,"warning");
+      }
+    });
+    
   }
 }

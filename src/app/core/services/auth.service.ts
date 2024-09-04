@@ -14,7 +14,7 @@ export class AuthService {
   public SERVER_API = environment.API_URL;
 
   login(credentials : any){
-    let url = this.SERVER_API+"admin/login";
+    let url = this.SERVER_API+"usuario/login";
     return this.http.post( url, credentials )
       .pipe(map( (resp: any) => {
         return resp;

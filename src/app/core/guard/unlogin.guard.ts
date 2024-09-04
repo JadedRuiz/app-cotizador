@@ -7,7 +7,7 @@ export const unloggedGuard: CanActivateFn = (route, state) => {
   const authService : AuthService = inject(AuthService);
 
   if(authService.isLoggedIn()) {
-    router.navigate(['/admin/home'])
+    router.navigate(['/panel/proyectos'])
     return false;
   }
   return true;
