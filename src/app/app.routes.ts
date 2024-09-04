@@ -7,7 +7,6 @@ import { authGuard } from './core/guard/login.guard';
 export const routes: Routes = [
     {
         path: '',
-        canActivate: [unloggedGuard],
         component: CotizadorComponent
     },
     {

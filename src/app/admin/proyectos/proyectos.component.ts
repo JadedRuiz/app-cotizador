@@ -7,7 +7,12 @@ import { CurrencyPipe } from '@angular/common';
 import { Etapa } from '../../core/models/etapa.model';
 import { NgIf } from '@angular/common';
 import { Plazo } from '../../core/models/plazo.model';
-import { LoteForm } from '../../core/models/lote.form.model';
+import { AdminService } from '../../core/services/admin.service';
+import Swal from 'sweetalert2';
+import { FormLoteComponent } from '../../components/form-lote/form-lote.component';
+import { FormPlazoComponent } from '../../components/form-plazo/form-plazo.component';
+import { Lote } from '../../core/models/lote.model';
+import { CotizadorService } from '../../core/services/cotizador.service';
 
 @Component({
   selector: 'app-proyectos',
@@ -20,7 +25,9 @@ import { LoteForm } from '../../core/models/lote.form.model';
     RxReactiveFormsModule,
     NgIf,
     CurrencyPipe,
-    NgbTooltipModule
+    NgbTooltipModule,
+    FormLoteComponent,
+    FormPlazoComponent
   ],
   templateUrl: './proyectos.component.html',
   styleUrl: './proyectos.component.css'
@@ -29,40 +36,61 @@ export class ProyectosComponent {
   isCollapsed = true;
   isCollapsedLote = false;
   submitted = false;
-  submittedLote= false;
   submittedPlazo= false;
   @ViewChild('collapse') collapse ?: NgbCollapse ;
   formEtapa !: FormGroup;
   formLote !: FormGroup;
-  arrayEtapas: Etapa[] = [
-    {
-      sEtapa: "Etapa No.6",
-      iEtapa: 6,
-      sSvg: "/assets/Imagenes/img-default.png",
-      iTotalLotes: 0,
-      bActivo: true,
-      bActive: true
-    }
-  ];
-  arrayLotes: LoteForm[] = [];
+  arrayEtapas: Etapa[] = [];
+  arrayLotes: Lote[] = [];
   arrayPlazos: Plazo[] = [];
-  etapaSeleccionada = {
-    seleccionado: true,
-    etapa: new Etapa,
-    lotes: this.arrayLotes
-  }
-  
-  plazo = new Plazo();
-  lote = new LoteForm();
+  etapa!: Etapa;
 
-  constructor(private _formBuilder: RxFormBuilder) { }
+  constructor(
+    private _formBuilder: RxFormBuilder,
+    private _serAdmin: AdminService,
+    private _cotAdmin: CotizadorService
+  ) { }
 
   ngOnInit() {
     this.formEtapa = this._formBuilder.formGroup(Etapa);
-    this.formLote = this._formBuilder.formGroup(LoteForm);
-    this.formLote.controls['iMinEnganche'].disable();
+    // this.formLote.controls['iMinEnganche'].disable();
+    this.cargaInicial();
   }
 
+  ngAfterViewInit() {
+  }
+
+  cargaInicial() {
+    this._serAdmin.obtenerEtapasAdmin()
+    .subscribe((res : any) => {
+      if(res.ok) {
+        this.arrayEtapas=res.data;
+        this.etapa= res.data[0];
+        this.obtenerLotesXEtapa(res.data[0].iIdEtapa);
+        this.obtenerPlazosEtapa(res.data[0].iIdEtapa)
+        return;
+      }
+      Swal.fire("Ha ocurrido un problema",res.data,"warning");
+    });
+  }
+
+  obtenerLotesXEtapa(iIdEtapa: number) {
+    this._serAdmin.obtenerLotesEtapaAdmin(iIdEtapa)
+    .subscribe((res : any) => {
+      if(res.ok) {
+        this.arrayLotes = res.data.lotes;
+      }
+    });
+  }
+  
+  obtenerPlazosEtapa(iIdEtapa: number) {
+    this._cotAdmin.obtenerPlazosPorEtapa(iIdEtapa)
+    .subscribe((res : any) => {
+      if(res.ok){
+        this.arrayPlazos= res.data;
+      }
+    })
+  }
   nuevaEtapa() {
     this.submitted = true;
     if(!this.formEtapa.valid) {
@@ -71,8 +99,8 @@ export class ProyectosComponent {
     //Aqui se guarda en la BD
     //Se agrega al Arreglo
     this.formEtapa.controls["bActive"].setValue(true);
-    this.etapaSeleccionada.seleccionado = true;
-    this.etapaSeleccionada.etapa = this.formEtapa.value;
+    // this.etapaSeleccionada.seleccionado = true;
+    // this.etapaSeleccionada.etapa = this.formEtapa.value;
     this.arrayEtapas.push(this.formEtapa.value);
     this.formEtapa.reset();
     this.submitted=false;
@@ -83,35 +111,11 @@ export class ProyectosComponent {
     this.collapse?.toggle(true);
   }
 
-  nuevoLote() {
-    this.submittedLote= true;
-    if(!this.formLote.valid){
-      return;
-    }
-    
-    this.lote.sLote = this.formLote.controls['sLote'].value;
-    this.lote.sSuperficie = this.formLote.controls['sSuperficie'].value;
-    this.lote.sAncho = this.formLote.controls['sAncho'].value;
-    this.lote.sLargo = this.formLote.controls['sLargo'].value;
-    this.lote.iMinEnganche = this.formLote.controls['iMinEnganche'].value;
-    // this.etapaSeleccionada.etapa.iTotalLotes++;
-    this.arrayLotes.push(this.lote);
-    console.log(this.lote);
+  cambiarStatus(index : number, iStatus : number) {
+    this.arrayLotes[index].iStatus = iStatus;
   }
 
-  cambiarStatusLote() {
-    
-  }
+  calcular(id : any) {
 
-  nuevoPlazoLote() {
-    this.submittedPlazo = true;
-
-    if(!this.plazo.isValid()) {
-      return;
-    }
-
-    this.lote.objPlazos.push(this.plazo);
-    this.plazo = new Plazo();
-    this.submittedPlazo = false;
   }
 }

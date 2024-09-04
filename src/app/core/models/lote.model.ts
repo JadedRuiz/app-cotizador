@@ -1,5 +1,6 @@
 export class Lote {
     public iIdLote?: number= 0;
+    public sLote?: string;
     public iLote?: number;
     public sTipoLote?: string;
     public iSuperficie!: number;
@@ -11,4 +12,5 @@ export class Lote {
     public iPrecioM2Contado!: number;
     public iStatus?: number;
     public sFotografia: string= "";
+    public iPrecioTotal!: number;
 }

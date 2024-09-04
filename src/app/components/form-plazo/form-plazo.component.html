@@ -1,0 +1,61 @@
+<div class="row mt-3 mx-0 px-0">
+    <p class="col-12">PLANES DE PAGO</p>
+    <div class="form-group col-7">
+        <label for="iEtapa">Nombre</label>
+        <input [(ngModel)]="plazo.sPlazo" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="iEtapa" placeholder="Nombre del plazo">
+        <!-- <div *ngIf="submittedPlazo && plazo.sPlazo == ''" class="is__invalid-error">
+            <div>*Este campo es obligatorio</div>
+        </div> -->
+    </div>
+    <div class="form-group col-5">
+        <label for="iPlazo">No. Plazos</label>
+        <input [(ngModel)]="plazo.iPlazo" [ngModelOptions]="{standalone: true}" type="number" class="form-control" id="iPlazo" placeholder="Ingresa el No.">
+        <!-- <div *ngIf="submittedPlazo && plazo.iPlazo == 0" class="is__invalid-error">
+            <div>*Este campo es obligatorio</div>
+        </div> -->
+    </div>
+    <div class="row mt-3 mx-0 px-0 align-items-end">                                    
+        <div class="col-5">
+            <label for="iPlazo">Precio M2</label>
+            <input [(ngModel)]="plazo.sPrecioM2" [ngModelOptions]="{standalone: true}" type="number" class="form-control" id="sPrecioM2" placeholder="Precio por (㎡)">
+        </div>
+        <div class="col-2">
+            <a class="btn btn-info text-white cp" (click)="nuevoPlazoLote()"><i class="fa fa-plus" aria-hidden="true"></i></a>
+        </div>
+        <div class="col-12">
+            <!-- <div *ngIf="submittedPlazo && plazo.sPrecioM2 == 0" class="is__invalid-error">
+                <div>*Este campo es obligatorio</div>
+            </div> -->
+        </div>
+    </div>
+</div>
+<div class="col-12 mt-3">
+    <!-- <table class="table border rounded">
+        <thead>
+          <tr>
+            <th scope="col" class="text-start">Nombre</th>
+            <th scope="col" class="text-center">Plazos</th>
+            <th scope="col" class="text-center">Precio por (㎡) </th>
+          </tr>
+        </thead>
+        <tbody>
+            @if(lote.objPlazos.length > 0) {
+                @for(plazo_row of lote.objPlazos; track plazo_row) {
+                    <tr>
+                        <td class="text-start">{{plazo_row.sPlazo}}</td>
+                        <td class="text-center">{{plazo_row.iPlazo}}</td>
+                        <td class="text-center">{{plazo_row.sPrecioM2 | currency: '$ '}}</td>
+                    </tr>
+                }
+            } 
+            @else {
+                <tr>
+                    <td colspan="3" class="text-center">Aún no se agregan plazos</td>
+                </tr>
+            }                                        
+        </tbody>
+    </table> -->
+    <!-- <div *ngIf="submittedLote && lote.objPlazos.length == 0" class="is__invalid-error">
+        <div>*No se puede guardar un lote sin plazos</div>
+    </div> -->
+</div>

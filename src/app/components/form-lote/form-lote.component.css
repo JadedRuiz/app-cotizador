@@ -1,0 +1,23 @@
+.title-form {
+    position: relative;
+    color: #0F8A91 !important;
+    font-weight: bold;
+    font-size: 19px;
+    text-transform: uppercase;
+}
+.dropdown-toggle::after {
+    display:none;
+}
+.inp-default {
+    border: none;
+    cursor: pointer;
+}
+.ico-status-disp i{
+    color: #198754;
+}
+.ico-status-apar {
+    color: #FFC107;
+}
+.ico-status-ven {
+    color: #DC3545;
+}

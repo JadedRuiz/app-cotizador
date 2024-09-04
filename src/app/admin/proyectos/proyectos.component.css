@@ -28,9 +28,6 @@
 *::-webkit-scrollbar-thumb:active {
     background-color: #834979;
 }
-.cp {
-    cursor: pointer;
-}
 .sinEtapas li {
     font-size: 16px;
     color: #000;
@@ -47,13 +44,16 @@
     display: flex;
 }
 .box-content-two {
-    padding: 15px 10px;
+    padding: 10px 10px;
     box-shadow: 0px 1px 4px 2px #00000029;
     border-radius: 0px;
     background: white;    
     width: 65% !important;
     margin-left: 25px;
+    height: fit-content !important;
     max-height: 100% !important;
+    overflow: hidden;
+    display: flex;
 }
 .b-h-fit {
     height: fit-content !important;
@@ -116,26 +116,21 @@
     font-size: 20px;
     font-weight: bold;
 }
-.dropdown-toggle::after {
-    display:none;
-}
 .btn-menu {
     color: #666;
     text-decoration: none;
     padding: 0px 5px;
 }
-.inp-default {
-    border: none;
-    cursor: pointer;
-}
 .box-row {
     height: 97% !important;
 }
-.box-body {
-    border-right: 2px #065D62 solid;
+.dropdown-toggle::after {
+    display:none;
 }
 .box-lotes {
-    
+    height: fit-content !important;
+    overflow-y: auto !important;
+    padding: 0px 10px 1px 0px;
 }
 .m-card-lote {
     padding: 10px 10px;
@@ -151,17 +146,84 @@
     color: #c6c6c6;
     font-size: 24px;
 }
+.tooltip {
+    position: fixed;
+}
 .btn-lote-close i:hover {
     color: #e57373;
 }
-.ico-status-disp i{
+.disponible {
+    background-color: #198754;
+    color: white;
+    height: 20px;
+}
+.apartado {
+    background-color: #FFC107;
+    color: white;
+    height: 20px;
+}
+.vendido {
+    background-color: #DC3545;
+    color: white;
+    height: 20px;
+}
+.i-disponible {
     color: #198754;
 }
-.ico-status-apar {
+.i-apartado {
     color: #FFC107;
 }
-.ico-status-ven {
+.i-vendido {
     color: #DC3545;
+}
+.precio {
+    font-size: 22px !important;
+    font-weight: bold;
+    margin: 0px;
+    color: #834979;
+}
+.cotizacion select {
+    outline: none;
+    margin-top: 10px;
+    color: #000000;
+    text-decoration: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+    border: 1px solid #69727d;
+    background-color: #fff !important;
+    padding: 5px 15px;
+    width: 100%;
+    border-radius: 0px;
+    font-size: 14px;
+    font-weight: bold;
+    appearance: none;
+    background: url("../../../assets/Imagenes/arrows.png") no-repeat right 5px; 
+    background-size: 26px 20px;
+}
+.cotizacion option {
+    font-size: 14px;
+    font-weight: 400;
+}
+.cotizacion input[type="number"] {
+    color: #065D62;
+    font-weight: bold;
+    border: 1px solid #69727d;
+    font-size: 14px;
+    width: 45px;
+    height: 34px;
+    text-align: center;
+    border-radius: 0px !important;
+}
+.cotizacion input[type=number]::-webkit-inner-spin-button {
+    display: none;
+    margin: 0px;
+    padding: 0px;
+}
+.financiamiento {
+    font-size: 14px !important;
+    color: #2d888e;
+    margin: 0px;
+    font-weight: bold;
 }
 @media only screen and (max-width: 575px){
     .h-100 {

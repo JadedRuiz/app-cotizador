@@ -1,5 +1,6 @@
 export class Plazo{
-    
+    public iIdPlazo: number= 0;
+
     public sPlazo: string = "";
 
     public iPlazo: number= 0;

@@ -1,0 +1,61 @@
+<form class="row mt-4 px-3" [formGroup]="form" (ngSubmit)="nuevoLote()">
+    <!-- <a class="cp formClose d-none" (click)="collapseLote.toggle()"><i class="fa fa-times-circle" aria-hidden="true"></i></a>                         -->
+    <div class="col-12 d-flex justify-content-between align-items-center">
+        <div class="name-lote">
+            <input formControlName="sLote" type="text" class="title-form p-normal inp-default" id="sLote" placeholder="Nombre lote">
+        </div>
+        <div ngbDropdown>
+            <span class="badge text-bg-success cp" ngbDropdownToggle><i class="fa fa-caret-down" aria-hidden="true"></i> &nbsp;Disponible</span>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <a class="cp" ngbDropdownItem><span class="ico-status-disp"><i class="fa fa-circle" aria-hidden="true"></i></span> Disponible</a>
+                <a class="cp" ngbDropdownItem><span class="ico-status-apar"><i class="fa fa-circle" aria-hidden="true"></i></span> Apartado</a>
+                <a class="cp" ngbDropdownItem><span class="ico-status-ven"><i class="fa fa-circle" aria-hidden="true"></i></span> Vendido</a>
+            </div>
+        </div>         
+    </div>
+    <!-- <div class="col-12" *ngIf="submittedLote && form.controls['sLote'].errors">
+        <div class="is__invalid-error">
+            <div *ngIf="form.controls['sLote'].errors['required']">*Este campo es obligatorio</div>
+        </div>
+    </div> -->
+    <div class="row mx-0 px-0 mt-3">
+        <div class="form-group col-lg-6 col-sm-12">
+            <label for="sTipoLote">Tipo Lote</label>
+            <input [(ngModel)]="lote.sTipoLote" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="sTipoLote" placeholder="Ingrese el nombre">
+        </div>
+        <div class="form-group col-lg-6 col-sm-12">
+            <label for="sSuperficie">Superficie (㎡)</label>
+            <input formControlName="sSuperficie" type="number" class="form-control" id="sSuperficie" placeholder="Ingrese el número">
+            <!-- <div *ngIf="submittedLote && form.controls['sSuperficie'].errors" class="is__invalid-error">
+                <div *ngIf="form.controls['sSuperficie'].errors['required']">*Este campo es obligatorio</div>
+            </div> -->
+        </div>
+    </div>
+    <div class="col-lg-8 col-sm-12 form-group mt-3 mx-0 px-0">
+        <div class="row mx-0 px-0">
+            <label for="exampleInputEmail1">Dimensiones (㎡)</label>
+            <div class="col-6">
+                <input type="number" formControlName="sAncho" class="form-control w-90" placeholder="Ancho">
+                <!-- <div *ngIf="submittedLote && form.controls['sAncho'].errors" class="is__invalid-error">
+                    <div *ngIf="form.controls['sAncho'].errors['required']">*Este campo es obligatorio</div>
+                </div> -->
+            </div>
+            <div class="col-6">
+                <input type="number" formControlName="sLargo" class="form-control" placeholder="Largo">
+                <!-- <div *ngIf="submittedLote && form.controls['sLargo'].errors" class="is__invalid-error">
+                    <div *ngIf="form.controls['sLargo'].errors['required']">*Este campo es obligatorio</div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-12 mt-3">
+        <label for="iMinEnganche">Min. Enganche</label>
+        <input type="text" formControlName="iMinEnganche" class="form-control" placeholder="Enganche">
+        <!-- <div *ngIf="submittedLote && form.controls['iMinEnganche'].errors" class="is__invalid-error">
+            <div *ngIf="form.controls['iMinEnganche'].errors['required']">*Este campo es obligatorio</div>
+        </div> -->
+    </div>
+    <div class="btnNuevo d-flex justify-content-end mt-2">
+        <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> &nbsp;Guardar</button>
+    </div>
+</form>

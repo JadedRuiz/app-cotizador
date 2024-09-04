@@ -6,6 +6,9 @@ body {
     font-style: sans-serif;
     font-size: 17px;
 }
+.cp {
+    cursor: pointer;
+}
 .p-normal {
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
