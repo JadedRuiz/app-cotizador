@@ -33,4 +33,26 @@ export class AdminService {
             return throwError(err);
         }));
     }
+
+    cambiarStatusLote(json : any) {
+        json.token = this.token; 
+        let url = this.SERVER_API+"admin/cambiarStatusLote";
+        return this.http.post( url, json )
+        .pipe(map( (resp: any) => {
+            return resp;
+        }), catchError(err => {
+            return throwError(err);
+        }));
+    }
+
+    obtenerCotizacionesLote(json : any) {
+        json.token = this.token; 
+        let url = this.SERVER_API+"admin/obtenerCotizacionesLote";
+        return this.http.post( url, json )
+        .pipe(map( (resp: any) => {
+            return resp;
+        }), catchError(err => {
+            return throwError(err);
+        }));
+    }
 }

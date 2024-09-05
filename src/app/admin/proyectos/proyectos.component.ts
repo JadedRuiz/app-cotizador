@@ -1,6 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbCollapse, NgbCollapseModule, NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapse, NgbCollapseModule, NgbDropdownModule, NgbModal, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { RxFormBuilder, RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 import { CurrencyPipe } from '@angular/common';
 
@@ -13,6 +13,7 @@ import { FormLoteComponent } from '../../components/form-lote/form-lote.componen
 import { FormPlazoComponent } from '../../components/form-plazo/form-plazo.component';
 import { Lote } from '../../core/models/lote.model';
 import { CotizadorService } from '../../core/services/cotizador.service';
+import { ModalInteresadosComponent } from '../../components/modal-interesados/modal-interesados.component';
 
 @Component({
   selector: 'app-proyectos',
@@ -33,6 +34,7 @@ import { CotizadorService } from '../../core/services/cotizador.service';
   styleUrl: './proyectos.component.css'
 })
 export class ProyectosComponent {
+  private modalService = inject(NgbModal);
   isCollapsed = true;
   isCollapsedLote = false;
   submitted = false;
@@ -111,11 +113,23 @@ export class ProyectosComponent {
     this.collapse?.toggle(true);
   }
 
-  cambiarStatus(index : number, iStatus : number) {
-    this.arrayLotes[index].iStatus = iStatus;
+  cambiarStatus(index : number, iIdLote : any, iStatus : number) {
+    this._serAdmin.cambiarStatusLote({iIdLote: iIdLote, iStatus: iStatus})
+    .subscribe((resp : any) => {
+      if(resp.ok) {
+        this.arrayLotes[index].iStatus = iStatus;
+        return;
+      }
+      Swal.fire("Operación no realizada",resp.data,"warning");
+    });    
   }
 
   calcular(id : any) {
 
   }
+
+  open(iIdLote : any) {
+		const modalRef = this.modalService.open(ModalInteresadosComponent, { centered: true });
+		modalRef.componentInstance.iIdLote = iIdLote;
+	}
 }

@@ -13,4 +13,5 @@ export class Lote {
     public iStatus?: number;
     public sFotografia: string= "";
     public iPrecioTotal!: number;
+    public iNotificacion!: number;
 }

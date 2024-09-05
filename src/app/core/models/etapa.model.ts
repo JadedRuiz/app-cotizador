@@ -3,6 +3,8 @@ import { config } from "rxjs";
 
 export class Etapa {
     
+    public iIdEtapa?: number;
+    
     @required()
     public bActivo: boolean = true;
 
