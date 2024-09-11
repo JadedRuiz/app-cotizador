@@ -129,6 +129,11 @@ export class MapaComponent {
           disabled: false
         };
       }else {
+        this.buttonEnv= {
+          texto: 'Enviar',
+          load: false,
+          disabled: false
+        };
         Swal.fire({
           icon: "error",
           title: resp.data,

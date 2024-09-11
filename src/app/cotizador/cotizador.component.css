@@ -8,13 +8,13 @@
     margin-right: 10px;
 }
 .disponible {
-    background: #448F99;
+    background: #6EC531;
 }
 .apartado {
-    background: #c36e00;
+    background: #FFDE21;
 }
 .vendido {
-    background: #d30d0d;
+    background: #FF5733;
 }
 
 @media only screen and (max-width: 575px){
