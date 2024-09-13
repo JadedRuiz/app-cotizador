@@ -16,10 +16,27 @@
 .vendido {
     background: #FF5733;
 }
-
+.img-main {
+    width: 200px;
+    height: 100px;
+}
 @media only screen and (max-width: 575px){
     .p-normal {
         font-size: 14px;
+    }
+    .header-cotizador {
+        flex-direction: column;
+    }
+    strong {
+        font-size: 13px;    
+    }
+    .circulo {
+        width: 15px;
+        height: 15px;
+    }
+    .img-main {
+        width: 180px;
+        height: 80px;
     }
 }
 
