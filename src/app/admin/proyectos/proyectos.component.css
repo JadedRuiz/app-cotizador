@@ -153,28 +153,28 @@
     color: #e57373;
 }
 .disponible {
-    background-color: #198754;
+    background-color: #6EC531;
     color: white;
     height: 20px;
 }
 .apartado {
-    background-color: #FFC107;
+    background-color: #FFDE21;
     color: white;
     height: 20px;
 }
 .vendido {
-    background-color: #DC3545;
+    background-color: #FF5733;
     color: white;
     height: 20px;
 }
 .i-disponible {
-    color: #198754;
+    color: #6EC531;
 }
 .i-apartado {
-    color: #FFC107;
+    color: #FFDE21;
 }
 .i-vendido {
-    color: #DC3545;
+    color: #FF5733;
 }
 .precio {
     font-size: 22px !important;

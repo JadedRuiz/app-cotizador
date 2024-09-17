@@ -9,7 +9,7 @@
 }
 
 .p-disponible {
-    fill: #448F99 !important;
+    fill: #6EC531 !important;
 }
 
 .p-disponible:hover {
@@ -18,9 +18,9 @@
 }
 
 .p-apartado {
-    fill: #c36e00 !important;
+    fill: #FFDE21 !important;
 }
 
 .p-vendido {
-    fill: #d30d0d !important;
+    fill: #FF5733 !important;
 }

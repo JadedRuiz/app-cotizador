@@ -42,7 +42,7 @@
                                         <div class="d-flex dimension">
                                             <p>Dimensiones:</p>
                                             <strong>
-                                                {{lote.bIrregular == 0  ? lote.iLargo+' '+lote.iAncho+' (㎡)' 
+                                                {{lote.bIrregular == 0  ? lote.iAncho+' x '+lote.iLargo+' (㎡)' 
                                                 : 'IRREGULAR'}}
                                             </strong>
                                         </div>
@@ -105,6 +105,7 @@
                             [ngClass]="{ 'is__invalid-input': submitted && f['sNombre'].errors }"
                             formControlName="sNombre"
                             placeholder="Nombre"
+                            style="text-transform: uppercase;"
                             >
                         </div>
                         <div *ngIf="submitted && f['sNombre'].errors" class="is__invalid-error">
@@ -117,7 +118,7 @@
                             id="sCorreo"
                             [ngClass]="{ 'is__invalid-input': submitted && f['sCorreo'].errors }"
                             formControlName="sCorreo"
-                            placeholder="Correo electrónico"
+                            placeholder="CORREO ELECTRONICO"
                             >
                         </div>
                         <div *ngIf="submitted && f['sCorreo'].errors" class="is__invalid-error">
@@ -132,7 +133,7 @@
                             maxlength="10"
                             [ngClass]="{ 'is__invalid-input': submitted && f['iTelefono'].errors }"
                             formControlName="iTelefono"
-                            placeholder="Teléfono"
+                            placeholder="TELEFONO"
                             >
                         </div>
                         <div *ngIf="submitted && f['iTelefono'].errors" class="is__invalid-error">
@@ -148,6 +149,7 @@
                             [ngClass]="{ 'is__invalid-input': submitted && f['sCiudad'].errors }"
                             formControlName="sCiudad"
                             placeholder="Ciudad"
+                            style="text-transform: uppercase;"
                             >
                         </div>
                         <div *ngIf="submitted && f['sCiudad'].errors" class="is__invalid-error">
