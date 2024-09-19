@@ -3,7 +3,7 @@ import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbCollapse, NgbCollapseModule, NgbDropdownModule, NgbModal, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { RxFormBuilder, RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 import { CurrencyPipe } from '@angular/common';
-
+import $ from 'jquery';
 import { Etapa } from '../../core/models/etapa.model';
 import { NgIf } from '@angular/common';
 import { Plazo } from '../../core/models/plazo.model';
@@ -46,6 +46,12 @@ export class ProyectosComponent {
   arrayLotes: Lote[] = [];
   arrayPlazos: Plazo[] = [];
   etapa!: Etapa;
+  loading= true;
+  filtros = {
+    iStatus: 0,
+    sSearch: "",
+    iLote: 0
+  }
 
   constructor(
     private _formBuilder: RxFormBuilder,
@@ -81,6 +87,7 @@ export class ProyectosComponent {
     .subscribe((res : any) => {
       if(res.ok) {
         this.arrayLotes = res.data.lotes;
+        this.loading= false;
       }
     });
   }
@@ -126,6 +133,45 @@ export class ProyectosComponent {
 
   calcular(id : any) {
 
+  }
+
+  aplicarFiltros() {
+    this.resetearFiltros();
+    let lotes= $(".box-lotes").children();
+    $(lotes).each((index, lote) => {
+      if(this.filtros.sSearch.length > 0) {
+        if(!($(lote).find("#sLote").val()+"").toLowerCase().includes(this.filtros.sSearch.toLowerCase())){
+          console.log("entro");
+          $(lote).addClass('d-none');
+        }
+      }
+      if(this.filtros.iStatus > 0 && !$(lote).hasClass('d-none')){
+        if($(lote).find("#iStatus").val() != this.filtros.iStatus) {
+          console.log("entro");
+          $(lote).addClass("d-none");
+        }
+      }
+      if(this.filtros.iLote > 0 && !$(lote).hasClass('d-none')) {
+        if($(lote).find("#iLote").val() != this.filtros.iLote) {
+          $(lote).addClass("d-none");
+        }
+      }
+    });
+  }
+
+  limpiarFiltros() {
+    this.filtros= {
+      iLote: 0,
+      iStatus: 0,
+      sSearch: ""
+    };
+    this.resetearFiltros();
+  }
+
+  resetearFiltros(){
+    $(".box-lotes").children().each((index, lote) => {
+      $(lote).removeClass('d-none');
+    });
   }
 
   open(iIdLote : any) {

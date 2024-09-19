@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, map, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -8,7 +8,8 @@ import { environment } from '../../../environments/environment';
 })
 export class CotizadorService {
 
-
+  public arrayLotes$ = new BehaviorSubject<any>([]);
+  
   constructor(private http: HttpClient) {   }
 
   public SERVER_API = environment.API_URL;

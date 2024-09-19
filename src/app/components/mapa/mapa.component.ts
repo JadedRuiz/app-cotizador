@@ -79,7 +79,7 @@ export class MapaComponent {
     .subscribe((resp : any) => {
       if(resp.ok) {
         this.arrayLotes = resp.data;
-        localStorage.setItem('lotes_etapa',JSON.stringify(this.arrayLotes));
+        this._servCotizador.arrayLotes$.next(this.arrayLotes);
       }
     })
   }

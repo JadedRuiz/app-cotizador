@@ -1,43 +1,55 @@
 import { Component, Input } from '@angular/core';
 import $ from 'jquery';
+import { CotizadorService } from '../../core/services/cotizador.service';
+import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-svg',
   standalone: true,
-  imports: [],
+  imports: [
+    NgbPopoverModule
+  ],
   templateUrl: './svg.component.html',
   styleUrl: './svg.component.css'
 })
 export class SvgComponent {
   public arrayLotes: any;
 
-  ngAfterViewInit() : void {
-    this.arrayLotes = JSON.parse(localStorage.getItem('lotes_etapa')+"");
-    this.loadSvg(this.arrayLotes);
+  constructor(private _serCotizador: CotizadorService) { }
+
+  ngOnInit() : void {
+    this.loadSvg();
   }
 
-  loadSvg(lotes : any) {
-    let nodos = $("#Capa_1").find("text");
-    nodos.each((index : number, value : any) => {
-      let poligono = $(value).prev();
-      let objLote =lotes.find((x : any) => x.iLote == $(value).html());
+  loadSvg() {
+    this._serCotizador.arrayLotes$.subscribe(lotes => {
+      let nodos = $("#Capa_1").find("text");
+      nodos.each((index : number, value : any) => {
+        let poligono = $(value).prev();
+        let objLote =lotes.find((x : any) => x.iLote == $(value).html());
 
-      if(objLote) {
-        switch(objLote.iStatus) {
-          //Disponible
-          case 1: 
-            $(value).addClass('disponible');
-            $(poligono).addClass('p-disponible');
-            break;
-          case 2:
-            $(value).addClass('no-disponible');
-            $(poligono).addClass('p-apartado');
-            break;
-          case 3: 
-            $(value).addClass('mo-disponible');
-            $(poligono).addClass('p-vendido');
-            break;
+        if(objLote) {
+          switch(objLote.iStatus) {
+            //Disponible
+            case 1:
+              $(value).addClass('disponible');
+              $(poligono).addClass('p-disponible');
+              // let html = poligono[0].outerHTML;
+              // html= html.replace('><',' [ngbPopover]="popContent" triggers="mouseenter:mouseleave" container="body"><');
+              // poligono[0].outerHTML= html;
+              // $(poligono).html(html);
+              break;
+            case 2:
+              $(value).addClass('no-disponible');
+              $(poligono).addClass('p-apartado');
+              break;
+            case 3:
+              $(value).addClass('mo-disponible');
+              $(poligono).addClass('p-vendido');
+              break;
+          }
         }
-      }
+      });
     });
   }
 }
+// [ngbPopover]="popContent" triggers="mouseenter:mouseleave" container="body"
