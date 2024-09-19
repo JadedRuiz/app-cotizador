@@ -182,10 +182,12 @@ export class MapaComponent {
     });
     if(lote != "") {
       this.lote = this.arrayLotes.find((x: any) => x.iLote == lote);
-      this.precioM2 = this.lote.iPrecioM2Contado;
-      this.precioTotal = this.lote.iSuperficie * this.lote.iPrecioM2Contado;
-      this.obtenerPlazosPorEtapa(this.arrayEtapas[0].iIdEtapa);
-      this.openModal();
+      if(this.lote.iStatus == 1){
+        this.precioM2 = this.lote.iPrecioM2Contado;
+        this.precioTotal = this.lote.iSuperficie * this.lote.iPrecioM2Contado;
+        this.obtenerPlazosPorEtapa(this.arrayEtapas[0].iIdEtapa);
+        this.openModal();
+      }      
     }
     
   }
