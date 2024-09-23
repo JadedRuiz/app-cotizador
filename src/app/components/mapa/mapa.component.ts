@@ -35,6 +35,7 @@ export class MapaComponent {
   @ViewChild('cotizadorModal') _modal: any;
   precioM2=0;
   precioTotal= 0;
+  precioTotalCotizado= 0;
   precioEnganche=0;
   precioMensualidad=0;
   arrayEtapas: any;
@@ -158,6 +159,7 @@ export class MapaComponent {
       }
       this.precioM2 = this.lote.iPrecioM2Contado;
       this.precioTotal = this.lote.iSuperficie * this.lote.iPrecioM2Contado;
+      this.precioTotalCotizado = this.lote.iSuperficie * this.lote.iPrecioM2Contado;
       this.bCotizacion=false;
   }
 
@@ -192,7 +194,7 @@ export class MapaComponent {
   calcularCotizacion(plazo : any) {
     let precioM2Interes = this.lote.iPrecioM2Contado + (this.lote.iPrecioM2Contado * (plazo.iInteres / 100));
     this.precioM2 = precioM2Interes;
-    this.precioTotal= this.lote.iSuperficie * precioM2Interes;
+    this.precioTotalCotizado= this.lote.iSuperficie * precioM2Interes;
   }
 
   calcularMensualidad() {
@@ -212,6 +214,7 @@ export class MapaComponent {
       if(this.lote.iStatus == 1){
         this.precioM2 = this.lote.iPrecioM2Contado;
         this.precioTotal = this.lote.iSuperficie * this.lote.iPrecioM2Contado;
+        this.precioTotalCotizado = this.lote.iSuperficie * this.lote.iPrecioM2Contado;
         this.obtenerPlazosPorEtapa(this.arrayEtapas[0].iIdEtapa);
         this.openModal();
       }      
