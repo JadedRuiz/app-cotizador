@@ -1,13 +1,14 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { SvgComponent } from '../svg/svg.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgClass, NgIf } from '@angular/common';
+import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { Cotizacion } from '../../core/models/cotizacion.model';
 import { CurrencyPipe } from '@angular/common';
 import { Lote } from '../../core/models/lote.model';
 import { CotizadorService } from '../../core/services/cotizador.service';
 import Swal from 'sweetalert2';
+import $ from 'jquery';
 
 @Component({
   selector: 'app-mapa',
@@ -18,7 +19,8 @@ import Swal from 'sweetalert2';
     SvgComponent,
     NgClass,
     NgIf,
-    CurrencyPipe
+    CurrencyPipe,
+    CommonModule
   ],
   templateUrl: './mapa.component.html',
   styleUrl: './mapa.component.css'
@@ -39,7 +41,9 @@ export class MapaComponent {
   arrayLotes: any;
   iMinEnganche = 0;
   plazoSeleccionado : any;
-  etapaSeleccionada: any;
+  etapaSeleccionada: any = {
+    "iEtapa": 0
+  };
   buttonEnv= {
     texto: 'Enviar',
     load: false,
@@ -157,6 +161,34 @@ export class MapaComponent {
       this.bCotizacion=false;
   }
 
+  mostrarDetalle(event : any) {
+    let lote= this.recuperarLote(event);
+    if(lote != null && parseInt(lote)){
+      this.lote = this.arrayLotes.find((x: any) => x.iLote == lote);
+      if(this.lote.iStatus == 1){
+        $(".details").css({
+          'top': $(".lote-"+this.lote.iLote).position().top-80,
+          'left': $(".lote-"+this.lote.iLote).position().left
+        });
+        $(".details").show();
+      }else{
+        $(".details").hide();
+      }
+    }
+  }
+
+  esconderDetalle(event : any){
+    let lote= this.recuperarLote(event);
+    if(lote != null && !isNaN(lote)){
+      this.lote = this.arrayLotes.find((x: any) => x.iLote == lote);
+      if(this.lote.iStatus != 1){
+        $(".details").hide();
+      }
+    }else{
+      $(".details").hide();
+    }
+  }
+
   calcularCotizacion(plazo : any) {
     let precioM2Interes = this.lote.iPrecioM2Contado + (this.lote.iPrecioM2Contado * (plazo.iInteres / 100));
     this.precioM2 = precioM2Interes;
@@ -174,13 +206,8 @@ export class MapaComponent {
   }
 
   abrirModal(event : any) {
-    let arrayString= (event.target.nextSibling.outerHTML).split('>');
-    let lote="";
-    arrayString.forEach((element:string) => {
-      element = element.replaceAll("</text", "");
-      parseInt(element) ? lote= element : null;
-    });
-    if(lote != "") {
+    let lote= this.recuperarLote(event);    
+    if(lote != null) {
       this.lote = this.arrayLotes.find((x: any) => x.iLote == lote);
       if(this.lote.iStatus == 1){
         this.precioM2 = this.lote.iPrecioM2Contado;
@@ -190,6 +217,16 @@ export class MapaComponent {
       }      
     }
     
+  }
+
+  recuperarLote(event : any) {
+    let arrayString= (event.target.nextSibling.outerHTML).split('>');
+    let lote=null;
+    arrayString.forEach((element:string) => {
+      element = element.replaceAll("</text", "");
+      parseInt(element) ? lote = element : null;
+    });
+    return lote;
   }
 
   openModal(){

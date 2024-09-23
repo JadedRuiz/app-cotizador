@@ -214,6 +214,33 @@
 .mensualidad strong {
     color: #834979;
 }
+.details {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    border: 1px solid #00000054;
+    z-index: 1;
+    font-size: 11px;
+    display: none;
+    background: white;
+}
+.details p span {
+    font-weight: 800;
+}
+.details p {
+    display: flex;
+    justify-content: space-between;    
+    padding: 1px 5px;
+    margin: 0;
+    color: #000;
+    font-weight: 400;
+}
+.details p:nth-of-type(1) {
+    background: #2d888e;
+    margin: 0;
+    color: white;
+    font-weight: bold;
+}
 @media only screen and (max-width: 575px){
     .modal-completo {
         height: auto;

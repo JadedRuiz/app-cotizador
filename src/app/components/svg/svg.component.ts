@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import $ from 'jquery';
 import { CotizadorService } from '../../core/services/cotizador.service';
 import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
@@ -12,12 +12,13 @@ import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './svg.component.css'
 })
 export class SvgComponent {
+
   public arrayLotes: any;
 
   constructor(private _serCotizador: CotizadorService) { }
 
   ngOnInit() : void {
-    this.loadSvg();
+      this.loadSvg();
   }
 
   loadSvg() {
@@ -33,6 +34,7 @@ export class SvgComponent {
             case 1:
               $(value).addClass('disponible');
               $(poligono).addClass('p-disponible');
+              $(poligono).addClass('lote-'+objLote.iLote);
               // let html = poligono[0].outerHTML;
               // html= html.replace('><',' [ngbPopover]="popContent" triggers="mouseenter:mouseleave" container="body"><');
               // poligono[0].outerHTML= html;

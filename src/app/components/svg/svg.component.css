@@ -2,25 +2,32 @@
     cursor: pointer;
     text-decoration: none;
 }
-
 .no-disponible {
     cursor: none;
     text-decoration: none;
 }
-
 .p-disponible {
     fill: #6EC531 !important;
 }
-
 .p-disponible:hover {
     fill: rgba(150, 229, 243, 0.703) !important;
     cursor: pointer;
 }
-
 .p-apartado {
     fill: #7CDAF9 !important;
 }
-
 .p-vendido {
     fill: #FF5733 !important;
 }
+/* Base styling*/
+body {
+    background-color: lightgrey;
+    max-width: 768px;
+    margin: 0 auto;
+    padding: 1em 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+/* Popover styling */ 
+a {
+    text-decoration: none;
+}  

@@ -175,7 +175,7 @@ export class ProyectosComponent {
   }
 
   open(iIdLote : any) {
-		const modalRef = this.modalService.open(ModalInteresadosComponent, { centered: true });
+		const modalRef = this.modalService.open(ModalInteresadosComponent, { centered: true, size: 'md' });
 		modalRef.componentInstance.iIdLote = iIdLote;
 	}
 }

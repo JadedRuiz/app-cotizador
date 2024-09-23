@@ -9,7 +9,13 @@
         </ul>
         <div class="etapas"></div>
         <div class="svg">
-            <app-svg (click)="abrirModal($event)"></app-svg>
+            <app-svg (click)="abrirModal($event)" (mouseover)="mostrarDetalle($event)" (mouseleave)="esconderDetalle($event)"></app-svg>
+            <div class="details">
+                <p>Unidad: <span class="titulo">{{ lote.iLote+"-"+etapaSeleccionada.iEtapa }}</span></p>
+                <p>Superficie: <span class="superficie">{{ lote.iSuperficie }} ㎡</span></p>
+                <p>Dimensiones: &nbsp; <span class="dimensions">{{ lote.bIrregular == 1 ? 'IRREGULAR' : lote.iLargo+" x "+lote.iAncho }}</span></p>
+                <p>Precio: <span class="precio">{{ lote.iSuperficie * lote.iPrecioM2Contado | currency: '$' }}</span></p>
+            </div>
         </div>
     </div>
 </div>
