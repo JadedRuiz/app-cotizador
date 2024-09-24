@@ -7,7 +7,9 @@ export class Lote {
     public iAncho?: number;
     public iLargo?: number;
     public objPlazos: any= [];
+    public iIdPlazo: number= 0;
     public iMinEnganche?: number;
+    public iEnganche?: number;
     public bIrregular?: number= 0;
     public iPrecioM2Contado!: number;
     public iStatus?: number;

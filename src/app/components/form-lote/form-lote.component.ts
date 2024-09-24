@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RxFormBuilder, RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
-import { LoteForm } from '../../core/models/lote.form.model';
+import { LoteForm } from '../../core/validators/lote.form.model';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgIf } from '@angular/common';
 

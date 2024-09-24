@@ -9,7 +9,7 @@ export class Etapa {
     public bActivo: boolean = true;
 
     @required()
-    public sEtapa?: string;
+    public sEtapa: string = "";
 
     @required()
     public iEtapa?: number;

@@ -167,15 +167,16 @@
                             </div>                            
                             <p class="py-0 my-0 mt-1 p-normal financiamiento">Financiamiento:</p>
                             <div class="cotizacion d-flex align-items-center">
-                                <select #sel (change)="calcular(sel.value)">
-                                    <option class="p-normal" selected value="-1">CONTADO</option>
+                                <select [(ngModel)]="lote_row.iIdPlazo">
+                                    <option class="p-normal" selected value="0">CONTADO</option>
                                     @for(plazo of arrayPlazos; track plazo) {
                                         <option class="p-normal" [value]="plazo.iIdPlazo">{{plazo.sPlazo.toUpperCase()}}</option>
                                     }
                                 </select>
-                                <input type="number" class="mx-2" [value]="lote_row.iMinEnganche" disabled>
-                                <button class="btn btn-primary text-white" placement="top" ngbTooltip="Descargar" container="body"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
-                            </div>
+                                <input type="number" [class]="lote_row.iIdPlazo == 0 ? 'inp-disabled mx-2' : 'mx-2'" [(ngModel)]="lote_row.iEnganche" [disabled]="lote_row.iIdPlazo == 0 ? true : false">
+                                <button class="btn btn-primary text-white" placement="top" ngbTooltip="Descargar" container="body" (click)="generarCotizacion('.alert-lote-'+lote_row.iLote, lote_row, $index)"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
+                            </div>                            
+                            <small class="text-warning alert-lote-{{lote_row.iLote}} d-none alert-error"></small>
                             <strong class="precio p-normal text-end">{{ lote_row.iPrecioTotal | currency: '$ '}}</strong>
                         </div>
                     }
@@ -193,7 +194,7 @@
             Cargando lotes, espere un momento..
             <div class="spinner-border text-light mt-3" role="status">
                 <span class="visually-hidden">Loading...</span>
-              </div>
+            </div>
         </div>
     }
 </div>

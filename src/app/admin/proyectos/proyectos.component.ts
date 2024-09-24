@@ -14,6 +14,8 @@ import { FormPlazoComponent } from '../../components/form-plazo/form-plazo.compo
 import { Lote } from '../../core/models/lote.model';
 import { CotizadorService } from '../../core/services/cotizador.service';
 import { ModalInteresadosComponent } from '../../components/modal-interesados/modal-interesados.component';
+import { ModalPdfCotizacionComponent } from '../../components/modal-pdf-cotizacion/modal-pdf-cotizacion.component';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-proyectos',
@@ -36,12 +38,9 @@ import { ModalInteresadosComponent } from '../../components/modal-interesados/mo
 export class ProyectosComponent {
   private modalService = inject(NgbModal);
   isCollapsed = true;
-  isCollapsedLote = false;
   submitted = false;
-  submittedPlazo= false;
   @ViewChild('collapse') collapse ?: NgbCollapse ;
   formEtapa !: FormGroup;
-  formLote !: FormGroup;
   arrayEtapas: Etapa[] = [];
   arrayLotes: Lote[] = [];
   arrayPlazos: Plazo[] = [];
@@ -52,20 +51,22 @@ export class ProyectosComponent {
     sSearch: "",
     iLote: 0
   }
+  cotizador= {
+    iIdLote: 0,
+    iIdPlazo: 0,
+    iEnganche: 20
+  };
 
   constructor(
     private _formBuilder: RxFormBuilder,
     private _serAdmin: AdminService,
-    private _cotAdmin: CotizadorService
+    private _cotAdmin: CotizadorService,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit() {
     this.formEtapa = this._formBuilder.formGroup(Etapa);
-    // this.formLote.controls['iMinEnganche'].disable();
     this.cargaInicial();
-  }
-
-  ngAfterViewInit() {
   }
 
   cargaInicial() {
@@ -100,6 +101,7 @@ export class ProyectosComponent {
       }
     })
   }
+
   nuevaEtapa() {
     this.submitted = true;
     if(!this.formEtapa.valid) {
@@ -131,8 +133,24 @@ export class ProyectosComponent {
     });    
   }
 
-  calcular(id : any) {
+  generarCotizacion(sClass :string, objLote:any, index : number) {
+    console.log(objLote);
+    if(objLote.iEnganche < objLote.iMinEnganche && objLote.iIdPlazo > 0) {
+      $(sClass).removeClass("d-none");
+      $(sClass).html("El enganche minimo es de: "+objLote.iMinEnganche);
+      return;
+    }
+    $(sClass).addClass("d-none");
 
+    this._serAdmin.generarCotizacionAdmin(objLote)
+    .subscribe((resp : any) => {
+      if(resp.ok){
+        const modalRef = this.modalService.open(ModalPdfCotizacionComponent, { centered: true, size: 'md' });
+		    modalRef.componentInstance.sArchivo = this.sanitizer.bypassSecurityTrustResourceUrl("data:application/pdf;base64,"+resp.data);
+        this.arrayLotes[index].iEnganche = objLote.iMinEnganche;
+        this.arrayLotes[index].iIdPlazo = 0;
+      }
+    })
   }
 
   aplicarFiltros() {
@@ -178,4 +196,8 @@ export class ProyectosComponent {
 		const modalRef = this.modalService.open(ModalInteresadosComponent, { centered: true, size: 'md' });
 		modalRef.componentInstance.iIdLote = iIdLote;
 	}
+
+  openModal() {
+
+  }
 }

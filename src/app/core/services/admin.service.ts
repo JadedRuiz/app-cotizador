@@ -55,4 +55,15 @@ export class AdminService {
             return throwError(err);
         }));
     }
+
+    generarCotizacionAdmin(json : any) {
+        json.token = this.token; 
+        let url = this.SERVER_API+"admin/generarCotizacionAdmin";
+        return this.http.post( url, json )
+        .pipe(map( (resp: any) => {
+            return resp;
+        }), catchError(err => {
+            return throwError(err);
+        }));
+    }
 }
