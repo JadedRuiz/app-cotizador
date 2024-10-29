@@ -2,7 +2,7 @@ import { Component, inject, ViewChild } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbCollapse, NgbCollapseModule, NgbDropdownModule, NgbModal, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { RxFormBuilder, RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
-import { CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import $ from 'jquery';
 import { Etapa } from '../../core/models/etapa.model';
 import { NgIf } from '@angular/common';
@@ -11,16 +11,18 @@ import { AdminService } from '../../core/services/admin.service';
 import Swal from 'sweetalert2';
 import { FormLoteComponent } from '../../components/form-lote/form-lote.component';
 import { FormPlazoComponent } from '../../components/form-plazo/form-plazo.component';
-import { Lote } from '../../core/models/lote.model';
 import { CotizadorService } from '../../core/services/cotizador.service';
 import { ModalInteresadosComponent } from '../../components/modal-interesados/modal-interesados.component';
 import { ModalPdfCotizacionComponent } from '../../components/modal-pdf-cotizacion/modal-pdf-cotizacion.component';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Lote } from '../../core/models/lote.model';
+import { LoteService } from '../../core/services/lote.service';
 
 @Component({
   selector: 'app-proyectos',
   standalone: true,
   imports: [
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     NgbCollapseModule,
@@ -42,7 +44,7 @@ export class ProyectosComponent {
   @ViewChild('collapse') collapse ?: NgbCollapse ;
   formEtapa !: FormGroup;
   arrayEtapas: Etapa[] = [];
-  arrayLotes: Lote[] = [];
+  arrayLotes: any[] = [];
   arrayPlazos: Plazo[] = [];
   etapa!: Etapa;
   loading= true;
@@ -61,7 +63,8 @@ export class ProyectosComponent {
     private _formBuilder: RxFormBuilder,
     private _serAdmin: AdminService,
     private _cotAdmin: CotizadorService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private _loteService: LoteService
   ) { }
 
   ngOnInit() {
@@ -122,7 +125,8 @@ export class ProyectosComponent {
     this.collapse?.toggle(true);
   }
 
-  cambiarStatus(index : number, iIdLote : any, iStatus : number) {
+  cambiarStatus(index : number, iIdLote : any, iStatus : number, $event: Event) {
+    $event.stopPropagation();
     this._serAdmin.cambiarStatusLote({iIdLote: iIdLote, iStatus: iStatus})
     .subscribe((resp : any) => {
       if(resp.ok) {
@@ -133,8 +137,8 @@ export class ProyectosComponent {
     });    
   }
 
-  generarCotizacion(sClass :string, objLote:any, index : number) {
-    console.log(objLote);
+  generarCotizacion(sClass :string, objLote:any, index : number, $event: Event) {
+    $event.stopPropagation();
     if(objLote.iEnganche < objLote.iMinEnganche && objLote.iIdPlazo > 0) {
       $(sClass).removeClass("d-none");
       $(sClass).html("El enganche minimo es de: "+objLote.iMinEnganche);
@@ -144,13 +148,17 @@ export class ProyectosComponent {
 
     this._serAdmin.generarCotizacionAdmin(objLote)
     .subscribe((resp : any) => {
-      if(resp.ok){
+      if(resp.ok) {
         const modalRef = this.modalService.open(ModalPdfCotizacionComponent, { centered: true, size: 'md' });
 		    modalRef.componentInstance.sArchivo = this.sanitizer.bypassSecurityTrustResourceUrl("data:application/pdf;base64,"+resp.data);
         this.arrayLotes[index].iEnganche = objLote.iMinEnganche;
         this.arrayLotes[index].iIdPlazo = 0;
       }
     })
+  }
+
+  editarLote(lote: any) {
+    this._loteService.lote$.next(lote);
   }
 
   aplicarFiltros() {
@@ -192,12 +200,10 @@ export class ProyectosComponent {
     });
   }
 
-  open(iIdLote : any) {
+  open($event: Event, iIdLote : any) {
+    $event.stopPropagation();
 		const modalRef = this.modalService.open(ModalInteresadosComponent, { centered: true, size: 'md' });
 		modalRef.componentInstance.iIdLote = iIdLote;
 	}
 
-  openModal() {
-
-  }
 }

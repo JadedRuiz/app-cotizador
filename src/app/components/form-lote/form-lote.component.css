@@ -12,12 +12,47 @@
     border: none;
     cursor: pointer;
 }
-.ico-status-disp i{
-    color: #198754;
+.disponible {
+    background-color: #6EC531;
+    color: white;
+    height: 20px;
+    cursor: pointer;
 }
-.ico-status-apar {
-    color: #FFC107;
+.apartado {
+    background-color: #7CDAF9;
+    color: white;
+    height: 20px;
+    cursor: pointer;
 }
-.ico-status-ven {
-    color: #DC3545;
+.vendido {
+    background-color: #FF5733;
+    color: white;
+    height: 20px;
+    cursor: pointer;
+}
+.i-disponible {
+    color: #6EC531;
+    cursor: pointer;
+}
+.i-apartado {
+    color: #7CDAF9;
+    cursor: pointer;
+}
+.i-vendido {
+    color: #FF5733;
+    cursor: pointer;
+}
+.img-respon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.precio {
+    font-size: 22px !important;
+    font-weight: bold;
+    margin: 0px;
+    color: #834979;
+}
+.upper {
+    text-transform: uppercase;
 }

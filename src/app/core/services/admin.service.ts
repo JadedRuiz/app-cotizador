@@ -25,7 +25,7 @@ export class AdminService {
     }
 
     obtenerLotesEtapaAdmin(iIdEtapa: number) {
-        let url = this.SERVER_API+"admin/obtenerLotesEtapaAdmin";
+        let url = this.SERVER_API+"admin/lote/obtenerLotesEtapa";
         return this.http.post( url, { iIdEtapa: iIdEtapa, token : this.token } )
         .pipe(map( (resp: any) => {
             return resp;
@@ -36,7 +36,7 @@ export class AdminService {
 
     cambiarStatusLote(json : any) {
         json.token = this.token; 
-        let url = this.SERVER_API+"admin/cambiarStatusLote";
+        let url = this.SERVER_API+"admin/lote/cambiarStatusLote";
         return this.http.post( url, json )
         .pipe(map( (resp: any) => {
             return resp;

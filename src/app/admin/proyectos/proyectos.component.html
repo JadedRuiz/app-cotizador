@@ -122,7 +122,7 @@
                     </ul>
                 } @else {
                     @for(lote_row of arrayLotes; track $index;) {
-                        <div class="card m-card-lote w-100 mb-2 cp">
+                        <div class="card m-card-lote w-100 mb-2 cp" (click)="editarLote(lote_row)">
                             <input type="hidden" id="sLote" value="{{ lote_row.sLote }}">
                             <input type="hidden" id="iStatus" value="{{ lote_row.iStatus }}">
                             <input type="hidden" id="iLote" value="{{ lote_row.iNotificacion > 0 ? 1 : 0 }}">
@@ -133,17 +133,17 @@
                                 <div class="options d-flex align-items-center">
                                     @if(lote_row.iStatus == 1) { 
                                         <span class="badge disponible"><i class="fa fa-circle text-white" aria-hidden="true"></i> Disponible</span>
-                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 2)" class="fa fa-circle i-apartado mx-1" aria-hidden="true" placement="top" ngbTooltip="Apartado" container="body"></i>
-                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 3)" class="fa fa-circle i-vendido mx-1" aria-hidden="true" placement="top" ngbTooltip="Vendido" container="body"></i>
+                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 2, $event)" class="fa fa-circle i-apartado mx-1" aria-hidden="true" placement="top" ngbTooltip="Apartado" container="body"></i>
+                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 3, $event)" class="fa fa-circle i-vendido mx-1" aria-hidden="true" placement="top" ngbTooltip="Vendido" container="body"></i>
                                      }
                                     @if(lote_row.iStatus == 2) {
-                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 1)" class="fa fa-circle i-disponible" aria-hidden="true" placement="top" ngbTooltip="Disponible" container="body"></i> 
+                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 1, $event)" class="fa fa-circle i-disponible" aria-hidden="true" placement="top" ngbTooltip="Disponible" container="body"></i> 
                                         <span class="badge apartado mx-1"><i class="fa fa-circle text-white" aria-hidden="true"></i> Apartado</span>
-                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 3)" class="fa fa-circle i-vendido" aria-hidden="true" placement="top" ngbTooltip="Vendido" container="body"></i>
+                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 3, $event)" class="fa fa-circle i-vendido" aria-hidden="true" placement="top" ngbTooltip="Vendido" container="body"></i>
                                      }
                                     @if(lote_row.iStatus == 3) { 
-                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 1)" class="fa fa-circle i-disponible" aria-hidden="true" placement="top" ngbTooltip="Disponible" container="body"></i>
-                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 2)" class="fa fa-circle i-apartado mx-1" aria-hidden="true" placement="top" ngbTooltip="Apartado" container="body"></i>
+                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 1, $event)" class="fa fa-circle i-disponible" aria-hidden="true" placement="top" ngbTooltip="Disponible" container="body"></i>
+                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 2, $event)" class="fa fa-circle i-apartado mx-1" aria-hidden="true" placement="top" ngbTooltip="Apartado" container="body"></i>
                                         <span class="badge vendido"><i class="fa fa-circle text-white" aria-hidden="true"></i> Vendido</span>
                                      }
                                     <a class="btn-lote-close cp mx-2" placement="top" ngbTooltip="Eliminar lote" container="body">
@@ -154,7 +154,7 @@
                             <div class="subtitle d-flex align-items-center justify-content-between">
                                 <small class="subtitle-card">Tipo: {{lote_row.sTipoLote}}</small>
                                 @if(lote_row.iNotificacion > 0) {
-                                    <div class="div notify" placement="top" ngbTooltip="Interesados" container="body" (click)="open(lote_row.iIdLote)">
+                                    <div class="div notify" placement="top" ngbTooltip="Interesados" container="body" (click)="open($event, lote_row.iIdLote)">
                                         <span>
                                             {{ lote_row.iNotificacion > 99 ? '99+' : lote_row.iNotificacion }}
                                         </span>
@@ -164,8 +164,12 @@
                                         </i>
                                     </div>                                        
                                 }
-                            </div>                            
-                            <p class="py-0 my-0 mt-1 p-normal financiamiento">Financiamiento:</p>
+                            </div>
+                            <div class="d-flex justify-content-between mt-1">
+                                <p class="py-0 my-0 p-normal financiamiento">Financiamiento:</p>
+                                <i class="fa fa-picture-o" aria-hidden="true" style="color: #69727D;"></i>
+                            </div>                   
+                            
                             <div class="cotizacion d-flex align-items-center">
                                 <select [(ngModel)]="lote_row.iIdPlazo">
                                     <option class="p-normal" selected value="0">CONTADO</option>
@@ -174,7 +178,7 @@
                                     }
                                 </select>
                                 <input type="number" [class]="lote_row.iIdPlazo == 0 ? 'inp-disabled mx-2' : 'mx-2'" [(ngModel)]="lote_row.iEnganche" [disabled]="lote_row.iIdPlazo == 0 ? true : false">
-                                <button class="btn btn-primary text-white" placement="top" ngbTooltip="Descargar" container="body" (click)="generarCotizacion('.alert-lote-'+lote_row.iLote, lote_row, $index)"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
+                                <button class="btn btn-primary text-white" placement="top" ngbTooltip="Descargar" container="body" (click)="generarCotizacion('.alert-lote-'+lote_row.iLote, lote_row, $index, $event)"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
                             </div>                            
                             <small class="text-warning alert-lote-{{lote_row.iLote}} d-none alert-error"></small>
                             <strong class="precio p-normal text-end">{{ lote_row.iPrecioTotal | currency: '$ '}}</strong>
@@ -184,9 +188,9 @@
             </div>
         </div>
         <div class="col-lg-7 col-sm-12 px-3">
-            <p class="box-title p-normal my-0">&nbsp;</p>
+            <p class="box-title p-normal my-0">AGREGA O EDITA INFORMACIÓN</p>
             <app-form-lote></app-form-lote>
-            <app-form-plazo></app-form-plazo>       
+            <!-- <app-form-plazo></app-form-plazo>        -->
         </div>
     </div>
     @if(loading) {

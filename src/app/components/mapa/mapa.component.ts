@@ -28,7 +28,7 @@ import $ from 'jquery';
 export class MapaComponent {
 
   cotizacion= new Cotizacion();
-  lote = new Lote();
+  lote : any;
   submitted = false;
   bCotizacion=false;
   form!: FormGroup;
