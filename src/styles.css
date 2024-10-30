@@ -1,8 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: 'Sirkel';
+    font-size: 14px;
+    src: url('./assets/fonts/sirkel.otf');
+}
+@font-face {
+    font-family: 'Sirkel-Italic';
+    font-size: 14px;
+    src: url('./assets/fonts/sirkel-italic.otf');
+}
+@font-face {
+    font-family: 'Marzaki';
+    font-size: 14px;
+    src: url('./assets/fonts/MarkaziText-Regular.ttf');
+}
+@font-face {
+    font-family: 'Marzaki-Bold';
+    font-size: 14px;
+    font-weight: bold;
+    src: url('./assets/fonts/MarkaziText-Bold.ttf');
+}
+@font-face {
+    font-family: 'Marzaki-Medium';
+    src: url('./assets/fonts/MarkaziText-Medium.ttf');
+}
 body {
-    font-family: "Montserrat", sans-serif;
+    font-family: "Marzaki", sans-serif;
     font-optical-sizing: auto;
-    font-weight: 400;
     font-style: sans-serif;
     font-size: 17px;
 }

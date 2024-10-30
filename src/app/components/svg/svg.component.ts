@@ -26,7 +26,7 @@ export class SvgComponent {
       let nodos = $("#Capa_1").find("text");
       nodos.each((index : number, value : any) => {
         let poligono = $(value).prev();
-        let objLote =lotes.find((x : any) => x.iLote == $(value).html());
+        let objLote =lotes.find((x : any) => $(value).html().includes(x.sTipoLote));
 
         if(objLote) {
           switch(objLote.iStatus) {

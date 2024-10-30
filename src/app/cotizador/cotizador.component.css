@@ -1,5 +1,11 @@
 .section-info {
-    background-color: #065D62;
+    background-color: #162121;
+    /* #506465 */
+    /* #162121 */
+}
+.p-normal {
+    font-family: 'Marzaki-Bold';
+    font-size: 18px;
 }
 .circulo {
     width: 20px;
@@ -17,8 +23,8 @@
     background: #FF5733;
 }
 .img-main {
-    width: 200px;
-    height: 100px;
+    width: 130px;
+    height: auto;
 }
 @media only screen and (max-width: 575px){
     .p-normal {

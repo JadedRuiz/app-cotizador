@@ -7,7 +7,7 @@
     text-decoration: none;
 }
 .p-disponible {
-    fill: #6EC531 !important;
+    fill: #6fc531c0 !important;
 }
 .p-disponible:hover {
     fill: rgba(150, 229, 243, 0.703) !important;

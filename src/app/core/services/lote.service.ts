@@ -26,4 +26,14 @@ export class LoteService {
             return throwError(err);
         }));
     }
+
+    getLotesPorEtapaId(iIdEtapa : number) {
+        let url = this.SERVER_API+"cotizador/lote/getLotesPorEtapaId/"+iIdEtapa;
+        return this._http.get( url )
+          .pipe(map( (resp: any) => {
+            return resp;
+          }), catchError(err => {
+            return throwError(err);
+        }));
+    }
 }

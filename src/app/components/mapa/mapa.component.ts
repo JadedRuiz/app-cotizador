@@ -9,6 +9,7 @@ import { Lote } from '../../core/models/lote.model';
 import { CotizadorService } from '../../core/services/cotizador.service';
 import Swal from 'sweetalert2';
 import $ from 'jquery';
+import { LoteService } from '../../core/services/lote.service';
 
 @Component({
   selector: 'app-mapa',
@@ -54,7 +55,8 @@ export class MapaComponent {
   constructor(
     private modalService: NgbModal, 
     private _formBuilder: FormBuilder,
-    private _servCotizador: CotizadorService
+    private _servCotizador: CotizadorService,
+    private _loteService: LoteService,
   ) {}
 
   ngOnInit(): void {
@@ -80,7 +82,7 @@ export class MapaComponent {
   }
 
   obtenerLotesPorEtapa(iIdEtapa: number){
-    this._servCotizador.obtenerLotesPorEtapa(iIdEtapa)
+    this._loteService.getLotesPorEtapaId(iIdEtapa)
     .subscribe((resp : any) => {
       if(resp.ok) {
         this.arrayLotes = resp.data;
@@ -164,9 +166,9 @@ export class MapaComponent {
   }
 
   mostrarDetalle(event : any) {
-    let lote= this.recuperarLote(event);
-    if(lote != null && parseInt(lote)){
-      this.lote = this.arrayLotes.find((x: any) => x.iLote == lote);
+    let sTipoLote= this.recuperarLote(event);
+    if(sTipoLote != null) {
+      this.lote = this.arrayLotes.find((x: any) => x.sTipoLote == sTipoLote);
       if(this.lote.iStatus == 1){
         $(".details").css({
           'top': $(".lote-"+this.lote.iLote).position().top-80,
@@ -176,13 +178,13 @@ export class MapaComponent {
       }else{
         $(".details").hide();
       }
-    }
+    }    
   }
 
   esconderDetalle(event : any){
-    let lote= this.recuperarLote(event);
-    if(lote != null && !isNaN(lote)){
-      this.lote = this.arrayLotes.find((x: any) => x.iLote == lote);
+    let sTipoLote= this.recuperarLote(event);
+    if(sTipoLote != null){
+      this.lote = this.arrayLotes.find((x: any) => x.sTipoLote == sTipoLote);
       if(this.lote.iStatus != 1){
         $(".details").hide();
       }
@@ -208,9 +210,9 @@ export class MapaComponent {
   }
 
   abrirModal(event : any) {
-    let lote= this.recuperarLote(event);    
-    if(lote != null) {
-      this.lote = this.arrayLotes.find((x: any) => x.iLote == lote);
+    let sTipoLote= this.recuperarLote(event);    
+    if(sTipoLote != null) {
+      this.lote = this.arrayLotes.find((x: any) => x.sTipoLote == sTipoLote);
       if(this.lote.iStatus == 1){
         this.precioM2 = this.lote.iPrecioM2Contado;
         this.precioTotal = this.lote.iSuperficie * this.lote.iPrecioM2Contado;
@@ -223,13 +225,12 @@ export class MapaComponent {
   }
 
   recuperarLote(event : any) {
-    let arrayString= (event.target.nextSibling.outerHTML).split('>');
-    let lote=null;
-    arrayString.forEach((element:string) => {
-      element = element.replaceAll("</text", "");
-      parseInt(element) ? lote = element : null;
-    });
-    return lote;
+    if(event && event.target.localName != "app-svg" && event.target.nextSibling != null) {
+      let arrayString= (event.target.nextSibling.outerHTML).split('>');  
+      let sTipoLote = arrayString[1].replaceAll("</text", "");
+      return sTipoLote;
+    }
+    return null;
   }
 
   openModal(){

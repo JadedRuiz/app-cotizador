@@ -10,8 +10,8 @@
         <div class="etapas"></div>
         <div class="svg">
             <app-svg (click)="abrirModal($event)" (mouseover)="mostrarDetalle($event)" (mouseleave)="esconderDetalle($event)"></app-svg>
-            <div class="details">
-                <p>Unidad: <span class="titulo">{{ lote.iLote+"-"+etapaSeleccionada.iEtapa }}</span></p>
+            <div class="details" *ngIf="lote">
+                <p><span class="titulo">{{ lote.sTipoLote+"-"+etapaSeleccionada.iEtapa }}</span></p>
                 <p>Superficie: <span class="superficie">{{ lote.iSuperficie }} ㎡</span></p>
                 <p>Dimensiones: &nbsp; <span class="dimensions">{{ lote.bIrregular == 1 ? 'IRREGULAR' : lote.iLargo+" x "+lote.iAncho }}</span></p>
                 <p>Precio: <span class="precio">{{ lote.iSuperficie * lote.iPrecioM2Contado | currency: '$' }}</span></p>
@@ -35,9 +35,9 @@
                             }                            
                             <div [class]="lote.sFotografia != '' && lote.sFotografia != undefined ?  'col-lg-7 col-sm-12' : 'col-lg-9 col-sm-12'" class="py-3">
                                 <div class="title-lote d-flex align-items-center p-normal">
-                                    <h2>LOTE {{lote.iLote}}-{{etapaSeleccionada.iEtapa}}</h2>
+                                    <h2>{{lote.sTipoLote}}</h2>
                                     <div class="division mx-2"></div>
-                                    <h2 style="color: #065D62;">{{lote.sTipoLote}} -  {{etapaSeleccionada.sEtapa}}</h2>
+                                    <h2 style="color: #506465;">{{etapaSeleccionada.sEtapa}}</h2>
                                 </div>
                                 <div class="info-lote mt-3">
                                     <div class="superficie p-normal">
@@ -58,9 +58,6 @@
                                     </div>
                                     <div class="precioTotal d-flex align-items-end p-normal mt-2">
                                         <p>Precio Contado:</p><strong>{{precioTotal | currency: '$ '}}</strong>
-                                    </div>
-                                    <div class="precioTotal d-flex align-items-end p-normal mt-2">
-                                        <p>Precio Cotizado:</p><strong>{{precioTotalCotizado | currency: '$ '}}</strong>
                                     </div>
                                     <div class="financiamiento p-normal mt-4">
                                         <p>Financiamiento:</p>

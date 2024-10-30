@@ -33,7 +33,7 @@
 }
 .contacto {
     padding: 0px 80px;
-    background-color: #0e888e;
+    background-color: #162121;
     height: 99.8vh;
     display: flex;
     align-items: center;
@@ -61,7 +61,7 @@
     padding: 5px 25px;
     border: none;
     border-radius: 30px;
-    background-color: #006653;
+    background-color: #506465;
     color: white;
     width: 100%;
     font-weight: 700;
@@ -144,7 +144,7 @@
 }
 .financiamiento p {
     font-size: 15px !important;
-    color: #2d888e;
+    color: #506465;
     margin: 0px;
     font-weight: bold;
 }
@@ -236,7 +236,7 @@
     font-weight: 400;
 }
 .details p:nth-of-type(1) {
-    background: #2d888e;
+    background: #506465;
     margin: 0;
     color: white;
     font-weight: bold;
