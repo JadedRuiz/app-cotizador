@@ -1,79 +1,61 @@
-<section class="ftco-section">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6 col-lg-4 px-0">
-                <div class="wrap">
-                    <div class="img">
-                        <img src="/assets/Imagenes/logo-admin.svg">
-                        <div class="bg-black"></div>
-                    </div>
-                    <div class="login-wrap p-4 p-md-5">
-                        <div class="d-flex">
-                            <div class="w-100">
-                                <h3 class="mb-4  ">Panel Administrativo</h3>
-                            </div>
-                                    <div class="w-100">
-                                        <p class="social-media d-flex justify-content-end">
-                                            <a href="https://sanjeronimo.com.mx/" target="_blank" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-globe"></span></a>
-                                        </p>
-                                    </div>
-                        </div>
-                    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="signin-form">
-                        <div class="form-group mt-3">
-                            <input 
-                            type="text" 
-                            class="form-control" 
-                            [ngClass]="{ 'is__invalid-input': submitted && f['sUsuario'].errors }"
-                            formControlName="sUsuario"
-                            >
-                            <label class="form-control-placeholder" for="username">Usuario</label>
-                        </div>
-                        <div *ngIf="submitted && f['sUsuario'].errors" class="is__invalid-error">
-                            <div *ngIf="f['sUsuario'].errors['required']">*Este campo es obligatorio</div>
-                        </div>
-                        <div class="form-group" style="margin-top: 40px !important;">
-                        <input 
-                            id="sContra" 
-                            [type]="passwordTextType ? 'text' : 'password'"
-                            [ngClass]="{ 'is__invalid-input': submitted && f['sContra'].errors }"
-                            class="form-control p-normal"
-                            formControlName="sContra" />
-                            <label class="form-control-placeholder" for="sContra">Contraseña</label>
-                            <span
-                                (click)="togglePasswordTextType()">
-                                <i
-                                    class="h-5 w-5"
-                                    [class]="
-                                    !passwordTextType
-                                        ? 'fa fa-fw fa-eye field-icon toggle-password'  
-                                        : 'fa fa-fw fa-eye-slash field-icon toggle-password'
-                                    "
-                                ></i>
-                            </span>                                
-                        </div>
-                        <div *ngIf="submitted && f['sContra'].errors" class="is__invalid-error">
-                            <div *ngIf="f['sContra'].errors['required']">*Este campo es obligatorio</div>
-                        </div>                
-                        <div class="form-group mt-4">
-                            <button type="submit" class="form-control btn btn-primary rounded submit px-3">Iniciar sesión</button>
-                        </div>
-                        <div class="form-group d-md-flex">
-                            <div class="w-50 text-left">
-                                <label class="checkbox-wrap checkbox-primary mb-0">Recuerda me
-                                    <input type="checkbox" checked>
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group" *ngIf="alertError.show">
-                            <div class="alert alert-secondary" role="alert">
-                                {{alertError.message}}
-                            </div>
-                        </div>
-                      </form>
-                </div>
-              </div>
+<section class="container-fluid section-login d-flex flex-column justify-content-center align-items-center px-0 py-0 mx-0 my-0">
+    <div class="row">
+        <div class="col-3 text-center">
+            <img src="./assets/Imagenes/Empresas/Ziba/logo_dos.png" width="150">
         </div>
     </div>
-</div>
+    <div class="card py-3">
+        <div class="card-body p-4">
+            <div class="text-center mt-2">
+                <h5 class="text-primary">Bienvenido !</h5>
+                <p class="text-muted">Inicia sesión al panel admin.</p>
+            </div>
+            <div class="p-2 mt-4">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <div class="mb-3">
+                        <label class="form-label" for="user">Usuario</label>
+                        <input type="text" class="form-control " name="email" value="" id="user" placeholder="Ingresa tu usuario" 
+                        formControlName="sUsuario" >
+                    </div>
+                    <div class="mb-2">                        
+                        <label class="form-label" for="sContra">Contraseña</label>
+                        <div class="input-group">
+                            <input id="sContra" placeholder="Ingresa tu contraseña"
+                            [type]="passwordTextType ? 'text' : 'password'"
+                            class="form-control p-normal"
+                            formControlName="sContra" >
+                            <button class="btn btn-outline-secondary" class="btn-eye" type="button" (click)="togglePasswordTextType()">
+                                <i id="icon" [class]="!passwordTextType ? 'fa fa-fw fa-eye' : 'fa fa-fw fa-eye-slash'"></i>
+                            </button>
+                        </div> 
+                    </div>
+                    <div class="my-0 py-0">
+                        <small class="text-muted cp">Olvidaste tu contraseña?</small>
+                    </div>
+                    <div class="form-check d-flex justify-content-end align-items-center">
+                        <input type="checkbox" class="form-check-input mr-1" id="auth-remember-check" name="remember">
+                        <label class="form-check-label" for="auth-remember-check">Recuerda me</label>
+                    </div>
+                    @if(alertError.show){
+                        <small class="alert-dir d-flex justify-content-center w-100">{{ alertError.message }}</small>
+                    }
+                    
+                    <div class="mt-3 text-end">
+                        @if(loading) {
+                            <button id="btn-loading" class="btn btn-primary w-sm waves-effect waves-light">
+                                <i class="fa fa-check d-none" aria-hidden="true"></i>
+                                <div class="spinner-border text-light" role="status"></div>
+                                <div class="loading-text">Entrando</div>
+                            </button>
+                        }@else {
+                            <button type="submit" class="btn btn-primary w-sm waves-effect waves-light">Entrar</button>
+                        }                 
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="my-3 text-center">
+        <p>© {{ date }} Ziba Cotizaciones
+    </div>
 </section>

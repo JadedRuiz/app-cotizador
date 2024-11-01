@@ -1,209 +1,98 @@
 body {
-    background: #f8f9fd;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 14.4px;
+    font-weight: 300;
+    font-style: normal; 
 }
-h3 {
-    font-weight: bold;
-    font-size: 17px;
-    line-height: 1.2;
+.section-login {
+    min-height: 100vh;
+    height: auto;
+    max-height: 100vh;
+    background-color: #50646546 !important;
 }
-.ftco-section {
-    padding: 7em 0; 
+.card {
+    width: 400px;
 }
-.wrap {
-    width: 100%;
-    overflow: hidden;
-    background: #fff;
-    border-radius: 5px;
-    -webkit-box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
-    -moz-box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
-    box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24); 
+.text-primary {
+    color: #162121 !important;
 }
-.wrap .img {
+.btn-primary {
+    color: #fff !important;
+    background-color: #162121 !important;
+    border-color: #162121 !important;
+}
+.btn-primary:hover {
+    color: #fff !important;
+    background-color: #506465 !important;
+    border-color: #506465 !important;
+}
+.w-sm {
+    min-width: 95px;
+}
+.waves-effect {
     position: relative;
-    width: 100%;
-    height: 200px;
-    background-color: #0E888E;
-    padding-top: 5px;
-    text-align: center;
-}
-.bg-black {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    height: 100%;
-    width: 100%;
-    background-color: #000;
-    opacity: .1;
-}
-.img img {
-    height: 190px;
-}
-.social-media {
-    position: relative;
-    width: 100%; 
-}
-.social-media .social-icon {
-    display: block;
-    width: 40px;
-    height: 40px;
-    background: transparent;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    font-size: 16px;
-    margin-right: 5px;
-    border-radius: 50%; 
-    text-decoration: none;
-}
-.social-media .social-icon span {
-    color: #999999; 
-}
-.social-media .social-icon:hover, .social-media .social-icon:focus {
-    background: #0E888E; 
-}
-.social-media .social-icon:hover span, .social-media .social-icon:focus span {
-    color: #fff; 
-}
-.checkbox-wrap {
-    display: block;
-    position: relative;
-    padding-left: 30px;
-    margin-bottom: 12px;
     cursor: pointer;
-    font-size: 15px;
-    font-weight: 500;
+    display: inline-block;
+    overflow: hidden;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none; 
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
-.checkbox-wrap input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0; 
+a {
+    text-decoration: none !important;
 }
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0; 
-}
-.checkmark:after {
-    content: "\f0c8";
-    font-family: "FontAwesome";
-    position: absolute;
-    color: rgba(0, 0, 0, 0.1);
-    font-size: 20px;
-    margin-top: -4px;
-    -webkit-transition: 0.3s;
-    -o-transition: 0.3s;
-    transition: 0.3s; 
-}    
-.checkbox-wrap input:checked ~ .checkmark:after {
-    display: block;
-    content: "\f14a";
-    font-family: "FontAwesome";
-    color: rgba(0, 0, 0, 0.2); 
-}
-.checkbox-primary {
-    color: #0E888E; 
-}
-.checkbox-primary input:checked ~ .checkmark:after {
-    color: #0E888E; 
-}
-.form-group {
-    position: relative;
-    z-index: 0;
-}
-.form-control:disabled, .form-control[readonly] {
-    background-color: #e9ecef;
-    opacity: 1; 
-}
-.form-control {
-    height: 48px;
-    background: #fff;
-    color: #000;
-    font-size: 16px;
-    border-radius: 5px;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    border: 1px solid rgba(0, 0, 0, 0.1); 
-}
-.form-control::-webkit-input-placeholder {
-    /* Chrome/Opera/Safari */
-    color: rgba(0, 0, 0, 0.2) !important; 
-}
-.form-control::-moz-placeholder {
-    /* Firefox 19+ */
-    color: rgba(0, 0, 0, 0.2) !important; 
-}
-.form-control:-ms-input-placeholder {
-    /* IE 10+ */
-    color: rgba(0, 0, 0, 0.2) !important; 
-}
-.form-control:-moz-placeholder {
-    /* Firefox 18- */
-    color: rgba(0, 0, 0, 0.2) !important; 
-}
-.form-control:focus, .form-control:active {
+a, button {
     outline: none !important;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    border: 1px solid #0E888E;
 }
-.form-control-placeholder {
-    position: absolute;
-    top: 2px;
-    padding: 7px 0 0 15px;
-    -webkit-transition: all 400ms;
-    -o-transition: all 400ms;
-    transition: all 400ms;
-    opacity: .6; 
-}  
-.form-control:focus + .form-control-placeholder,
-.form-control:valid + .form-control-placeholder {
-    -webkit-transform: translate3d(0, -120%, 0);
-    transform: translate3d(0, -120%, 0);
-    padding: 7px 0 0 0;
-    opacity: 1;
-    text-transform: uppercase;
-    font-size: 12px;
-    letter-spacing: 1px;
-    color: #0E888E;
-    font-weight: 700; 
+label {
+    font-weight: 500;
 }
-.btn {
-    cursor: pointer;
-    -webkit-box-shadow: none !important;
-    box-shadow: none !important;
-    font-size: 15px;
-    padding: 10px 20px; 
+.alert-dir {
+    text-align: start;
+    width: 90%;
+    color: #506465;
+    font-size: 11px;
+    font-weight: bold !important;
 }
-.btn:hover, .btn:active, .btn:focus {
-    outline: none; 
+#btn-loading {
+    display: inline-flex;
+    align-items: center;
+    background-color: #636668 !important;
+    border-color: #636668 !important;
+    cursor: auto;
 }
-.btn.btn-primary {
-    background: #0E888E !important;
-    border: 1px solid #0E888E !important;
-    color: #fff !important; 
+#btn-loading .spinner-border {
+    height: 20px;
+    width: 20px;
 }
-.btn.btn-primary:hover {
-    border: 1px solid #0E888E;
-    background: transparent;
-    color: #0E888E; 
+.loading-text {
+    margin-left: 5px;
 }
-.field-icon {
-    position: absolute;
-    top: 50%;
-    right: 15px;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    color: rgba(0, 0, 0, 0.3); 
+#sContra {
+    border-right: 0px;
 }
-@media (prefers-reduced-motion: reduce) {
-    .checkmark:after {
-        -webkit-transition: none;
-        -o-transition: none;
-        transition: none; 
-    } 
+.btn-eye {    
+    border-right: 1px #dee2e6 solid !important;
+    border-top: 1px #dee2e6 solid !important;
+    border-bottom: 1px #dee2e6 solid !important;
+    border-left: 0px !important;
+    border-top-right-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-radius: 0.375rem;
+    background-color: white;
+}
+.btn-eye #icon {
+    color: #162121;
+}
+@media only screen and (max-width: 575px){
+    .card {
+        width: 98% !important;
+    }
+    .logo-img {
+        width: 300px;
+    }
 }

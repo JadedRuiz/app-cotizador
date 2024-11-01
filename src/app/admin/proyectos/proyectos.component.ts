@@ -3,7 +3,7 @@ import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbCollapse, NgbCollapseModule, NgbDropdownModule, NgbModal, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { RxFormBuilder, RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import $ from 'jquery';
+import $, { error } from 'jquery';
 import { Etapa } from '../../core/models/etapa.model';
 import { NgIf } from '@angular/common';
 import { Plazo } from '../../core/models/plazo.model';

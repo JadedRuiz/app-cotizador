@@ -1,198 +1,31 @@
-<div class="row h-100 position-relative">
-    <div class="col-lg-4 col-sm-12 box-content">
-        <div class="d-flex flex-column w-100">
-            <p class="box-title p-normal my-0">Etapas</p>
-            <div class="box-header d-flex justify-content-between mt-2">
-                <input type="search" class="form-control" placeholder="Buscar Etapa">
-                <button (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"><i class="fa fa-plus" aria-hidden="true"></i></button>
-            </div>
-            <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="formEtapa">
-                <div class="card w-100 mt-2">
-                    <form class="row mx-0 px-0 positio-relative" [formGroup]="formEtapa" (ngSubmit)="nuevaEtapa()">
-                        <a class="cp formClose" (click)="collapse.toggle()"><i class="fa fa-times-circle" aria-hidden="true"></i></a>                        
-                        <div class="col-12 title-form p-normal mb-2 d-flex justify-content-between align-items-center">
-                            Añadir Etapa
-                            <label class="switch mx-3">
-                                <input type="checkbox" formControlName="bActivo">
-                                <span class="slider round" [class]="formEtapa.controls['bActivo'].value ? 'text-start' : 'text-end'">
-                                    {{formEtapa.controls['bActivo'].value ? 'Activo' : 'Oculto'}}
-                                </span>
-                            </label>            
-                        </div>
-                        <div class="form-group col-lg-7 col-sm-12">
-                            <label for="sEtapa">Etapa</label>
-                            <input formControlName="sEtapa" type="text" class="form-control" id="sEtapa" placeholder="Ingrese el nombre">
-                            <div *ngIf="submitted && formEtapa.controls['sEtapa'].errors" class="is__invalid-error">
-                                <div *ngIf="formEtapa.controls['sEtapa'].errors['required']">*Este campo es obligatorio</div>
-                            </div>
-                        </div>
-                        <div class="form-group col-lg-5 col-sm-12">
-                            <label for="iEtapa">No. Etapa</label>
-                            <input formControlName="iEtapa" type="number" class="form-control" id="iEtapa" placeholder="Ingrese el número">
-                            <div *ngIf="submitted && formEtapa.controls['iEtapa'].errors" class="is__invalid-error">
-                                <div *ngIf="formEtapa.controls['iEtapa'].errors['required']">*Este campo es obligatorio</div>
-                            </div>
-                        </div>
-                        <div class="form-group col-12 mt-3">
-                            <label for="exampleInputEmail1">Subir SVG</label>
-                            <input type="file" class="form-control" accept=".svg">
-                            <small class="text-warning">*Importante: Ajunta el SVG brindado por los desarrolladores*</small>
-                        </div>
-                        <div class="btnNuevo d-flex justify-content-end mt-2">
-                            <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o" aria-hidden="true"></i> &nbsp;Guardar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="etapas-body mt-2">
-                @if(arrayEtapas.length == 0) {
-                    <ul class="list-group sinEtapas">
-                        <li class="list-group-item p-normal text-center">Aún no se han agregado etapas</li>
-                    </ul>
-                }
-                @for(etapa of arrayEtapas; track etapa) {
-                    <div class="card m-card w-100 mb-2 cp" [class]="etapa.bActive ? 'c-active' : ''">
-                        <div class="m-card-header d-flex justify-content-between align-items-center">
-                            <p class="title-form py-0 my-0"><i class="fa fa-circle" aria-hidden="true"></i> &nbsp; {{etapa.sEtapa}}</p>
-                            <div class="options d-flex">
-                                <span class="badge disponible">Activo</span>
-                                <!-- <label class="switch mx-3">
-                                    <input type="checkbox" [(ngModel)]="etapa.bActivo">
-                                    <span class="slider round" [class]="etapa.bActivo ? 'text-start' : 'text-end'">{{etapa.bActivo ? 'Activo' : 'Oculto'}}</span>
-                                </label> -->
-                                <div ngbDropdown placement="bottom-right">
-                                    <a type="button" ngbDropdownToggle class="btn-menu">
-                                        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                    </a>
-                                    <div ngbDropdownMenu>
-                                        <button ngbDropdownItem (click)="editar(etapa)"><i class="fa fa-pencil" aria-hidden="true"></i> &nbsp; Editar</button>
-                                        <button ngbDropdownItem><i class="fa fa-trash-o" aria-hidden="true"></i> &nbsp; Eliminar</button>
-                                    </div>
-                                </div>
-                            </div>                            
-                        </div>
-                        <div class="m-card-body d-flex justify-content-between align-items-center mt-2">
-                            <div class="d-flex flex-column">
-                                <p class="mb-0 p-normal"><strong>{{etapa.iTotalLotes}}</strong> Lotes</p>
-                            </div>
-                            <img [src]="etapa.sSvg" class="img-fluid rounded" width="50">                            
-                        </div>
-                    </div>
-                }             
+<div class="card-body">
+    <h4 class="card-title">Proyecto Zibá</h4>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <p class="card-title-desc">En este módulo podras administrar los módulos de tu proyecto.</p>
+        <!-- <button class="btn btn-sm btn-success btnAdd" style="padding-bottom: 0px;">
+          <span class="mdi--truck-plus"></span>
+        </button> -->
+    </div>
+    <div class="row">
+        <div class="form-group col-lg-3 col-sm-12">
+            <label for="proyectos" class="label-title">Seleccione el edificio</label>
+            <select class="form-select" id="proyectos">
+                <option selected value="0">No se ha seleccionado un edificio</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <label for="etapas">Etapas</label>
+        <div class="col-12">
+            <div class="card">
+                
             </div>
         </div>
     </div>
-    <div class="col-lg-8 col-sm-12 box-content-two">
-        <div class="d-flex flex-column col-lg-5 col-sm-12 ">
-            <p class="box-title p-normal my-0">{{etapa.sEtapa != undefined ? etapa.sEtapa+' - LOTES' : '*AGREGUE UNA NUEVA ETAPA*'}}</p>
-            <div class="box-header d-flex flex-column mt-2">
-                <div class="d-flex justify-content-between">
-                    <input type="text" class="form-control searchLotes" placeholder="Buscar Número de Lote" [(ngModel)]="filtros.sSearch">
-                    <button (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" class="d-none"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                </div>
-                <div class="d-flex justify-content-start align-items-end mt-1 px-1">
-                    <div class="filter-select">
-                        <label for="fStatus" class="form-label">Estatus</label>
-                        <select class="form-select" id="fStatus" [(ngModel)]="filtros.iStatus">
-                            <option value="0">Todos</option>
-                            <option value="1">Disponibles</option>
-                            <option value="2">Apartados</option>
-                            <option value="3">Vendidos</option>
-                        </select>
-                    </div>
-                    <div class="filter-select">
-                        <label for="fLotes" class="form-label">Lotes</label>
-                        <select class="form-select filter-select" id="fLotes" [(ngModel)]="filtros.iLote">
-                            <option value="0">Todos</option>
-                            <option value="1">Interesados</option>
-                        </select>
-                    </div>
-                    <button class="btn btn-sm btn-search" placement="top" ngbTooltip="Realizar busqueda" container="body" (click)="aplicarFiltros()">
-                        <i class="fa fa-search" aria-hidden="true"></i>
-                    </button>                  
-                    <button class="btn btn-sm btn-r-search" placement="top" ngbTooltip="Limpiar filtros" container="body" (click)="limpiarFiltros()">
-                        <i class="fa fa-eraser" aria-hidden="true"></i>
-                    </button>
-                </div> 
-            </div>
-            <div class="box-lotes mt-2">
-                @if(arrayLotes.length == 0) {
-                    <ul class="list-group sinEtapas">
-                        <li class="list-group-item p-normal text-center">Aún no se han agregado lotes</li>
-                    </ul>
-                } @else {
-                    @for(lote_row of arrayLotes; track $index;) {
-                        <div class="card m-card-lote w-100 mb-2 cp" (click)="editarLote(lote_row)">
-                            <input type="hidden" id="sLote" value="{{ lote_row.sLote }}">
-                            <input type="hidden" id="iStatus" value="{{ lote_row.iStatus }}">
-                            <input type="hidden" id="iLote" value="{{ lote_row.iNotificacion > 0 ? 1 : 0 }}">
-                            <div class="m-card-header d-flex justify-content-between align-items-center py-0">
-                                <p class="title-form py-0 my-0 d-flex align-items-center">
-                                    <i class="fa fa-caret-down" aria-hidden="true"></i> &nbsp; {{lote_row.sLote}}                                    
-                                </p>
-                                <div class="options d-flex align-items-center">
-                                    @if(lote_row.iStatus == 1) { 
-                                        <span class="badge disponible"><i class="fa fa-circle text-white" aria-hidden="true"></i> Disponible</span>
-                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 2, $event)" class="fa fa-circle i-apartado mx-1" aria-hidden="true" placement="top" ngbTooltip="Apartado" container="body"></i>
-                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 3, $event)" class="fa fa-circle i-vendido mx-1" aria-hidden="true" placement="top" ngbTooltip="Vendido" container="body"></i>
-                                     }
-                                    @if(lote_row.iStatus == 2) {
-                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 1, $event)" class="fa fa-circle i-disponible" aria-hidden="true" placement="top" ngbTooltip="Disponible" container="body"></i> 
-                                        <span class="badge apartado mx-1"><i class="fa fa-circle text-white" aria-hidden="true"></i> Apartado</span>
-                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 3, $event)" class="fa fa-circle i-vendido" aria-hidden="true" placement="top" ngbTooltip="Vendido" container="body"></i>
-                                     }
-                                    @if(lote_row.iStatus == 3) { 
-                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 1, $event)" class="fa fa-circle i-disponible" aria-hidden="true" placement="top" ngbTooltip="Disponible" container="body"></i>
-                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 2, $event)" class="fa fa-circle i-apartado mx-1" aria-hidden="true" placement="top" ngbTooltip="Apartado" container="body"></i>
-                                        <span class="badge vendido"><i class="fa fa-circle text-white" aria-hidden="true"></i> Vendido</span>
-                                     }
-                                    <a class="btn-lote-close cp mx-2" placement="top" ngbTooltip="Eliminar lote" container="body">
-                                        <i class="fa fa-times" aria-hidden="true"></i>
-                                    </a>
-                                </div>                            
-                            </div>
-                            <div class="subtitle d-flex align-items-center justify-content-between">
-                                <small class="subtitle-card">Tipo: {{lote_row.sTipoLote}}</small>
-                                @if(lote_row.iNotificacion > 0) {
-                                    <div class="div notify" placement="top" ngbTooltip="Interesados" container="body" (click)="open($event, lote_row.iIdLote)">
-                                        <span>
-                                            {{ lote_row.iNotificacion > 99 ? '99+' : lote_row.iNotificacion }}
-                                        </span>
-                                        <i class="fa fa-bell position-relative" aria-hidden="true">
-                                            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
-                                            </span>
-                                        </i>
-                                    </div>                                        
-                                }
-                            </div>
-                            <div class="d-flex justify-content-between mt-1">
-                                <p class="py-0 my-0 p-normal financiamiento">Financiamiento:</p>
-                                <i class="fa fa-picture-o" aria-hidden="true" style="color: #69727D;"></i>
-                            </div>                   
-                            
-                            <div class="cotizacion d-flex align-items-center">
-                                <select [(ngModel)]="lote_row.iIdPlazo">
-                                    <option class="p-normal" selected value="0">CONTADO</option>
-                                    @for(plazo of arrayPlazos; track plazo) {
-                                        <option class="p-normal" [value]="plazo.iIdPlazo">{{plazo.sPlazo.toUpperCase()}}</option>
-                                    }
-                                </select>
-                                <input type="number" [class]="lote_row.iIdPlazo == 0 ? 'inp-disabled mx-2' : 'mx-2'" [(ngModel)]="lote_row.iEnganche" [disabled]="lote_row.iIdPlazo == 0 ? true : false">
-                                <button class="btn btn-primary text-white" placement="top" ngbTooltip="Descargar" container="body" (click)="generarCotizacion('.alert-lote-'+lote_row.iLote, lote_row, $index, $event)"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
-                            </div>                            
-                            <small class="text-warning alert-lote-{{lote_row.iLote}} d-none alert-error"></small>
-                            <strong class="precio p-normal text-end">{{ lote_row.iPrecioTotal | currency: '$ '}}</strong>
-                        </div>
-                    }
-                }
-            </div>
-        </div>
-        <div class="col-lg-7 col-sm-12 px-3">
-            <p class="box-title p-normal my-0">AGREGA O EDITA INFORMACIÓN</p>
-            <app-form-lote></app-form-lote>
-            <!-- <app-form-plazo></app-form-plazo>        -->
-        </div>
-    </div>
+</div>
+
+<!-- <div class="row h-100 position-relative">
+    
     @if(loading) {
         <div class="pantalla-loading">
             Cargando lotes, espere un momento..
@@ -201,4 +34,4 @@
             </div>
         </div>
     }
-</div>
+</div> -->

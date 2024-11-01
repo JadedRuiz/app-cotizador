@@ -10,7 +10,7 @@ export const routes: Routes = [
         component: CotizadorComponent
     },
     {
-        path: 'adm1n',
+        path: 'login',
         canActivate: [unloggedGuard],
         component: LoginComponent
     },

@@ -22,8 +22,9 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent {
   form!: FormGroup;
-  submitted = false;
+  loading = false;
   passwordTextType!: boolean;
+  date= new Date().getFullYear();
   alertError = {
     message: '',
     show: false
@@ -39,20 +40,13 @@ export class LoginComponent {
     this.form = this._formBuilder.formGroup(Auth);
   }
 
-  get f() {
-    return this.form.controls;
-  }
-
   togglePasswordTextType() {
     this.passwordTextType = !this.passwordTextType;
   }
 
   onSubmit() {
-    this.submitted = true;
-    // Validar formulario
-    if (this.form.invalid) {
-      return;
-    }
+    this.alertError.show = false;
+    this.loading = true;
     //Service login
     this._usrService.login(this.form.value)
     .subscribe((resp : any) => {
@@ -60,9 +54,18 @@ export class LoginComponent {
         localStorage.setItem("token",resp.data);
         this._router.navigate(["/panel/proyectos"]);
       }else{
-        Swal.fire("Ocurrio un problema",resp.data,"warning");
+        this.loading = false;
+        this.alertError = {
+          show: true,
+          message: resp.data
+        };
       }
+    }, (error) => {
+      this.loading = false;
+      this.alertError = {
+        show: true,
+        message: error.error.message
+      };
     });
-    
   }
 }

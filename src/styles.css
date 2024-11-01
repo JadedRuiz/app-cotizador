@@ -25,10 +25,10 @@
     src: url('./assets/fonts/MarkaziText-Medium.ttf');
 }
 body {
-    font-family: "Marzaki", sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
     font-style: sans-serif;
-    font-size: 17px;
+    font-size: 15px;
 }
 .cp {
     cursor: pointer;

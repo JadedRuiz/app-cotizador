@@ -1,57 +1,26 @@
 <div class="page-wrapper chiller-theme" [class]="bSidebar ? 'toggled' : ''">
-    <a id="show-sidebar" class="btn btn-sm btn-dark" (click)="bSidebar=!bSidebar">
-      <i class="fa fa-bars"></i>
-    </a>
     <nav id="sidebar" class="sidebar-wrapper">
       <div class="sidebar-content">
         <div class="bg-dark"></div>
         <div class="sidebar-brand">
-          <a href="#">Panel Admin.</a>
-          <div id="close-sidebar" (click)="bSidebar=!bSidebar">
-            <i class="fa fa-times"></i>
-          </div>
+          <a class="cp">{{ currentTime }} </a>
+          @if(bShowMenu) {
+            <div id="close-sidebar" (click)="toggleSidebar()">
+              <i class="fa fa-bars"></i>
+            </div>
+          }          
         </div>
         <div class="sidebar-header">
           <div class="user-pic">
-            <img class="img-responsive img-rounded" src="/assets/Imagenes/logo-white.svg"
+            <img class="" src="./assets/Imagenes/Empresas/Ziba/isotipo.png"
               alt="User picture">
           </div>
-          <!-- <div class="user-info">
-            <span class="user-name">Jhon
-              <strong>Smith</strong>
-            </span>
-            <span class="user-role">Administrator</span>
-            <span class="user-status">
-              <i class="fa fa-circle"></i>
-              <span>Online</span>
-            </span>
-          </div> -->
         </div>
-        <!-- sidebar-header  -->
-        <!-- <div class="sidebar-search">
-          <div>
-            <div class="input-group">
-              <input type="text" class="form-control search-menu" placeholder="Search...">
-              <div class="input-group-append">
-                <span class="input-group-text">
-                  <i class="fa fa-search" aria-hidden="true"></i>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div> -->
         <!-- sidebar-search  -->
         <div class="sidebar-menu">
           <ul>
             <li class="header-menu">
               <span>General</span>
-            </li>
-            <li>
-              <a href="#">
-                <i class="fa fa-tachometer" aria-hidden="true"></i>
-                <span>Dashboard</span>
-                <!-- <span class="badge badge-warning">En desarrollo</span> -->
-              </a>
             </li>
             <!-- <li class="sidebar-dropdown">
               <a href="#">
@@ -75,16 +44,10 @@
                 </ul>
               </div>
             </li> -->
-            <!-- <li>
-              <a href="#">
-                <i class="fa fa-address-card" aria-hidden="true"></i>
-                <span>Interesados</span>
-              </a>
-            </li> -->
             <li>
               <a href="#">
                 <i class="fa fa-tasks" aria-hidden="true"></i>
-                <span>Mis proyectos</span>
+                <span>Mi proyecto</span>
               </a>
             </li>
           </ul>
@@ -93,28 +56,59 @@
       </div>
       <!-- sidebar-content  -->
       <div class="sidebar-footer">
-        <!-- <a href="#">
-          <i class="fa fa-bell"></i>
-          <span class="badge badge-pill badge-warning notification">3</span>
-        </a>
-        <a href="#">
-          <i class="fa fa-envelope"></i>
-          <span class="badge badge-pill badge-success notification">7</span>
-        </a>
-        <a href="#">
-          <i class="fa fa-cog"></i>
-          <span class="badge-sonar"></span>
-        </a> -->
         <a style="cursor: pointer;" (click)="logOut()">
           <i class="fa fa-power-off"></i>
         </a>
       </div>
     </nav>
     <!-- sidebar-wrapper  -->
-    <main class="page-content" style="max-height: 99%; height: 99%;">
+    <!-- <main class="page-content" style="max-height: 99%; height: 99%;">
       <div class="container-fluid h-100 py-1">
         <router-outlet />
       </div>
-    </main>
+    </main> -->
     <!-- page-content" -->
+     <main class="container-fluid bg-contenido px-0">
+      <nav class="navbar navbar-expand-lg border-bottom" style="background-color: white !important;">
+        <!-- Container wrapper -->
+        <div class="container justify-content-center justify-content-md-between">
+          <!-- Left links -->
+          <ul class="navbar-nav flex-row">
+            <li class="navbar-item me-2 me-lg-0">
+              <a class="cp nav-link" (click)="toggleSidebar()">
+                <i class="fa fa-bars" style="font-size: 20px;"></i>
+              </a>
+            </li>
+            <li class="nav-item me-2 me-lg-0 d-none d-md-inline-block">
+              <a class="nav-link" href="#">PANEL ADMIN. ZIBÁ</a>
+            </li>
+          </ul>
+          <!-- Left links -->
+          <!-- <div class="data-user d-flex align-items-center">
+            <img src="" class="rounded" height="40" width="40">
+            <p>Nobre del usuario</p>
+          </div> -->
+          
+        </div>
+        <!-- Container wrapper -->
+      </nav>
+      <div class="section container">
+        <div class="page-title-box d-flex align-items-center justify-content-between">
+          <h4 class="mt-4 mx-0">Mi Proyecto</h4>
+          <div class="page-title-right">
+              <ol class="breadcrumb m-0">
+                  <li class="breadcrumb-item">Panel Admin.</li>
+                  <li class="breadcrumb-item active">Mi Proyecto</li>
+              </ol>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+              <div class="card">
+                <router-outlet/>
+              </div>
+          </div>
+        </div>
+      </div>
+     </main>
   </div>
