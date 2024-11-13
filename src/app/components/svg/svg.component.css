@@ -19,6 +19,10 @@
 .p-vendido {
     fill: #FF5733 !important;
 }
+.p-active {
+    fill: rgba(150, 229, 243, 0.703) !important;
+    cursor: pointer;
+}
 /* Base styling*/
 body {
     background-color: lightgrey;

@@ -15,16 +15,6 @@ export class CotizadorService {
   public SERVER_API = environment.API_URL;
   public iIdProyecto= environment.iIdProyecto;
 
-  obtenerEtapas(){
-    let url = this.SERVER_API+"getEtapas/"+this.iIdProyecto;
-    return this.http.get( url )
-      .pipe(map( (resp: any) => {
-        return resp;
-      }), catchError(err => {
-        return throwError(err);
-      }));
-  }
-
   obtenerPlazosPorLote(iIdLote : number) {
     let url = this.SERVER_API+"cotizador/obtenerPlazosPorLote/"+iIdLote;
     return this.http.get( url )

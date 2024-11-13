@@ -10,6 +10,7 @@ import { CotizadorService } from '../../core/services/cotizador.service';
 import Swal from 'sweetalert2';
 import $ from 'jquery';
 import { LoteService } from '../../core/services/lote.service';
+import { EtapaService } from '../../core/services/etapa.service';
 
 @Component({
   selector: 'app-mapa',
@@ -56,6 +57,7 @@ export class MapaComponent {
     private modalService: NgbModal, 
     private _formBuilder: FormBuilder,
     private _servCotizador: CotizadorService,
+    private _etapaService: EtapaService,
     private _loteService: LoteService,
   ) {}
 
@@ -70,13 +72,11 @@ export class MapaComponent {
   }
 
    cargaInicial() {
-    this._servCotizador.obtenerEtapas()
+    this._etapaService.obtenerEtapas()
     .subscribe((resp: any) => {
       if(resp.ok){
-        this.arrayEtapas = resp.data;
-        this.etapaSeleccionada = resp.data[0];
+        this._etapaService.arrayEtapas$.next(resp.data);
         this.iMinEnganche = resp.data[0].iMinEnganche;
-        this.obtenerLotesPorEtapa(resp.data[0].iIdEtapa);
       }
     });
   }

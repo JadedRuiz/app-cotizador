@@ -1,13 +1,13 @@
 <div class="section-mapa w-100">
     <div class="cuadro">
-        <ul class="nav nav-tabs">
+        <!-- <ul class="nav nav-tabs">
             @for(etapa of arrayEtapas; track etapa) {
                 <li class="nav-item p-normal">
                     <a class="nav-link active">{{etapa.sEtapa}}</a>
                 </li>
             }            
         </ul>
-        <div class="etapas"></div>
+        <div class="etapas"></div> -->
         <div class="svg">
             <app-svg (click)="abrirModal($event)" (mouseover)="mostrarDetalle($event)" (mouseleave)="esconderDetalle($event)"></app-svg>
             <div class="details" *ngIf="lote">
