@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Lote } from '../models/lote.model';
 
@@ -27,7 +27,7 @@ export class LoteService {
         }));
     }
 
-    getLotesPorEtapaId(iIdEtapa : number) {
+    getLotesPorEtapaId(iIdEtapa : number): Observable<any> {
         let url = this.SERVER_API+"cotizador/lote/getLotesPorEtapaId/"+iIdEtapa;
         return this._http.get( url )
           .pipe(map( (resp: any) => {

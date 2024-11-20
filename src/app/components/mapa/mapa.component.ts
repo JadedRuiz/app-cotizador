@@ -32,17 +32,19 @@ export class MapaComponent {
   cotizacion= new Cotizacion();
   lote : any;
   submitted = false;
-  bCotizacion=false;
+  bCotizacion=true;
   form!: FormGroup;
   @ViewChild('cotizadorModal') _modal: any;
   precioM2=0;
   precioTotal= 0;
-  precioTotalCotizado= 0;
+  precioFinanciado= 0;
+  precioContraEntrega=0;
   precioEnganche=0;
   precioMensualidad=0;
   arrayEtapas: any;
   arrayLotes: any;
   iMinEnganche = 0;
+  iEnganche=0;
   plazoSeleccionado : any;
   etapaSeleccionada: any = {
     "iEtapa": 0
@@ -58,7 +60,6 @@ export class MapaComponent {
     private _formBuilder: FormBuilder,
     private _servCotizador: CotizadorService,
     private _etapaService: EtapaService,
-    private _loteService: LoteService,
   ) {}
 
   ngOnInit(): void {
@@ -69,6 +70,7 @@ export class MapaComponent {
       sCiudad: ['', [Validators.required]]
     });
     this.cargaInicial();
+    this.actualizarLotes();
   }
 
    cargaInicial() {
@@ -76,18 +78,16 @@ export class MapaComponent {
     .subscribe((resp: any) => {
       if(resp.ok){
         this._etapaService.arrayEtapas$.next(resp.data);
+        this.arrayEtapas = resp.data;
+        this.etapaSeleccionada = resp.data[0];
         this.iMinEnganche = resp.data[0].iMinEnganche;
       }
     });
   }
 
-  obtenerLotesPorEtapa(iIdEtapa: number){
-    this._loteService.getLotesPorEtapaId(iIdEtapa)
-    .subscribe((resp : any) => {
-      if(resp.ok) {
-        this.arrayLotes = resp.data;
-        this._servCotizador.arrayLotes$.next(this.arrayLotes);
-      }
+  actualizarLotes() {
+    this._servCotizador.arrayLotes$.subscribe((data : any) => {
+      this.arrayLotes = data;
     })
   }
 
@@ -113,8 +113,8 @@ export class MapaComponent {
     };
     this.cotizacion = this.form.value;
     this.cotizacion.iIdLote = parseInt(this.lote.iIdLote+"");
-    this.cotizacion.iIdPlazo=0;
-    this.cotizacion.iEnganche=100;
+    this.cotizacion.iIdPlazo=6;
+    this.cotizacion.iEnganche=this.iEnganche;
     if(this.plazoSeleccionado != undefined) {
       this.cotizacion.iIdPlazo= this.plazoSeleccionado.iIdPlazo;
       this.cotizacion.iEnganche= this.iMinEnganche;
@@ -161,11 +161,11 @@ export class MapaComponent {
       }
       this.precioM2 = this.lote.iPrecioM2Contado;
       this.precioTotal = this.lote.iSuperficie * this.lote.iPrecioM2Contado;
-      this.precioTotalCotizado = this.lote.iSuperficie * this.lote.iPrecioM2Contado;
+      // this.precioTotalCotizado = this.lote.iSuperficie * this.lote.iPrecioM2Contado;
       this.bCotizacion=false;
   }
 
-  mostrarDetalle(event : any) {
+  mostrarDetalle(event : any) {  
     let sTipoLote= this.recuperarLote(event);
     if(sTipoLote != null) {
       this.lote = this.arrayLotes.find((x: any) => x.sTipoLote == sTipoLote);
@@ -196,7 +196,7 @@ export class MapaComponent {
   calcularCotizacion(plazo : any) {
     let precioM2Interes = this.lote.iPrecioM2Contado + (this.lote.iPrecioM2Contado * (plazo.iInteres / 100));
     this.precioM2 = precioM2Interes;
-    this.precioTotalCotizado= this.lote.iSuperficie * precioM2Interes;
+    // this.precioTotalCotizado= this.lote.iSuperficie * precioM2Interes;
   }
 
   calcularMensualidad() {
@@ -210,13 +210,18 @@ export class MapaComponent {
   }
 
   abrirModal(event : any) {
-    let sTipoLote= this.recuperarLote(event);    
+    let sTipoLote= this.recuperarLote(event);   
+    console.log(sTipoLote); 
     if(sTipoLote != null) {
       this.lote = this.arrayLotes.find((x: any) => x.sTipoLote == sTipoLote);
       if(this.lote.iStatus == 1){
         this.precioM2 = this.lote.iPrecioM2Contado;
         this.precioTotal = this.lote.iSuperficie * this.lote.iPrecioM2Contado;
-        this.precioTotalCotizado = this.lote.iSuperficie * this.lote.iPrecioM2Contado;
+        this.iEnganche = 20;
+        this.precioEnganche = this.precioTotal * (this.iEnganche/100); 
+        this.precioFinanciado = this.precioTotal * (10/100);
+        this.precioMensualidad = this.precioFinanciado / 42;
+        this.precioContraEntrega = this.precioTotal - (this.precioFinanciado + this.precioEnganche);
         this.obtenerPlazosPorEtapa(this.arrayEtapas[0].iIdEtapa);
         this.openModal();
       }      
@@ -225,9 +230,12 @@ export class MapaComponent {
   }
 
   recuperarLote(event : any) {
-    if(event && event.target.localName != "app-svg" && event.target.nextSibling != null) {
-      let arrayString= (event.target.nextSibling.outerHTML).split('>');  
+    if(event && event.target.localName != "app-svg" && event.target.nextElementSibling != null) { 
+      let arrayString= (event.target.nextElementSibling.outerHTML).split('>');  
       let sTipoLote = arrayString[1].replaceAll("</text", "");
+      if(sTipoLote.includes("NIVEL") || sTipoLote.includes("rect")) {
+        return null;
+      }
       return sTipoLote;
     }
     return null;
@@ -239,5 +247,36 @@ export class MapaComponent {
 
   get f() {
     return this.form.controls;
+  }
+
+
+  seleccionarEnganche(iEnganche : any) {
+    if(iEnganche == 1) {
+        this.iMinEnganche = 10;
+        this.iEnganche = 20;
+        this.precioEnganche = this.precioTotal * (20/100); 
+        this.precioFinanciado = this.precioTotal * (10/100);
+        this.precioMensualidad = this.precioFinanciado / 42;
+        this.precioContraEntrega = this.precioTotal - (this.precioFinanciado + this.precioEnganche);
+      return;
+    }
+    if(iEnganche == 2) {
+        this.iMinEnganche = 20;
+        this.iEnganche = 30;
+        this.precioEnganche = this.precioTotal * (30/100); 
+        this.precioFinanciado = this.precioTotal * (20/100);
+        this.precioMensualidad = this.precioFinanciado / 42;
+        this.precioContraEntrega = this.precioTotal - (this.precioFinanciado + this.precioEnganche);
+      return;
+    }
+    if(iEnganche == 3) {
+        this.iMinEnganche = 40;
+        this.iEnganche = 50;
+        this.precioEnganche = this.precioTotal * (50/100); 
+        this.precioFinanciado = this.precioTotal * (40/100);
+        this.precioMensualidad = this.precioFinanciado / 42;
+        this.precioContraEntrega = this.precioTotal - (this.precioFinanciado + this.precioEnganche);
+      return;
+    }
   }
 }

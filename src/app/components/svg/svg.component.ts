@@ -5,6 +5,8 @@ import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClient } from '@angular/common/http';
 import { Etapa } from '../../core/models/etapa.model';
 import { EtapaService } from '../../core/services/etapa.service';
+import { LoteService } from '../../core/services/lote.service';
+import { firstValueFrom } from 'rxjs';
 @Component({
   selector: 'app-svg',
   standalone: true,
@@ -17,6 +19,7 @@ import { EtapaService } from '../../core/services/etapa.service';
 export class SvgComponent {
 
   public arrayEtapas: any;
+  public arrayLotes: any;
   public svg: any;
   @Input() scr: string = './assets/Imagenes/Empresas/Ziba/svgs/fachada.svg';  
   @Input() tipo: number = 1; //Etapas
@@ -27,6 +30,7 @@ export class SvgComponent {
     private _eleRef: ElementRef, 
     private _serCotizador: CotizadorService,
     private _etapaService: EtapaService,
+    private _loteService: LoteService,
   ) {}
 
   ngOnInit() : void {
@@ -38,7 +42,11 @@ export class SvgComponent {
       (svgContent: string) => {
         const container = this._eleRef.nativeElement.querySelector("#svgContainer");
         container.innerHTML = svgContent;
-        this.loadEtapaSvg();
+        if(this.tipo == 1) {
+          this.loadEtapaSvg();
+        }else {
+          this.loadLotesSvg();
+        }
       },
       (error) => {
         console.log("Error cargando el SVG:", error);
@@ -60,12 +68,15 @@ export class SvgComponent {
     });
   }
 
-  abrirEtapa(event: Event) {
-    let sEtapa = this.recuperarEtapa(event)
-    if(sEtapa != null) {
-      let etapa = this.arrayEtapas.find((x : any) => x.sEtapa == sEtapa);
-      console.log(etapa);
-    }
+  abrirAccion(event: Event) {
+    if(this.tipo == 1) {
+      let sEtapa = this.recuperarEtapa(event)
+      if(sEtapa != null) {
+        let etapa = this.arrayEtapas.find((x : any) => x.sEtapa == sEtapa);
+        this.obtenerLotesPorEtapa(etapa);
+        return
+      }
+    }    
   }
 
   recuperarEtapa(event : any) {
@@ -79,37 +90,50 @@ export class SvgComponent {
   }
 
 
-  loadLotesSvg() {
-    this._serCotizador.arrayLotes$.subscribe(lotes => {
-      let nodos = $("#Capa_1").find("text");
-      nodos.each((index : number, value : any) => {
-        let poligono = $(value).prev();
-        let objLote =lotes.find((x : any) => $(value).html().includes(x.sTipoLote));
+  async obtenerLotesPorEtapa(etapa: any) : Promise<void> {
+    try {
+      this.arrayLotes = await firstValueFrom(this._loteService.getLotesPorEtapaId(etapa.iIdEtapa));
+    }catch(err) {
+      console.log(err);
+    }finally {
+      if(this.arrayLotes.ok) {
+        this.arrayLotes = this.arrayLotes.data;
+        this._serCotizador.arrayLotes$.next(this.arrayLotes);
+        this.scr = etapa.sPath;
+        this.tipo = 2;
+        this.loadSvg();
+        return;
+      }
+      
+    }
+    
+  }
 
-        if(objLote) {
-          switch(objLote.iStatus) {
-            //Disponible
-            case 1:
-              $(value).addClass('disponible');
-              $(poligono).addClass('p-disponible');
-              $(poligono).addClass('lote-'+objLote.iLote);
-              // let html = poligono[0].outerHTML;
-              // html= html.replace('><',' [ngbPopover]="popContent" triggers="mouseenter:mouseleave" container="body"><');
-              // poligono[0].outerHTML= html;
-              // $(poligono).html(html);
-              break;
-            case 2:
-              $(value).addClass('no-disponible');
-              $(poligono).addClass('p-apartado');
-              break;
-            case 3:
-              $(value).addClass('mo-disponible');
-              $(poligono).addClass('p-vendido');
-              break;
-          }
+  loadLotesSvg() {
+    let nodos = $("#Capa_1").find("text");
+    nodos.each((index : number, value : any) => {
+      let poligono = $(value).prev();
+      let objLote = this.arrayLotes.find((x : any) => $(value).html().includes(x.sTipoLote));
+
+      if(objLote) {
+        switch(objLote.iStatus) {
+          //Disponible
+          case 1:
+            $(value).addClass('disponible');
+            $(poligono).addClass('p-disponible');
+            $(poligono).addClass('lote-'+objLote.iLote);
+            break;
+          case 2:
+            $(value).addClass('no-disponible');
+            $(poligono).addClass('p-apartado');
+            break;
+          case 3:
+            $(value).addClass('mo-disponible');
+            $(poligono).addClass('p-vendido');
+            break;
         }
-      });
-    });  
+      }
+    });
   }
 }
 // [ngbPopover]="popContent" triggers="mouseenter:mouseleave" container="body"

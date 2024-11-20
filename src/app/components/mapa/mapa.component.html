@@ -53,30 +53,40 @@
                                             </strong>
                                         </div>
                                     </div>
-                                    <div class="preciom2 d-flex p-normal mt-2">
-                                        <p>Precio por ㎡:</p><strong>{{precioM2 | currency: '$ '}}</strong>
+                                    <div class="precioTotal d-flex p-normal mt-2">
+                                        <p>Monto total:</p><strong>{{precioTotal | currency: '$ '}}</strong>
                                     </div>
-                                    <div class="precioTotal d-flex align-items-end p-normal mt-2">
-                                        <p>Precio Contado:</p><strong>{{precioTotal | currency: '$ '}}</strong>
+                                    <div class="sel-enganche d-flex align-items-center">
+                                        <p class="my-0" style="margin-right: 15px;">Enganche:</p>
+                                        <select #sel (change)="seleccionarEnganche(sel.value)" class="form-select" style="width: 100px;">
+                                            <option class="p-normal" selected value="1">20%</option>
+                                            <option class="p-normal" value="2">30%</option>
+                                            <option class="p-normal" value="3">50%</option>
+                                        </select>
+                                    </div>
+                                    <div class="preciom2 d-flex align-items-end p-normal mt-2">
+                                        <p>Total enganche:</p><strong>{{precioEnganche | currency: '$ '}}</strong>
+                                    </div>
+                                    <div class="preciom2 d-flex align-items-end p-normal mt-2">
+                                        <p>Monto de pago contraentrega:</p><strong>{{precioContraEntrega | currency: '$ '}}</strong>
                                     </div>
                                     <div class="financiamiento p-normal mt-4">
                                         <p>Financiamiento:</p>
                                     </div>
                                     <div class="cotizacion">
                                         <select #sel (change)="seleccionarPlazo(sel.value)">
-                                            <option class="p-normal" selected value="-1">CONTADO</option>
                                             @for(plazo of lote.objPlazos; track plazo) {
-                                                <option class="p-normal" [value]="plazo.iIdPlazo">{{plazo.sPlazo}}</option>
+                                                <option class="p-normal" [value]="plazo.iIdPlazo" selected>{{plazo.sPlazo}}</option>
                                             }
                                         </select>
                                         @if(bCotizacion) {
                                             <div class="info-cotizacion row mx-0 w-100">
                                                 <div class="col-6 enganche">
                                                     <div class="p-enganche d-flex">
-                                                        <p class="p-normal py-0">% de enganche</p>
-                                                        <input type="number" [(ngModel)]="iMinEnganche" (change)="calcularMensualidad()">
+                                                        <p class="p-normal py-0">% de financiamiento</p>
+                                                        <input type="number" [(ngModel)]="iMinEnganche" (change)="calcularMensualidad()" disabled="true">
                                                     </div>
-                                                    <strong>{{precioEnganche | currency: '$ '}}</strong>
+                                                    <strong>{{precioFinanciado | currency: '$ '}}</strong>
                                                 </div>
                                                 <div class="col-6 mensualidad">
                                                     <p class="p-normal">Pago Mensual</p>
