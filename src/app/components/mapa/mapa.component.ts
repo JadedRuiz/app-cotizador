@@ -100,7 +100,70 @@ export class MapaComponent {
     })
   }
   
+  registrarCotizacion() {
+    this.submitted = true;
+    // Validar formulario
+    if (this.form.invalid) {
+      return;
+    }
+    this.buttonEnv= {
+      load: true,
+      disabled: true,
+      texto: "Enviando..."
+    };
+    this.cotizacion = this.form.value;
+    this.cotizacion.iIdLote = parseInt(this.lote.iIdLote+"");
+    this.cotizacion.iIdPlazo=6;
+    this.cotizacion.iEnganche=this.iEnganche;
+    if(this.plazoSeleccionado != undefined) {
+      this.cotizacion.iIdPlazo= this.plazoSeleccionado.iIdPlazo;
+      this.cotizacion.iEnganche= this.iMinEnganche;
+    }
+    this._servCotizador.guardarCotizacion(this.cotizacion)
+    .subscribe((resp: any) => {
+      if(resp.ok) {
+        Swal.fire({
+          icon: "success",
+          title: resp.data,
+          showConfirmButton: false,
+          timer: 3500
+        });
+        this.form.reset();
+        this.submitted=false;
+        this.buttonEnv= {
+          texto: 'Enviar',
+          load: false,
+          disabled: false
+        };
+      }else {
+        this.buttonEnv= {
+          texto: 'Enviar',
+          load: false,
+          disabled: false
+        };
+        Swal.fire({
+          icon: "error",
+          title: resp.data,
+          showConfirmButton: false,
+          timer: 3500
+        });
+      }      
+    });
+  }
 
+  seleccionarPlazo(iIdPlazo : any) {
+      if(iIdPlazo != "-1") {
+        this.plazoSeleccionado = this.lote.objPlazos.find((x : any) => x.iIdPlazo == iIdPlazo);
+        this.calcularCotizacion(this.plazoSeleccionado);
+        this.calcularMensualidad();
+        this.bCotizacion=true;
+        return;
+      }
+      this.precioM2 = this.lote.iPrecioM2Contado;
+      this.precioTotal = this.lote.iSuperficie * this.lote.iPrecioM2Contado;
+      // this.precioTotalCotizado = this.lote.iSuperficie * this.lote.iPrecioM2Contado;
+      this.bCotizacion=false;
+  }
 
   mostrarDetalle(event : any) {  
     let sTipoLote= this.recuperarLote(event);
