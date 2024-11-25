@@ -1,13 +1,12 @@
-
-<div class="svg w-100">
-    <app-svg (click)="abrirModal($event)" (mouseover)="mostrarDetalle($event)" (mouseleave)="esconderDetalle($event)"></app-svg>
-    <div class="details" *ngIf="lote">
-        <p><span class="titulo">{{ lote.sTipoLote+"-"+etapaSeleccionada.iEtapa }}</span></p>
-        <p>Superficie: <span class="superficie">{{ lote.iSuperficie }} ㎡</span></p>
-        <p>Dimensiones: &nbsp; <span class="dimensions">{{ lote.bIrregular == 1 ? 'IRREGULAR' : lote.iLargo+" x "+lote.iAncho }}</span></p>
-        <p>Precio: <span class="precio">{{ lote.iSuperficie * lote.iPrecioM2Contado | currency: '$' }}</span></p>
+<div id="svgContainer" (click)="abrirModal($event)" (mouseover)="mostrarDetalle($event)" (mouseleave)="esconderDetalle($event)"></div>
+@if(lote) {
+    <div class="details">
+        <p><span class="titulo">{{ lote.sTipoLote }}</span></p>
+        <p class="d-flex align-items-center">Superficie: <span class="superficie ml-2">{{ lote.iSuperficie }} ㎡</span></p>
+        <p class="d-flex align-items-center">Dimensiones: &nbsp; <span class="dimensions ml-2">{{ lote.bIrregular == 1 ? 'IRREGULAR' : lote.iLargo+" x "+lote.iAncho }}</span></p>
+        <p class="d-flex align-items-center">Precio: <span class="precio ml-2">{{ lote.iSuperficie * lote.iPrecioM2Contado | currency: '$' }}</span></p>
     </div>
-</div>
+}
 
 <ng-template #cotizadorModal let-modal>
     <div class="container-fluid modal-completo">
@@ -17,7 +16,7 @@
                 <div class="contenido">
                     <div class="cotizador">
                         <div class="row">
-                            @if(lote.sFotografia != '' && lote.sFotografia != undefined) {
+                            @if(lote.sFotografia != '' && lote.sFotografia != undefined && lote.sFotografia != null) {
                                 <div class="col-lg-5 col-sm-12">
                                     <img [src]="lote.sFotografia" class="imgCotizador">
                                 </div>
@@ -26,7 +25,7 @@
                                 <div class="title-lote d-flex align-items-center p-normal">
                                     <h2>{{lote.sTipoLote}}</h2>
                                     <div class="division mx-2"></div>
-                                    <h2 style="color: #506465;">{{etapaSeleccionada.sEtapa}}</h2>
+                                    <h2 style="color: #506465;">{{faseSeleccionada.sEtapa}}</h2>
                                 </div>
                                 <div class="info-lote mt-3">
                                     <div class="superficie p-normal">

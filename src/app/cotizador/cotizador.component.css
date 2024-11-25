@@ -1,48 +1,48 @@
-.section-info {
-    background-color: #162121;
-    /* #506465 */
-    /* #162121 */
+.bg-patron {
+    background-color: var(--secundario);
+    background-image: url("/assets/Imagenes/Empresas/Ziba/isotipo_secundario.png");
+    background-size: 180px;
+    height: 100vh;
 }
-.p-normal {
-    font-family: 'Marzaki-Bold';
-    font-size: 18px;
+
+.cabecera {
+    padding: 40px 0px;
 }
-.circulo {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
+
+.titulo {
+    color: white;
+}
+
+.list-estatus {
+    background-color: var(--principal);
+    margin-top: 20px;
+    color: white;
+    border-radius: 5px;
+    padding: 5px 20px;
+}
+
+.circle {
     margin-right: 10px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
 }
-.disponible {
-    background: #6EC531;
+.estatus-disponible .circle {
+    background-color: var(--success);
 }
-.apartado {
-    background: #7CDAF9;
+
+.estatus-apartado .circle {
+    background-color: var(--info);
 }
-.vendido {
-    background: #FF5733;
+
+.estatus-vendido .circle {
+    background-color: var(--danger);
 }
-.img-main {
-    width: 130px;
-    height: auto;
-}
-@media only screen and (max-width: 575px){
-    .p-normal {
-        font-size: 14px;
-    }
-    .header-cotizador {
-        flex-direction: column;
-    }
-    strong {
-        font-size: 13px;    
-    }
-    .circulo {
-        width: 15px;
-        height: 15px;
-    }
-    .img-main {
-        width: 180px;
-        height: 80px;
-    }
+.contenido {
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 25px 25px;
+    height: 75vh;
+    max-height: 75vh;
 }
 

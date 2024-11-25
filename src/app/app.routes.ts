@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
 import { unloggedGuard } from './core/guard/unlogin.guard';
-import { CotizadorComponent } from './cotizador/cotizador.component';
 import { LoginComponent } from './login/login.component';
 import { authGuard } from './core/guard/login.guard';
 
 export const routes: Routes = [
     {
         path: '',
-        component: CotizadorComponent
+        canActivate: [unloggedGuard],
+        loadChildren: () => import('./cotizador/cotizador.module').then((m) => m.CotizadorModule)
     },
     {
         path: 'login',
@@ -18,5 +18,9 @@ export const routes: Routes = [
         path: 'panel',
         canActivate: [authGuard],
         loadChildren: () => import('./admin/admin.module').then((m) => m.AdminModule)
+    },
+    {
+      path: '**',
+      redirectTo: '', // Ruta por defecto o página 404
     }
 ];
