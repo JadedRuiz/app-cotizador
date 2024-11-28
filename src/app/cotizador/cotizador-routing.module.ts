@@ -9,16 +9,15 @@ const routes: Routes = [
     path: '',
     component: CotizadorComponent,
     children: [
-      {
-        path: 'fase',
-        component: FaseComponent,
-        data: { animation: 'FasePage' }
-        // Sin 'animation', por lo tanto, no debería animar
-      },
+      // {
+      //   path: 'fase',
+      //   component: FaseComponent,
+      //   data: { animation: 'FasePage' }
+      // },
       {
         path: 'subfase',
         component: SubfaseComponent,
-        data: { animation: 'SubfasePage' } // Esta ruta tiene 'animation', por lo tanto, se animará
+        data: { animation: '' } // Esta ruta tiene 'animation', por lo tanto, se animará
       }
     ]
   }

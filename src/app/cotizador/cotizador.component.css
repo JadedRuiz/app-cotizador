@@ -1,8 +1,40 @@
 .bg-patron {
     background-color: var(--secundario);
-    background-image: url("/assets/Imagenes/Empresas/Ziba/isotipo_secundario.png");
+    background-image: url("/assets/Imagenes/Empresas/Ziba/img/patronbg.png");
     background-size: 180px;
     height: 100vh;
+}
+.nav-item {
+    border-top: 1px var(--principal) solid;
+    border-right: 1px var(--principal) solid;
+    border-left: 1px var(--principal) solid;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+.nav-item a {
+    font-weight: 600;
+    color: var(--principal);
+}
+.nav-item:hover {
+    border-top: 1px transparent solid;
+    border-right: 1px transparent solid;
+    border-left: 1px transparent solid;
+}
+.active {
+    border-top: 1px var(--principal) solid !important;
+    border-right: 1px var(--principal) solid !important;
+    border-left: 1px var(--principal) solid !important;
+    background-color: var(--principal) !important;
+    color: white !important;
+}
+.nav-item a:hover {
+    border-top: 1px var(--principal) solid;
+    border-right: 1px var(--principal) solid;
+    border-left: 1px var(--principal) solid;
+    background-color: var(--principal);
+    color: white;
 }
 
 .cabecera {
@@ -41,8 +73,9 @@
 .contenido {
     border-radius: 5px;
     background-color: #fff;
-    padding: 25px 25px;
-    height: 75vh;
-    max-height: 75vh;
+    margin: auto;
+    width: fit-content;
+    padding: 15px 15px;
+    background-image: url("/assets/Imagenes/Empresas/Ziba/img/patronbg.png");
 }
 

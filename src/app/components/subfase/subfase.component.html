@@ -1,12 +1,17 @@
+<div *ngIf="isLoading | async" class="loading-overlay">
+    <div class="spinner">Cargando...</div>
+</div>
+
 <div id="svgContainer" (click)="abrirModal($event)" (mouseover)="mostrarDetalle($event)" (mouseleave)="esconderDetalle($event)"></div>
-@if(lote) {
-    <div class="details">
-        <p><span class="titulo">{{ lote.sTipoLote }}</span></p>
-        <p class="d-flex align-items-center">Superficie: <span class="superficie ml-2">{{ lote.iSuperficie }} ㎡</span></p>
+
+<div class="details">
+    <p><span>{{ lote ? lote.sTipoLote : '' }}</span></p>
+    <p class="d-flex align-items-center">Superficie: <span class="superficie ml-2">{{  lote ? lote.iSuperficie : '' }} ㎡</span></p>
+    @if(lote) {
         <p class="d-flex align-items-center">Dimensiones: &nbsp; <span class="dimensions ml-2">{{ lote.bIrregular == 1 ? 'IRREGULAR' : lote.iLargo+" x "+lote.iAncho }}</span></p>
         <p class="d-flex align-items-center">Precio: <span class="precio ml-2">{{ lote.iSuperficie * lote.iPrecioM2Contado | currency: '$' }}</span></p>
-    </div>
-}
+    }    
+</div>
 
 <ng-template #cotizadorModal let-modal>
     <div class="container-fluid modal-completo">
@@ -15,82 +20,69 @@
             <div class="col-lg-8 mx-0 px-0">
                 <div class="contenido">
                     <div class="cotizador">
-                        <div class="row">
-                            @if(lote.sFotografia != '' && lote.sFotografia != undefined && lote.sFotografia != null) {
-                                <div class="col-lg-5 col-sm-12">
-                                    <img [src]="lote.sFotografia" class="imgCotizador">
+                        <div class="row justify-content-center">
+                            <div class="col-12 d-flex justify-content-center">
+                                <h4 class="titulo">
+                                    {{lote.sTipoLote}}
+                                </h4>
+                            </div>
+                            <div class="col-12 d-flex justify-content-center">
+                                <div class="info-depto">Nivel: <span>{{faseSeleccionada.iEtapa}}</span></div>
+                                |
+                                <div class="info-depto">Superficie: <span>{{lote.iSuperficie}} ㎡</span></div>
+                                |
+                                <div class="info-depto">Dimensiones: <span>{{lote.bIrregular == 0  ? lote.iAncho+' x '+lote.iLargo+' (㎡)' 
+                                    : 'Irregular'}}</span></div>
+                            </div>
+                            @if(lote.sFotografia != '' && lote.sFotografia != undefined) {
+                                <div class="col-11 content-img mt-2">
+                                    <img [src]="lote.sFotografia">
                                 </div>
-                            }                            
-                            <div [class]="lote.sFotografia != '' && lote.sFotografia != undefined ?  'col-lg-7 col-sm-12' : 'col-lg-9 col-sm-12'" class="py-3">
-                                <div class="title-lote d-flex align-items-center p-normal">
-                                    <h2>{{lote.sTipoLote}}</h2>
-                                    <div class="division mx-2"></div>
-                                    <h2 style="color: #506465;">{{faseSeleccionada.sEtapa}}</h2>
-                                </div>
-                                <div class="info-lote mt-3">
-                                    <div class="superficie p-normal">
-                                        <div class="d-flex">
-                                            <p>Superficie:</p><strong>{{lote.iSuperficie}} ㎡</strong>
+                            }
+                            <div class="col-11 mt-4">
+                                <div class="d-flex justify-content-center align-items-strech info-cotizacion">
+                                    <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-start">
+                                        <div class="info-depto">Monto total: <span>{{precioTotal | currency: '$ '}}</span></div>
+                                        <div class="info-depto d-flex align-items-center">
+                                            Enganche:
+                                            <select #sel (change)="seleccionarEnganche(sel.value)" class="mr-2" style="width: 100px;">
+                                                <option class="p-normal" selected value="1">20%</option>
+                                                <option class="p-normal" value="2">30%</option>
+                                                <option class="p-normal" value="3">50%</option>
+                                            </select>
                                         </div>
-                                        <div class="division mx-2 esconder_div"></div>
-                                        <div class="d-flex dimension">
-                                            <p>Dimensiones:</p>
-                                            <strong>
-                                                {{lote.bIrregular == 0  ? lote.iAncho+' x '+lote.iLargo+' (㎡)' 
-                                                : 'IRREGULAR'}}
-                                            </strong>
+                                        <div class="info-depto">Total enganche: <span>{{precioEnganche | currency: '$ '}}</span></div>
+                                            
+                                        <div class="info-depto d-flex flex-column">Precio contra entrega: <span>{{precioContraEntrega | currency: '$ '}}</span></div>
+                                    </div>
+                                    <div class="flex-shrink-0 d-flex justify-content-center align-items-center" style="width: 80px;">
+                                        <img src="./assets/Imagenes/Empresas/Ziba/isotipo_secundario.png" width="60">
+                                    </div>
+                                    <div class="flex-grow-1 d-flex flex-column justify-content-start align-items-end px-0">
+                                        <div class="info-depto">Financiamiento:
+                                            <select class="cotizacion-select" #sel (change)="seleccionarPlazo(sel.value)">
+                                                @for(plazo of lote.objPlazos; track plazo) {
+                                                    <option class="p-normal" [value]="plazo.iIdPlazo" selected>{{plazo.sPlazo}}</option>
+                                                }
+                                            </select>
                                         </div>
-                                    </div>
-                                    <div class="precioTotal d-flex p-normal mt-2">
-                                        <p>Monto total:</p><strong>{{precioTotal | currency: '$ '}}</strong>
-                                    </div>
-                                    <div class="sel-enganche d-flex align-items-center">
-                                        <p class="my-0" style="margin-right: 15px;">Enganche:</p>
-                                        <select #sel (change)="seleccionarEnganche(sel.value)" class="form-select" style="width: 100px;">
-                                            <option class="p-normal" selected value="1">20%</option>
-                                            <option class="p-normal" value="2">30%</option>
-                                            <option class="p-normal" value="3">50%</option>
-                                        </select>
-                                    </div>
-                                    <div class="preciom2 d-flex align-items-end p-normal mt-2">
-                                        <p>Total enganche:</p><strong>{{precioEnganche | currency: '$ '}}</strong>
-                                    </div>
-                                    <div class="preciom2 d-flex align-items-end p-normal mt-2">
-                                        <p>Monto de pago contraentrega:</p><strong>{{precioContraEntrega | currency: '$ '}}</strong>
-                                    </div>
-                                    <div class="financiamiento p-normal mt-4">
-                                        <p>Financiamiento:</p>
-                                    </div>
-                                    <div class="cotizacion">
-                                        <select #sel (change)="seleccionarPlazo(sel.value)">
-                                            @for(plazo of lote.objPlazos; track plazo) {
-                                                <option class="p-normal" [value]="plazo.iIdPlazo" selected>{{plazo.sPlazo}}</option>
-                                            }
-                                        </select>
-                                        @if(bCotizacion) {
-                                            <div class="info-cotizacion row mx-0 w-100">
-                                                <div class="col-6 enganche">
-                                                    <div class="p-enganche d-flex">
-                                                        <p class="p-normal py-0">% de financiamiento</p>
-                                                        <input type="number" [(ngModel)]="iMinEnganche" (change)="calcularMensualidad()" disabled="true">
-                                                    </div>
-                                                    <strong>{{precioFinanciado | currency: '$ '}}</strong>
-                                                </div>
-                                                <div class="col-6 mensualidad">
-                                                    <p class="p-normal">Pago Mensual</p>
-                                                    <strong>{{precioMensualidad | currency: '$ '}}</strong>
-                                                </div>
+                                        <div class="calculadora d-flex justify-content-center mt-2">
+                                            <div class="info-depto pago-finan">
+                                                % financiamiento
+                                                <input type="text" class="mr-1" [(ngModel)]="iMinEnganche" (change)="calcularMensualidad()" disabled="true">
+                                                <br>
+                                                <span>{{precioFinanciado | currency: '$ '}}</span>
                                             </div>
-                                        }
+                                            <div class="info-depto pago-men">
+                                                Pago mensual
+                                                <br>
+                                                <span>{{precioMensualidad | currency: '$ '}}</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-12">
-                                <small class="avisos p-normal">- Consulta promociones vigentes con tu asesor de confianza.</small>
-                            </div>
-                            <div class="col-12">
+                            <div class="col-11 mt-2">
                                 <small class="avisos p-normal">- Los precios estan sujetos a cambios sin previo aviso.</small>
                             </div>
                         </div>

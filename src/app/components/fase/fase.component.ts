@@ -48,9 +48,8 @@ export class FaseComponent {
         const container = this._eleRef.nativeElement.querySelector("#svgContainer");
         container.innerHTML = svgContent;
         niveles.forEach((element : any) => {
-          $("#"+element.sEtapa).children().removeClass('st0');
-          $("#"+element.sEtapa).children().attr("title",element.sEtapa);
-          $("#"+element.sEtapa).css({
+          $('g[attr-data="'+element.iEtapa+'"]').children().removeClass('st0');
+          $('g[attr-data="'+element.iEtapa+'"]').css({
             'fill': '#96e5f3b3',
             'cursor': 'pointer'
           });

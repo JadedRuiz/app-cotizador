@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './modal-detalle.component.css'
 })
 export class ModalDetalleComponent {
-
+  
 }

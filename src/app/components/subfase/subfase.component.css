@@ -1,4 +1,5 @@
 #svgContainer {
+    max-height: 70vh;
     height: 70vh;
     border-radius: 5px;
     display: flex;
@@ -40,7 +41,7 @@
 .contacto {
     padding: 0px 80px;
     background-color: #162121;
-    height: 99.8vh;
+    height: 100vh;
     display: flex;
     align-items: center;
 }
@@ -49,6 +50,49 @@
 }
 .titleForm {
     font-size: 25px;
+}
+.cotizador .titulo {
+    font-weight: 700;
+    font-size: 30px;
+}
+.info-depto {
+    font-size: 15px;
+    padding: 0px 10px;
+    font-weight: 400;
+}
+.info-depto span {
+    color: var(--secundario);
+    font-weight: 600;
+}
+.info-cotizacion .info-depto {
+    padding: 0px 0px;
+}
+.info-depto select {
+    outline: none;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    background-color: var(--secundario);
+    height: 26px;
+    width: fit-content !important;
+    padding: 0px 30px 0px 10px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+.info-depto input[type="text"]:disabled {
+    background-color: var(--secundario);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    width: 25px !important;
+    height: 22px;
+    border-radius: 5px;
+}
+.content-img {
+    padding: 15px 15px;
+    background-color: var(--secundario);
+    border-radius: 5px;
 }
 .cerrarModal {
     position: absolute;
@@ -78,6 +122,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-image: url("/assets/Imagenes/Empresas/Ziba/img/patronbg.png");
     height: 99.8vh;
 }
 .cotizador {
@@ -86,11 +131,8 @@
     width: 800px;
     max-width: 1024px;
     box-shadow: 0px 1px 4px 2px #00000029;
-    background: #cfcece24;
-}
-.imgCotizador {
-    width: 100%;
-    height: 450px;
+    background: #FFF;
+    border-radius: 5px;
 }
 .title-lote h2 {
     font-size: 23px !important;
@@ -103,74 +145,22 @@
     background-color: #834979;
     height: 23px;
 }
-.superficie {
-    display: flex;
-    align-items: center;
-}
-.superficie p {
-    font-size: 16px !important;
-    color: #0a0a0a;
-    margin: 0px;
-    margin-right: 5px;
-}
-.superficie strong {
-    font-size: 16px !important;
-    margin: 0px;
-    color: #0a0a0a;
-}
-.superficie .division {
-    width: 1px;
-    height: 18px;
-    background-color: #0a0a0a;
-}
-.preciom2 p {
-    font-size: 16px !important;
-    color: #0a0a0a;
-    margin: 0px;
-    margin-right: 5px;
-}
-.preciom2 strong {
-    font-size: 16px !important;
-    margin: 0px;
-    color: #0a0a0a;
-}
-.precioTotal strong {
-    font-size: 18px !important;
-    margin: 0px;
-    color: #834979;
-}
-.precioTotal p {
-    font-size: 16px !important;
-    color: #0a0a0a;
-    margin: 0px;
-    margin-right: 5px;
-}
-.form-control {
-    border-radius: 0px !important;
-}
-.financiamiento p {
-    font-size: 15px !important;
-    color: #506465;
-    margin: 0px;
-    font-weight: bold;
-}
-.cotizacion select {
-    outline: none;
-    margin-top: 10px;
-    color: #000000;
-    text-decoration: none;
-    cursor: pointer;
-    margin-bottom: 10px;
-    border: 1px solid #69727d;
-    background-color: #fff !important;
-    padding: 10px 15px;
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    border-radius: 0px;
-    font-size: 16px;
-    font-weight: 400;
-    appearance: none;
-    background: url("../../../assets/Imagenes/arrows.png") no-repeat right 5px; 
-    background-size: 36px 26px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.spinner {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
 }
 .cotizacion option {
     font-size: 18px;
@@ -179,11 +169,19 @@
 .avisos {
     font-size: 14px;
 }
-.info-cotizacion {
-    border-bottom: 1px #065D62 solid;
-    border-top: 1px #065D62 solid;
+.calculadora {
+    border-top: 1px var(--principal) solid;
+    border-bottom: 1px var(--principal) solid;
 }
-.enganche {
+.pago-finan {
+    margin-right: 10px;
+    padding: 15px 10px 15px 0px !important;
+    border-right: 1px var(--secundario) solid;
+}
+.pago-men {
+    padding: 15px 0px !important;
+}
+/* .enganche {
     border-right: 1px #065D62 solid;
     padding: 20px 0px 15px 10px;
 }
@@ -219,14 +217,14 @@
 }
 .mensualidad strong {
     color: #834979;
-}
+} */
 .details {
     position: absolute;
     left: 0;
     top: 50%;
     border: 1px solid #00000054;
     z-index: 1;
-    font-size: 11px;
+    font-size: 11px !important;
     display: none;
     background: white;
 }
@@ -255,7 +253,7 @@
         height: auto;
         padding: 15px 20px;
     }
-    .title-lote h2 {
+    /* .title-lote h2 {
         font-size: 16px !important;
     }
     .title-lote .division {
@@ -297,5 +295,5 @@
     }
     .mensualidad p {
         font-size: 13px !important;
-    }
+    } */
 }

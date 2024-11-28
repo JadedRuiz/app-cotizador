@@ -1,6 +1,7 @@
 #svgContainer {
-    height: 70vh;
+    width: 100%;
     border-radius: 5px;
     display: flex;
     align-items: center;
+    border-radius: 5px;
 }

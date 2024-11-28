@@ -1,19 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Forum&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
 body {
     font-family: "Poppins", sans-serif;
     font-weight: 300;
     font-style: normal;
     font-size: 16px;
-    max-height: 100vh;
-    overflow: hidden;
+    overflow: auto;
     /* Paleta de Colores */
     --principal: #162121;
     --secundario: #506465;
-    --success: #6EC531;
-    --info: #7CDAF9;
-    --danger: #FF5733;
+    --success: #12a351;
+    --info: #ffd200;
+    --danger: #E60026;
     --sb-track-color: #fff;
 }
   
@@ -39,7 +38,7 @@ border-radius: 3px;
 }
 
 .titulo {
-    font-family: "Raleway", sans-serif;
+    font-family: "Forum", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
 }

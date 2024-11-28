@@ -1,18 +1,19 @@
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalDetalleComponent } from '../modal-detalle/modal-detalle.component';
 import { LoteService } from '../../core/services/lote.service';
 import { CotizadorService } from '../../core/services/cotizador.service';
 import { HttpClient } from '@angular/common/http';
-import { CurrencyPipe, NgClass, NgIf } from '@angular/common';
+import { CommonModule, CurrencyPipe, NgClass, NgIf } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Cotizacion } from '../../core/models/cotizacion.model';
 import Swal from 'sweetalert2';
+import { LoadingService } from '../../core/services/loading.service';
 
 @Component({
   selector: 'app-subfase',
   standalone: true,
   imports: [
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     NgClass,
@@ -48,6 +49,7 @@ export class SubfaseComponent {
     load: false,
     disabled: false
   };
+  isLoading = this.LoadingService.loading$;
 
   constructor(
     private _serCotizador: CotizadorService,
@@ -55,10 +57,12 @@ export class SubfaseComponent {
     private _http: HttpClient,
     private _eleRef: ElementRef, 
     private _formBuilder: FormBuilder,
-    private modalService: NgbModal, 
+    private modalService: NgbModal,
+    private LoadingService: LoadingService
   ) {}
 
   ngOnInit() : void {
+    // this.LoadingService.show();
     this.form = this._formBuilder.group({
       sNombre: ['', [Validators.required]],
       sCorreo: ['', [Validators.required, Validators.email]],
@@ -70,9 +74,13 @@ export class SubfaseComponent {
 
   cargaInicial() {
     this._serCotizador.arrayLotes$.subscribe((lotes) => {
-      this.arrayLotes = lotes.objLotes;
-      this.faseSeleccionada = lotes.faseSeleccionada;
-      this.loadDeptosSvg(lotes.objLotes);
+      if(lotes != undefined) {
+        this.arrayLotes = lotes.objLotes;
+        this.faseSeleccionada = lotes.faseSeleccionada;
+        this.iMinEnganche = lotes.faseSeleccionada.iMinEnganche;
+        this.loadDeptosSvg(lotes.objLotes);
+        // this.LoadingService.hide(); 
+      }    
     });
   }
 
@@ -113,7 +121,7 @@ export class SubfaseComponent {
   abrirModal(event : any) {
     let sTipoLote= this.recuerarDepto(event); 
     if(sTipoLote != null) {
-      this.lote = this.arrayLotes.find((x: any) => x.sTipoLote == sTipoLote);
+      this.lote = this.arrayLotes.find((x: any) => sTipoLote.includes(x.sTipoLote));
       if(this.lote.iStatus && this.lote.iStatus == 1){
         this.precioM2 = this.lote.iPrecioM2Contado;
         this.precioTotal = this.lote.iSuperficie * this.lote.iPrecioM2Contado;
@@ -130,9 +138,9 @@ export class SubfaseComponent {
 
   mostrarDetalle(event : any) {  
     let sTipoLote= this.recuerarDepto(event);
-    if(sTipoLote != null) {
-      this.lote = this.arrayLotes.find((x: any) => x.sTipoLote == sTipoLote);
-      if(this.lote.iStatus && this.lote.iStatus == 1){
+    if(sTipoLote != null && sTipoLote != undefined) {
+      this.lote = this.arrayLotes.find((x: any) => sTipoLote.includes(x.sTipoLote));
+      if(this.lote && this.lote.iStatus == 1){
         $(".details").css({
           'top': $(".lote-"+this.lote.iLote).position().top-80,
           'left': $(".lote-"+this.lote.iLote).position().left
@@ -141,14 +149,16 @@ export class SubfaseComponent {
       }else{
         $(".details").hide();
       }
+    }else {
+      $(".details").hide();
     }    
   }
 
   esconderDetalle(event : any){
     let sTipoLote= this.recuerarDepto(event);
-    if(sTipoLote != null){
-      this.lote = this.arrayLotes.find((x: any) => x.sTipoLote == sTipoLote);
-      if(this.lote.iStatus && this.lote.iStatus != 1){
+    if(sTipoLote != null && sTipoLote != undefined){
+      this.lote = this.arrayLotes.find((x: any) => sTipoLote.includes(x.sTipoLote));
+      if(this.lote && this.lote.iStatus != 1){
         $(".details").hide();
       }
     }else{
@@ -160,10 +170,9 @@ export class SubfaseComponent {
     if(event && event.target.localName != "app-svg" && event.target.nextElementSibling != null) { 
       let arrayString= (event.target.nextElementSibling.outerHTML).split('>');  
       let sTipoLote = arrayString[1].replaceAll("</text", "");
-      if(sTipoLote.includes("NIVEL") || sTipoLote.includes("rect")) {
-        return null;
+      if(!sTipoLote.includes("<p")) {
+        return sTipoLote;
       }
-      return sTipoLote;
     }
     return null;
   }
