@@ -1,15 +1,16 @@
-import { Component, ElementRef, HostBinding, Input } from '@angular/core';
+import { Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
 import { CotizadorService } from '../../core/services/cotizador.service';
 import { firstValueFrom } from 'rxjs';
 import { LoteService } from '../../core/services/lote.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { EtapaService } from '../../core/services/etapa.service';
+import { ModalCotizadorComponent } from "../modal-cotizador/modal-cotizador.component";
 
 @Component({
   selector: 'app-fase',
   standalone: true,
-  imports: [],
+  imports: [ModalCotizadorComponent],
   templateUrl: './fase.component.html',
   styleUrl: './fase.component.css'
 })
@@ -17,7 +18,7 @@ export class FaseComponent {
 
   arrayEtapas: any;
   arrayLotesEtapa: any;
-  @Input() scr: string = './assets/Imagenes/Empresas/Ziba/svgs/fachada.svg';
+  @Input() scr: string = './assets/Imagenes/Empresas/Ziba/svgs/fachada/FachadaSVG.svg';
   
   constructor(
     private _serCotizador: CotizadorService,
@@ -48,19 +49,24 @@ export class FaseComponent {
         const container = this._eleRef.nativeElement.querySelector("#svgContainer");
         container.innerHTML = svgContent;
         niveles.forEach((element : any) => {
-          $('g[attr-data="'+element.iEtapa+'"]').children().removeClass('st0');
-          $('g[attr-data="'+element.iEtapa+'"]').css({
-            'fill': '#96e5f3b3',
-            'cursor': 'pointer'
+          this.pintarNivel(element);
+          $('#'+element.iEtapa).addClass('nivel');
+          $('#'+element.iEtapa).children().each((index : number, element_hijo : any) => {
+            $(element_hijo).addClass('hijo');
           });
         });
       });
   }
 
+  pintarNivel(nivel : any) {
+    let html=`<div class="nivel${nivel.iEtapa}">${nivel.sEtapa}</div>`;
+    $(".niveles").prepend(html);
+  }
+
   abrirNivel(event: Event) {
-    let sEtapa = this.recuperarNivel(event)
-    if(sEtapa != null) {
-      let etapa = this.arrayEtapas.find((x : any) => x.sEtapa == sEtapa);
+    let iEtapa = this.recuperarNivel(event)
+    if(iEtapa != null) {
+      let etapa = this.arrayEtapas.find((x : any) => x.iEtapa == iEtapa);
       this.obtenerDetopsPorNivel(etapa);
     }        
   }
@@ -79,18 +85,14 @@ export class FaseComponent {
         }
         this._serCotizador.arrayLotes$.next(infoNivel);
         this.scr = etapa.sPath;
-        this._router.navigate(['subfase']);
       }
       
     }
   }
 
   recuperarNivel(event : any) {
-    if(event && (event.target.localName == "rect" || event.target.localName == "polygon") && event.target.nextElementSibling != null) {
-      let arrayString= (event.target.nextElementSibling.outerHTML).split('>');  
-      let sEtapa = arrayString[1].replaceAll("</text", "");
-      sEtapa = sEtapa.replace(" ","_");
-      return sEtapa;
+    if(event && event.target.parentElement && event.target.parentElement.nodeName == "g" && event.target.parentElement.id != "Fachada") {
+      return event.target.parentElement.id;
     }
     return null;
   }

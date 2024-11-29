@@ -1,1 +1,9 @@
-<p>modal-cotizador works!</p>
+<ng-template #cotizadorModal let-modal>
+    <div class="modal-body">
+        <span class="cerrarModal" (click)="modal.dismiss('Cross click')"><i class="fa fa-times" aria-hidden="true"></i></span>
+        <div class="contenido">
+            <!-- <div id="svgContainer" (click)="abrirModal($event)" (mouseover)="mostrarDetalle($event)" (mouseleave)="esconderDetalle($event)"></div> -->
+            <div id="svgContainerDeptos"></div>
+        </div>  
+    </div>
+</ng-template>

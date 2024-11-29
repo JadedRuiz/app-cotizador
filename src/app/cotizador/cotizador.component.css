@@ -1,8 +1,5 @@
-.bg-patron {
-    background-color: var(--secundario);
-    background-image: url("/assets/Imagenes/Empresas/Ziba/img/patronbg.png");
-    background-size: 180px;
-    height: 100vh;
+.section-info {
+    background-color: var(--principal);
 }
 .nav-item {
     border-top: 1px var(--principal) solid;
@@ -72,10 +69,11 @@
 }
 .contenido {
     border-radius: 5px;
-    background-color: #fff;
     margin: auto;
-    width: fit-content;
-    padding: 15px 15px;
+    padding: 0px 20px;
     background-image: url("/assets/Imagenes/Empresas/Ziba/img/patronbg.png");
+}
+.img-main {
+    width: 150px;
 }
 

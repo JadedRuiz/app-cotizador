@@ -1,30 +1,15 @@
-<div class="container-fluid bg-patron px-3">
-    <div class="row cabecera d-flex justify-content-center">
-        <div class="col-12 d-flex justify-content-center">
-            <h4 class="titulo text-center">
-                Da click en el mapa y selecciona el apartamento a cotizar
-            </h4>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-12 d-flex justify-content-between list-estatus">
-            <div class="estatus-disponible d-flex align-items-center">
-                <div class="circle"></div> Disponible
-            </div>
-            <div class="estatus-apartado d-flex align-items-center">
-                <div class="circle"></div> Apartado 
-            </div>
-            <div class="estatus-vendido d-flex align-items-center">
-                <div class="circle"></div> Vendido
+
+<div class="container-fluid px-0">
+    <div class="container-fuid mb-3 section-info">
+        <div class="container">
+            <div class="py-2 d-flex align-items-center">
+                <img src="./assets/Imagenes/Empresas/Ziba/logo.png" class="img-main">
+                <h3 class="titulo">Iria un texto?</h3>
             </div>
         </div>
+        
     </div>
     <div class="contenido">
-        <ul class="nav nav-tabs">
-            @for(etapa of arrayNiveles; track $index) {
-                <li class="nav-item p-normal mr-1" (click)="abrirNivel(etapa, $index)">
-                    <a class="nav-link {{ $index == 0 ? 'active' : '' }}">{{etapa.sEtapa}}</a>
-                </li>
-            }            
-        </ul>
         <router-outlet></router-outlet>
     </div> 
     

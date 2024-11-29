@@ -9,11 +9,11 @@ const routes: Routes = [
     path: '',
     component: CotizadorComponent,
     children: [
-      // {
-      //   path: 'fase',
-      //   component: FaseComponent,
-      //   data: { animation: 'FasePage' }
-      // },
+      {
+        path: 'fase',
+        component: FaseComponent,
+        data: { animation: '' }
+      },
       {
         path: 'subfase',
         component: SubfaseComponent,

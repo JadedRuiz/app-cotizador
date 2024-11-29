@@ -29,58 +29,59 @@ export class CotizadorComponent implements AfterViewInit {
 
   ngOnInit(): void {
     // Aquí podrías navegar a una ruta inicial si lo deseas
-    this.cargaInicial();
+    // this.cargaInicial();
+    this._router.navigate(["fase"]);
   }
 
   ngAfterViewInit() {
-    this.cdr.detectChanges(); // Forzamos la detección de cambios
+    // this.cdr.detectChanges(); // Forzamos la detección de cambios
   }
 
-  cargaInicial() {
-    this._etapaService.obtenerEtapas()
-    .subscribe((resp: any) => {
-      if(resp.ok){
-        this.arrayNiveles = resp.data;
-        // this.nivelSeleccionado = resp.data[0];
-        this.obtenerDetopsPorNivel(resp.data[0]);
-      }
-    });
-  }
+  // cargaInicial() {
+  //   this._etapaService.obtenerEtapas()
+  //   .subscribe((resp: any) => {
+  //     if(resp.ok){
+  //       this.arrayNiveles = resp.data;
+  //       // this.nivelSeleccionado = resp.data[0];
+  //       this.obtenerDetopsPorNivel(resp.data[0]);
+  //     }
+  //   });
+  // }
 
-  abrirNivel(etapa : any, $index: number) {
-    $(".nav-link").each((index, element) => {
-      if(index == $index) {
-        $(element).addClass('active');
-      }else{
-        $(element).removeClass('active');
-      }
-    });
-    this.obtenerDetopsPorNivel(etapa);
-  }
+  // abrirNivel(etapa : any, $index: number) {
+  //   $(".nav-link").each((index, element) => {
+  //     if(index == $index) {
+  //       $(element).addClass('active');
+  //     }else{
+  //       $(element).removeClass('active');
+  //     }
+  //   });
+  //   this.obtenerDetopsPorNivel(etapa);
+  // }
 
-  async obtenerDetopsPorNivel(etapa: any) : Promise<void> {
-    let arrayLotes = null;
-    try {
-      arrayLotes = await firstValueFrom(this._loteService.getLotesPorEtapaId(etapa.iIdEtapa));
-    }catch(err) {
-      console.log(err);
-    }finally {
-      if(arrayLotes.ok) {
-        let infoNivel = {
-          faseSeleccionada : etapa,
-          objLotes : arrayLotes.data
-        }
-        this._serCotizador.arrayLotes$.next(infoNivel);
-        this._router.navigate(['subfase']);
-      }
+  // async obtenerDetopsPorNivel(etapa: any) : Promise<void> {
+  //   let arrayLotes = null;
+  //   try {
+  //     arrayLotes = await firstValueFrom(this._loteService.getLotesPorEtapaId(etapa.iIdEtapa));
+  //   }catch(err) {
+  //     console.log(err);
+  //   }finally {
+  //     if(arrayLotes.ok) {
+  //       let infoNivel = {
+  //         faseSeleccionada : etapa,
+  //         objLotes : arrayLotes.data
+  //       }
+  //       this._serCotizador.arrayLotes$.next(infoNivel);
+  //       this._router.navigate(['subfase']);
+  //     }
       
-    }
-  }
+  //   }
+  // }
 
-  prepareRoute(outlet: RouterOutlet): string | null {
-    if (outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation']) {
-      return outlet.activatedRouteData['animation']; // Solo si la ruta tiene animación
-    }
-    return null; // Si no tiene animación, se desactiva la animación
-  }
+  // prepareRoute(outlet: RouterOutlet): string | null {
+  //   if (outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation']) {
+  //     return outlet.activatedRouteData['animation']; // Solo si la ruta tiene animación
+  //   }
+  //   return null; // Si no tiene animación, se desactiva la animación
+  // }
 }
