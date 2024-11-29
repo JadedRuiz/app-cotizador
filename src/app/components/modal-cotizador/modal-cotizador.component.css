@@ -1,4 +1,249 @@
-
 #svgContainerDeptos {
-    width: 90%;
+    width: 70%;
+    margin: auto;
 }
+.modal-content {
+    border-radius: 5px !important;
+}
+.modal-header {
+    background-color: var(--secundario);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.modal-title {
+    font-size: 24px !important;
+    margin-left: 15px;
+}
+.modal-body {
+    text-align: center;
+    /* margin: auto; */
+}
+.circle {
+    margin-right: 10px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+}
+.estatus-disponible .circle {
+    background-color: var(--success);
+}
+.estatus-apartado .circle {
+    background-color: var(--info);
+}
+.estatus-vendido .circle {
+    background-color: var(--danger);
+}
+.is__invalid-input {
+    border-color: #eee6e8;
+}
+  
+.is__invalid-error {
+    color: white;
+    padding: 0px;
+}
+.nav-item {
+    border-top: 1px #065D62 solid;
+    border-right: 1px #065D62 solid;
+    border-left: 1px #065D62 solid;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    cursor: pointer;
+}
+.nav-item a {
+    font-weight: bold;
+    color: #065D62;
+}
+.nav-item:hover {
+    border-top: 1px transparent solid;
+    border-right: 1px transparent solid;
+    border-left: 1px transparent solid;
+}
+.nav-item a:hover {
+    background-color: #065D62;
+    color: white;
+}
+.modal-completo {
+    height: 99.8vh;
+    position: relative;
+}
+.contacto {
+    padding: 0px 80px;
+    background-color: #162121;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+.contacto form {
+    width: 100%;
+}
+.titleForm {
+    font-size: 25px;
+}
+.cotizador .titulo {
+    font-weight: 700;
+    font-size: 30px;
+}
+.info-depto {
+    font-size: 15px;
+    padding: 0px 10px;
+    font-weight: 400;
+}
+.info-depto span {
+    color: var(--secundario);
+    font-weight: 600;
+}
+.info-cotizacion .info-depto {
+    padding: 0px 0px;
+}
+.info-depto select {
+    outline: none;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    background-color: var(--secundario);
+    height: 26px;
+    width: fit-content !important;
+    padding: 0px 30px 0px 10px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+.info-depto input[type="text"]:disabled {
+    background-color: var(--secundario);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    width: 25px !important;
+    height: 22px;
+    border-radius: 5px;
+}
+.content-img {
+    padding: 15px 15px;
+    background-color: var(--secundario);
+    border-radius: 5px;
+}
+.cerrarModal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+}
+.cerrarModal i {
+    cursor: pointer;
+    font-size: 45px;
+    color: white;
+}
+.btnEnviar {
+    text-transform: uppercase();
+    text-decoration: none;
+    padding: 5px 25px;
+    border: none;
+    border-radius: 30px;
+    background-color: #506465;
+    color: white;
+    width: 100%;
+    font-weight: 700;
+    letter-spacing: 1px;
+    outline: none;
+}
+.contenido {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("/assets/Imagenes/Empresas/Ziba/img/patronbg.png");
+    height: 99.8vh;
+}
+.cotizador {
+    padding: 20px 15px;
+    box-sizing: border-box;
+    width: 800px;
+    max-width: 1024px;
+    box-shadow: 0px 1px 4px 2px #00000029;
+    background: #FFF;
+    border-radius: 5px;
+}
+.title-lote h2 {
+    font-size: 23px !important;
+    font-weight: bold !important;
+    height: fit-content;
+    margin: 0px !important;
+}
+.title-lote .division {
+    width: 4px;
+    background-color: #834979;
+    height: 23px;
+}
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.spinner {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+}
+.cotizacion option {
+    font-size: 18px;
+    font-weight: 400;
+}
+.avisos {
+    font-size: 14px;
+}
+.calculadora {
+    border-top: 1px var(--principal) solid;
+    border-bottom: 1px var(--principal) solid;
+}
+.pago-finan {
+    margin-right: 10px;
+    padding: 15px 10px 15px 0px !important;
+    border-right: 1px var(--secundario) solid;
+}
+.pago-men {
+    padding: 15px 0px !important;
+}
+.details {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    border: 1px solid #00000054;
+    z-index: 1;
+    font-size: 11px !important;
+    display: none;
+    background: white;
+}
+.details p span {
+    font-weight: 800;
+}
+.details p {
+    display: flex;
+    justify-content: space-between;    
+    padding: 1px 5px;
+    margin: 0;
+    color: #000;
+    font-weight: 400;
+}
+.details p:nth-of-type(1) {
+    background: #506465;
+    margin: 0;
+    color: white;
+    font-weight: bold;
+}
+/* @media only screen and (max-width: 575px){
+    .modal-completo {
+        height: auto;
+    }
+    .contacto {
+        height: auto;
+        padding: 15px 20px;
+    }
+} */

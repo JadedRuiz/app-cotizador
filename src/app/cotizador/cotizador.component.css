@@ -40,33 +40,10 @@
 
 .titulo {
     color: white;
+    font-size: 24px;
+    font-weight: 400;
 }
 
-.list-estatus {
-    background-color: var(--principal);
-    margin-top: 20px;
-    color: white;
-    border-radius: 5px;
-    padding: 5px 20px;
-}
-
-.circle {
-    margin-right: 10px;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-}
-.estatus-disponible .circle {
-    background-color: var(--success);
-}
-
-.estatus-apartado .circle {
-    background-color: var(--info);
-}
-
-.estatus-vendido .circle {
-    background-color: var(--danger);
-}
 .contenido {
     border-radius: 5px;
     margin: auto;

@@ -4,11 +4,12 @@
 	 viewBox="0 0 928.1 763.6">
 <style type="text/css">
 	.st0{fill:none;}
-	.st1{fill:#001504;}
-	.st2{fill:#FFFFFF;stroke:#FFFFFF;stroke-width:0.25;}
-	.st3{font-family:'MyriadPro-Regular';}
-	.st4{font-size:3.9493px;}
-	.st5{font-size:12px;}
+	.disponible{cursor: pointer;text-decoration: none;}
+	.no-disponible{cursor: none;text-decoration: none;}
+	.p-disponible{fill: #12a351 !important;opacity:.80;}
+	.p-disponible:hover{fill:rgba(150, 229, 243, 0.703) !important;cursor: pointer;}
+	.p-apartado{fill: #ffd200 !important; opacity:.80;}
+	.p-vendido{fill: #E60026 !important; opacity:.80;}
 </style>
 <g id="IMAGEN">
 	
@@ -8921,87 +8922,51 @@ w5+X/s+c5rk/rfHhX//Z" transform="matrix(0.36 0 0 0.36 0 0)">
 	</image>
 </g>
 <g id="DEPTO_B3_ESTUDIO_16">
-	<polyline class="st0" points="598.1,134.9 778.2,134.9 778.2,78.6 598.1,78.6 598.1,134.9 	"/>
-	<path class="st1" d="M643.8,121.3h-28c-3.3,0-5.9-2.7-5.9-5.9v0c0-3.3,2.7-5.9,5.9-5.9h28c3.3,0,5.9,2.7,5.9,5.9v0
-		C649.7,118.6,647.1,121.3,643.8,121.3z"/>
-	<text transform="matrix(1.208 0 0 1 619.7806 114.1465)"><tspan x="0" y="0" class="st2 st3 st4">DEPTO B3</tspan><tspan x="0.8" y="4.7" class="st2 st3 st4">ESTUDIO</tspan></text>
+	<polyline class="st0" points="598.1,134.9 778.2,134.9 778.2,78.6 598.1,78.6 598.1,134.9"/>
 	<text transform="matrix(1 0 0 1 679.1045 120.0032)" class="st0 st3 st5">16</text>
 </g>
 <g id="DEPTO_A_ESTUDIO_15">
-	<polyline class="st0" points="598.1,186.7 752.5,186.7 752.5,134.9 598.1,134.9 598.1,186.7 	"/>
-	<path class="st1" d="M644.6,157.5h-28c-3.3,0-5.9-2.7-5.9-5.9v0c0-3.3,2.7-5.9,5.9-5.9h28c3.3,0,5.9,2.7,5.9,5.9v0
-		C650.6,154.8,647.9,157.5,644.6,157.5z"/>
-	<text transform="matrix(1.208 0 0 1 621.7998 150.6921)"><tspan x="0" y="0" class="st2 st3 st4">DEPTO A</tspan><tspan x="0" y="4.7" class="st2 st3 st4">ESTUDIO</tspan></text>
+	<polyline class="st0" points="598.1,186.7 752.5,186.7 752.5,134.9 598.1,134.9 598.1,186.7"/>
 	<text transform="matrix(1 0 0 1 695.0078 154.702)" class="st0 st3 st5">15</text>
 </g>
 <g id="DEPTO_A_ESTUDIO_14">
-	<polyline class="st0" points="598.1,237.9 752.5,237.9 752.5,186.7 598.1,186.7 598.1,237.9 	"/>
-	<path class="st1" d="M643.8,226.4h-28c-3.3,0-5.9-2.7-5.9-5.9l0,0c0-3.3,2.7-5.9,5.9-5.9h28c3.3,0,5.9,2.7,5.9,5.9l0,0
-		C649.7,223.8,647.1,226.4,643.8,226.4z"/>
-	<text transform="matrix(1.208 0 0 1 620.9617 219.8001)"><tspan x="0" y="0" class="st2 st3 st4">DEPTO A</tspan><tspan x="0" y="4.7" class="st2 st3 st4">ESTUDIO</tspan></text>
+	<polyline class="st0" points="598.1,237.9 752.5,237.9 752.5,186.7 598.1,186.7 598.1,237.9"/>
 	<text transform="matrix(1 0 0 1 695.4897 224.5828)" class="st0 st3 st5">14</text>
 </g>
 <g id="DEPTO_A_ESTUDIO_13">
-	<polyline class="st0" points="598.1,289.2 752.5,289.2 752.5,237.9 598.1,237.9 598.1,289.2 	"/>
-	<path class="st1" d="M643.8,260h-28c-3.3,0-5.9-2.7-5.9-5.9v0c0-3.3,2.7-5.9,5.9-5.9h28c3.3,0,5.9,2.7,5.9,5.9v0
-		C649.7,257.3,647.1,260,643.8,260z"/>
-	<text transform="matrix(1.208 0 0 1 621.7999 253.2715)"><tspan x="0" y="0" class="st2 st3 st4">DEPTO A</tspan><tspan x="0" y="4.7" class="st2 st3 st4">ESTUDIO</tspan></text>
+	<polyline class="st0" points="598.1,289.2 752.5,289.2 752.5,237.9 598.1,237.9 598.1,289.2"/>
 	<text transform="matrix(1 0 0 1 690.6709 258.0543)" class="st0 st3 st5">13</text>
 </g>
 <g id="DEPTO_C_DOBLE_LOCK_OFF_12">
-	<polyline class="st0" points="598.1,390.9 752.5,390.9 752.5,289.2 598.1,289.2 598.1,390.9 	"/>
-	<path class="st1" d="M642.7,381.8h-28c-3.3,0-5.9-2.7-5.9-5.9v0c0-3.3,2.7-5.9,5.9-5.9h28c3.3,0,5.9,2.7,5.9,5.9v0
-		C648.6,379.1,646,381.8,642.7,381.8z"/>
-	<text transform="matrix(1.208 0 0 1 612.5837 375.1344)"><tspan x="0" y="0" class="st2 st3 st4">DEPTO C DOBLE</tspan><tspan x="5.1" y="4.7" class="st2 st3 st4">LOCK OFF</tspan></text>
+	<polyline class="st0" points="598.1,390.9 752.5,390.9 752.5,289.2 598.1,289.2 598.1,390.9"/>
 	<text transform="matrix(1 0 0 1 628.6627 330.6778)" class="st0 st3 st5">12</text>
 </g>
 <g id="DEPTO_E_DOBLE_11">
-	<polyline class="st0" points="444.4,390.9 444.4,494.5 598.3,494.5 598.3,480 623.4,480 623.4,390.9 444.4,390.9 	"/>
-	<path class="st1" d="M534.7,415h-28c-3.3,0-5.9-2.7-5.9-5.9v0c0-3.3,2.7-5.9,5.9-5.9h28c3.3,0,5.9,2.7,5.9,5.9v0
-		C540.7,412.4,538,415,534.7,415z"/>
-	<text transform="matrix(1.208 0 0 1 504.1559 410.0878)" class="st2 st3 st4">DEPTO E DOBLE</text>
+	<polyline class="st0" points="444.4,390.9 444.4,494.5 598.3,494.5 598.3,480 623.4,480 623.4,390.9 444.4,390.9"/>
 	<text transform="matrix(1 0 0 1 484.2454 439.2)" class="st0 st3 st5">11</text>
 </g>
 <g id="DEPTO_E_DOBLE_10">
-	<polyline class="st0" points="290.6,390.9 265,390.9 265,480.2 290.6,480.2 290.6,494.5 444.4,494.5 444.4,390.9 290.6,390.9 	"/>
-	<path class="st1" d="M379.9,415h-28c-3.3,0-5.9-2.7-5.9-5.9v0c0-3.3,2.7-5.9,5.9-5.9h28c3.3,0,5.9,2.7,5.9,5.9v0
-		C385.8,412.4,383.1,415,379.9,415z"/>
-	<text transform="matrix(1.208 0 0 1 349.9821 410.0875)" class="st2 st3 st4">DEPTO E DOBLE</text>
+	<polyline class="st0" points="290.6,390.9 265,390.9 265,480.2 290.6,480.2 290.6,494.5 444.4,494.5 444.4,390.9 290.6,390.9"/>
 	<text transform="matrix(1 0 0 1 385.9316 436.951)" class="st0 st3 st5">10</text>
 </g>
 <g id="DEPTO_C_DOBLE_LOCK_OFF">
-	<polyline class="st0" points="136.5,290.4 136.5,390.9 290.6,390.9 290.6,289.7 136.5,290.4 	"/>
-	<path class="st1" d="M272.7,381.8h-28c-3.3,0-5.9-2.7-5.9-5.9v0c0-3.3,2.7-5.9,5.9-5.9h28c3.3,0,5.9,2.7,5.9,5.9v0
-		C278.6,379.1,275.9,381.8,272.7,381.8z"/>
-	<text transform="matrix(1.208 0 0 1 242.5593 374.5035)"><tspan x="0" y="0" class="st2 st3 st4">DEPTO C DOBLE</tspan><tspan x="5.1" y="4.7" class="st2 st3 st4">LOCK OFF</tspan></text>
+	<polyline class="st0" points="136.5,290.4 136.5,390.9 290.6,390.9 290.6,289.7 136.5,290.4"/>
 	<text transform="matrix(1 0 0 1 158.5903 326.3968)" class="st0 st3 st5">09</text>
 </g>
 <g id="DEPTO_A_ESTUDIO_08">
-	<polyline class="st0" points="136.5,238.1 136.5,290.4 290.6,289.7 290.6,238.1 136.5,238.1 	"/>
-	<path class="st1" d="M273.8,260.1h-28c-3.3,0-5.9-2.7-5.9-5.9l0,0c0-3.3,2.7-5.9,5.9-5.9h28c3.3,0,5.9,2.7,5.9,5.9l0,0
-		C279.7,257.5,277.1,260.1,273.8,260.1z"/>
-	<text transform="matrix(1.208 0 0 1 250.9694 253.2714)"><tspan x="0" y="0" class="st2 st3 st4">DEPTO A</tspan><tspan x="0" y="4.7" class="st2 st3 st4">ESTUDIO</tspan></text>
+	<polyline class="st0" points="136.5,238.1 136.5,290.4 290.6,289.7 290.6,238.1 136.5,238.1"/>
 	<text transform="matrix(1 0 0 1 175.7711 259.3126)" class="st0 st3 st5">08</text>
 </g>
 <g id="DEPTO_A_ESTUDIO_07">
-	<polyline class="st0" points="136.5,186.6 136.5,238.1 290.6,238.1 290.6,186.6 136.5,186.6 	"/>
-	<path class="st1" d="M272.1,226.7h-28c-3.3,0-5.9-2.7-5.9-5.9v0c0-3.3,2.7-5.9,5.9-5.9h28c3.3,0,5.9,2.7,5.9,5.9v0
-		C278,224.1,275.4,226.7,272.1,226.7z"/>
-	<text transform="matrix(1.208 0 0 1 249.2343 219.8002)"><tspan x="0" y="0" class="st2 st3 st4">DEPTO A</tspan><tspan x="0" y="4.7" class="st2 st3 st4">ESTUDIO</tspan></text>
+	<polyline class="st0" points="136.5,186.6 136.5,238.1 290.6,238.1 290.6,186.6 136.5,186.6"/>
 	<text transform="matrix(1 0 0 1 181.4947 223.6014)" class="st0 st3 st5">07</text>
 </g>
 <g id="DEPTO_A_ESTUDIO_06">
-	<polyline class="st0" points="136.5,135.3 136.5,186.6 290.6,186.6 290.6,135.3 136.5,135.3 	"/>
-	<path class="st1" d="M270.3,157.7h-28c-3.3,0-5.9-2.7-5.9-5.9v0c0-3.3,2.7-5.9,5.9-5.9h28c3.3,0,5.9,2.7,5.9,5.9v0
-		C276.3,155.1,273.6,157.7,270.3,157.7z"/>
-	<text transform="matrix(1.208 0 0 1 247.4998 150.6921)"><tspan x="0" y="0" class="st2 st3 st4">DEPTO A</tspan><tspan x="0" y="4.7" class="st2 st3 st4">ESTUDIO</tspan></text>
+	<polyline class="st0" points="136.5,135.3 136.5,186.6 290.6,186.6 290.6,135.3 136.5,135.3"/>
 	<text transform="matrix(1 0 0 1 166.5979 156.3956)" class="st0 st3 st5">06</text>
 </g>
 <g id="DEPTO_B3_ESTUDIO">
-	<path class="st1" d="M269.6,122.4h-28c-3.3,0-5.9-2.7-5.9-5.9v0c0-3.3,2.7-5.9,5.9-5.9h28c3.3,0,5.9,2.7,5.9,5.9v0
-		C275.6,119.7,272.9,122.4,269.6,122.4z"/>
-	<text transform="matrix(1 0 0 1 155.0369 117.3534)" class="st0 st3 st5">05</text>
 	<rect x="110.9" y="78.3" class="st0" width="179.7" height="57"/>
-	<text transform="matrix(1.208 0 0 1 245.72 115.3628)"><tspan x="0" y="0" class="st2 st3 st4">DEPTO B3</tspan><tspan x="0.8" y="4.7" class="st2 st3 st4">ESTUDIO</tspan></text>
+	<text transform="matrix(1 0 0 1 155.0369 117.3534)" class="st0 st3 st5">05</text>
 </g>
 </svg>
