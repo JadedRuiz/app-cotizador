@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, ElementRef, HostListener, Inject, ViewChild } from '@angular/core';
+import { NgbCarousel, NgbCarouselModule, NgbModal, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
 import { CotizadorService } from '../../core/services/cotizador.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -16,7 +16,8 @@ import Swal from 'sweetalert2';
     FormsModule,
     ReactiveFormsModule,
     NgClass,
-    NgIf
+    NgIf,
+    NgbCarouselModule
   ],
   templateUrl: './modal-cotizador.component.html',
   styleUrl: './modal-cotizador.component.css'
@@ -25,6 +26,7 @@ export class ModalCotizadorComponent {
   
   @ViewChild('cotizadorDeptos') _modalDeptos: any;
   @ViewChild('cotizadorModal') _modal: any;
+  @ViewChild('carousel', { static: true }) carousel!: NgbCarousel;
   cotizacion= new Cotizacion();
   submitted = false;
   bCotizacion=true;
@@ -61,6 +63,7 @@ export class ModalCotizadorComponent {
     // Inicializa cualquier funcionalidad si es necesario
     this.form = this._formBuilder.group({
       sNombre: ['', [Validators.required]],
+      sApellidos: ['', [Validators.required]],
       sCorreo: ['', [Validators.required, Validators.email]],
       iTelefono: ['',[Validators.required, Validators.pattern("^[0-9]*$")]],
       sCiudad: ['', [Validators.required]]
@@ -134,9 +137,8 @@ export class ModalCotizadorComponent {
     if(iLote != null && iLote != undefined) {
       this.lote = this.arrayLotes.find((x: any) => iLote == x.iLote);
       if(this.lote && this.lote.iStatus == 1){
-        console.log($(".lote-"+this.lote.iLote));
         $(".details").css({
-          'top': $(".lote-"+this.lote.iLote).position().top-80,
+          'top': $(".lote-"+this.lote.iLote).position().top-75,
           'left': $(".lote-"+this.lote.iLote).position().left
         });
         $(".details").show();
@@ -172,7 +174,7 @@ export class ModalCotizadorComponent {
   }
 
   openModalDeptos(){
-    this.modalService.open(this._modalDeptos, {centered: true, backdrop: false, size: 'xl'});
+    this.modalService.open(this._modalDeptos, {centered: false, backdrop: false, size: 'xl'});
   }
 
   openModal(){

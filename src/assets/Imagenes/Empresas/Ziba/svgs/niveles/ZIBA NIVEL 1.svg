@@ -6,10 +6,10 @@
 	.st0{fill:none;}
 	.disponible{cursor: pointer;text-decoration: none;}
 	.no-disponible{cursor: none;text-decoration: none;}
-	.p-disponible{fill: #12a351 !important;opacity:.80;}
+	.p-disponible{fill: #12a351 !important;opacity:.20;}
 	.p-disponible:hover{fill:rgba(150, 229, 243, 0.703) !important;cursor: pointer;}
-	.p-apartado{fill: #ffd200 !important; opacity:.80;}
-	.p-vendido{fill: #E60026 !important; opacity:.80;}
+	.p-apartado{fill: #ffd200 !important; opacity:.20;}
+	.p-vendido{fill: #E60026 !important; opacity:.20;}
 </style>
 <g id="IMAGEN">
 	

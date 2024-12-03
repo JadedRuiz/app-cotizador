@@ -1,6 +1,16 @@
 #svgContainer {
     width: 100%;
     border-radius: 5px;
-    display: flex;
-    align-items: center;
+}
+.vhori {
+    font-size: 13px;
+    display: none;
+    text-align: center;
+}
+@media only screen and (max-width: 575px){
+    .vhori {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+    }
 }

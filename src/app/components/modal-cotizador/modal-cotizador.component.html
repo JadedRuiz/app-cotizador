@@ -4,9 +4,12 @@
             <img src="./assets/Imagenes/Empresas/Ziba/img/isotipo.png" height="50" width="50">
             <h4 class="ml-3 modal-title">{{ faseSeleccionada.sEtapa ? faseSeleccionada.sEtapa : '' }}</h4>
         </div>
-        <button type="button" class="btn-close" aria-label="Close" (click)="modalDeptos.dismiss('Cross click')"></button>
+        <img src="./assets/Imagenes/x-circle.svg" aria-label="Close" (click)="modalDeptos.dismiss('Cross click')" height="28" width="28" style="cursor: pointer;">
+        <!-- <button type="button" class="btn-close-default" >
+            <i class="fa fa-times" aria-hidden="true"></i>
+        </button> -->
     </div>
-    <div class="modal-body mt-2">
+    <div class="modal-body my-2">
         <p>Da click en el mapa y selecciona el apartamento a cotizar</p>
         <div class="d-flex justify-content-center">
             <div class=" p-normal d-flex align-items-center estatus-disponible">
@@ -19,20 +22,17 @@
                 <div class="circle"></div>VENDIDO
             </div>
         </div>
-        <div class="contenido mt-2">
-            <!-- <div id="svgContainer" (click)="abrirModal($event)" (mouseover)="mostrarDetalle($event)" (mouseleave)="esconderDetalle($event)"></div> -->
-            <div id="svgContainerDeptos" (click)="abrirModal($event)" (mouseover)="mostrarDetalle($event)" (mouseleave)="esconderDetalle($event)"></div>
-        </div>  
-    </div>
-    <div class="details">
-        <p><span>{{ lote ? lote.sTipoLote : '' }}</span></p>
-        <p class="d-flex align-items-center">Superficie: <span class="superficie ml-2">{{  lote ? lote.iSuperficie : '' }} ㎡</span></p>
-        @if(lote) {
-            <p class="d-flex align-items-center">Dimensiones: &nbsp; <span class="dimensions ml-2">{{ lote.bIrregular == 1 ? 'IRREGULAR' : lote.iLargo+" x "+lote.iAncho }}</span></p>
-            <p class="d-flex align-items-center">Precio: <span class="precio ml-2">{{ lote.iSuperficie * lote.iPrecioM2Contado | currency: '$' }}</span></p>
-        }    
+        <div id="svgContainerDeptos" (click)="abrirModal($event)" (mouseover)="mostrarDetalle($event)" (mouseleave)="esconderDetalle($event)"></div>
     </div>
 </ng-template>
+<div class="details">
+    <p><span>{{ lote ? lote.sTipoLote : '' }}</span></p>
+    <p class="d-flex align-items-center">Superficie: <span class="superficie ml-2">{{  lote ? lote.iSuperficie : '' }} ㎡</span></p>
+    @if(lote) {
+        <p class="d-flex align-items-center">Dimensiones: &nbsp; <span class="dimensions ml-2">{{ lote.bIrregular == 1 ? 'IRREGULAR' : lote.iLargo+" x "+lote.iAncho }}</span></p>
+        <p class="d-flex align-items-center">Precio: <span class="precio ml-2">{{ lote.iSuperficie * lote.iPrecioM2Contado | currency: '$' }}</span></p>
+    }    
+</div>
 <ng-template #cotizadorModal let-modal>
     <div class="container-fluid modal-completo">
         <span class="cerrarModal" (click)="modal.dismiss('Cross click')"><i class="fa fa-times" aria-hidden="true"></i></span>
@@ -46,22 +46,40 @@
                                     {{lote.sTipoLote}}
                                 </h4>
                             </div>
-                            <div class="col-12 d-flex justify-content-center">
-                                <div class="info-depto">Nivel: <span>{{faseSeleccionada.iEtapa}}</span></div>
+                            <div class="col-12 d-flex justify-content-center px-0">
+                                <div class="info-depto">Nivel: <span>{{faseSeleccionada.iEtapa == 0  ? 'PB' : faseSeleccionada.iEtapa}}</span></div>
                                 |
                                 <div class="info-depto">Superficie: <span>{{lote.iSuperficie}} ㎡</span></div>
                                 |
-                                <div class="info-depto">Dimensiones: <span>{{lote.bIrregular == 0  ? lote.iAncho+' x '+lote.iLargo+' (㎡)' 
-                                    : 'Irregular'}}</span></div>
+                                <div class="info-depto">Habitaciones: <span>{{lote.bIrregular == 0  ? lote.iAncho+' x '+lote.iLargo+' (㎡)' 
+                                    : lote.iAncho }}</span></div>
                             </div>
-                            @if(lote.sFotografia != '' && lote.sFotografia != undefined) {
-                                <div class="col-11 content-img mt-2">
-                                    <img [src]="lote.sFotografia">
+                            
+                            @if(lote.objFotografias.length >= 2) {
+                                <div class="col-lg-11 col-sm-12 content-img mt-2">
+                                    <ngb-carousel #carousel class="caro-content">
+                                        @for (fotografia of lote.objFotografias; track $index) {
+                                            <ng-template ngbSlide>
+                                                <div class="carousel-caption caro-title">
+                                                    <h5>{{fotografia.sNombre}}</h5>
+                                                </div>
+                                                <a href="{{ fotografia.sPath }}" target="_blank" rel="nofollow noopener noreferrer">
+                                                    <div class="picsum-img-wrapper content-img">
+                                                        <img [src]="fotografia.sPath" />
+                                                    </div>
+                                                </a>
+                                            </ng-template>
+                                        }
+                                    </ngb-carousel>
+                                </div>
+                            } @else {
+                                <div class="col-lg-11 col-sm-12 content-img mt-2">
+                                    <img [src]="lote.objFotografias[0].sPath">
                                 </div>
                             }
-                            <div class="col-11 mt-4">
+                            <div class="col-lg-11 col-sm-12 mt-4">
                                 <div class="d-flex justify-content-center align-items-strech info-cotizacion">
-                                    <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-start">
+                                    <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-start info-inicial">
                                         <div class="info-depto">Monto total: <span>{{precioTotal | currency: '$ '}}</span></div>
                                         <div class="info-depto d-flex align-items-center">
                                             Enganche:
@@ -73,12 +91,12 @@
                                         </div>
                                         <div class="info-depto">Total enganche: <span>{{precioEnganche | currency: '$ '}}</span></div>
                                             
-                                        <div class="info-depto d-flex flex-column">Precio contra entrega: <span>{{precioContraEntrega | currency: '$ '}}</span></div>
+                                        <div class="info-depto d-flex flex-column precioContraEntrega">Precio contra entrega: <span>{{precioContraEntrega | currency: '$ '}}</span></div>
                                     </div>
-                                    <div class="flex-shrink-0 d-flex justify-content-center align-items-center" style="width: 80px;">
+                                    <div class="flex-shrink-0 d-flex justify-content-center align-items-center img-cotizacion" style="width: 80px;">
                                         <img src="./assets/Imagenes/Empresas/Ziba/img/isotipo_secundario.png" width="60">
                                     </div>
-                                    <div class="flex-grow-1 d-flex flex-column justify-content-start align-items-end px-0">
+                                    <div class="flex-grow-1 d-flex flex-column justify-content-start align-items-end px-0 info-final">
                                         <div class="info-depto">Financiamiento:
                                             <select class="cotizacion-select" #sel (change)="seleccionarPlazo(sel.value)">
                                                 @for(plazo of lote.objPlazos; track plazo) {
@@ -99,11 +117,12 @@
                                                 <span>{{precioMensualidad | currency: '$ '}}</span>
                                             </div>
                                         </div>
+                                        <div class="info-depto d-flex justify-content-between precioContraEntregaMovil">Precio contra entrega: <span>{{precioContraEntrega | currency: '$ '}}</span></div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-11 mt-2">
-                                <small class="avisos p-normal">- Los precios estan sujetos a cambios sin previo aviso.</small>
+                            <div class="col-lg-11 col-sm-12 mt-2">
+                                <small class="avisos p-normal">-Los precios estan sujetos a cambios sin previo aviso.</small>
                             </div>
                         </div>
                     </div>
@@ -120,7 +139,18 @@
                             id="sNombre"
                             [ngClass]="{ 'is__invalid-input': submitted && f['sNombre'].errors }"
                             formControlName="sNombre"
-                            placeholder="Nombre"
+                            placeholder="Nombres"
+                            style="text-transform: uppercase;"
+                            >
+                        </div>
+                        <div class="form-group mt-3">
+                            <input 
+                            type="text" 
+                            class="form-control" 
+                            id="sApellidos"
+                            [ngClass]="{ 'is__invalid-input': submitted && f['sApellidos'].errors }"
+                            formControlName="sApellidos"
+                            placeholder="Apellidos"
                             style="text-transform: uppercase;"
                             >
                         </div>
@@ -180,7 +210,7 @@
                             }                                                    
                             <div>&nbsp; {{buttonEnv.texto}}</div>                            
                         </button>
-                        <small class="text-white w-100">Toda la información personal es confidencial y no será usada ni vendida para fines publicitarios</small>
+                        <small class="text-white d-flex justify-content-center mt-2">Tus datos serán protegidos por nuestro &nbsp; <a href="https://zibaapartments.com/aviso-de-privacidad/" target="_blank">Aviso de Privacidad</a> </small>
                     </form>
                 </div>
             </div>

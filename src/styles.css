@@ -42,6 +42,10 @@ border-radius: 3px;
     font-optical-sizing: auto;
     font-style: normal;
 }
+.text-secundario {
+    color: var(--principal) !important;
+    font-weight: 900;
+}
 .cp {
     cursor: pointer;
 }
@@ -119,4 +123,9 @@ input:checked + .slider:before {
   
 .slider.round:before {
     border-radius: 50%;
+}
+@media only screen and (max-width: 575px){
+    .text-secundario {
+        font-size: 5px !important;
+    }
 }

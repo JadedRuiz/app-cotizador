@@ -2,6 +2,9 @@
     width: 70%;
     margin: auto;
 }
+.contenedor-modal {
+    width: 30px !important;
+}
 .modal-content {
     border-radius: 5px !important;
 }
@@ -38,7 +41,19 @@
 .is__invalid-input {
     border-color: #eee6e8;
 }
-  
+.btn-close-default {
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    border-radius: 50%;
+    color: white;
+    border: 1px var(--principal) solid !important;
+    background-color: var(--principal);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+}
 .is__invalid-error {
     color: white;
     padding: 0px;
@@ -152,6 +167,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow-y: auto;
     background-image: url("/assets/Imagenes/Empresas/Ziba/img/patronbg.png");
     height: 99.8vh;
 }
@@ -216,10 +232,10 @@
     left: 0;
     top: 50%;
     border: 1px solid #00000054;
-    z-index: 1;
     font-size: 11px !important;
     display: none;
     background: white;
+    z-index: 10000;
 }
 .details p span {
     font-weight: 800;
@@ -238,12 +254,92 @@
     color: white;
     font-weight: bold;
 }
-/* @media only screen and (max-width: 575px){
+.caro-title {
+    display: flex;
+    justify-content: center;
+}
+.caro-title h5{
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    background-color: var(--principal);
+    padding: 5px 15px;
+    width: fit-content;
+    border-radius: 5px;
+}
+.precioContraEntregaMovil {
+    display: none !important;
+}
+@media only screen and (max-width: 575px){
     .modal-completo {
         height: auto;
     }
     .contacto {
         height: auto;
-        padding: 15px 20px;
+        padding: 25px 20px;
     }
-} */
+    .contenido {
+        height: auto;
+    }
+    .cotizador {
+        height: 100%;
+        padding-top: 35px;
+    }
+    .cotizador .titulo {
+        font-size: 24px;
+    }
+    .info-depto {
+        font-size: 14px;
+    }
+    .content-img {
+        padding: 5px 5px;
+    }
+    .carousel-caption {
+        display: none;
+    }
+    .cerrarModal i{
+        font-size: 30px;
+        color: black;
+    }
+    .info-cotizacion {
+        flex-direction: column;
+    }
+    .info-cotizacion .info-inicial .info-depto {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 5px;
+    }
+    .info-cotizacion .info-final .info-depto {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 5px;
+    }
+    .info-cotizacion .info-final .calculadora {
+        width: 100%;
+    }
+    .info-cotizacion .info-final .info-depto.pago-finan {
+        display: inline-block;
+        margin-top: 0px !important;
+    }
+    .info-cotizacion .info-final .info-depto.pago-men {
+        display: inline-block;
+        margin-top: 0px !important;
+        padding-left: 10px !important;
+    }
+    .precioContraEntrega {
+        display: none !important;
+    }
+    .precioContraEntregaMovil {
+        display: flex !important;
+        justify-content: space-between !important;
+        margin-top: 5px !important;
+    }
+    .img-cotizacion {
+        display: none !important;
+    }
+    .details {
+        display: none !important;
+    }
+}

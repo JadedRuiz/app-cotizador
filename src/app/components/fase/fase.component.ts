@@ -18,7 +18,7 @@ export class FaseComponent {
 
   arrayEtapas: any;
   arrayLotesEtapa: any;
-  @Input() scr: string = './assets/Imagenes/Empresas/Ziba/svgs/fachada/FachadaSVG.svg';
+  @Input() scr: string = './assets/Imagenes/Empresas/Ziba/svgs/fachada/FachadaSVG2.svg';
   
   constructor(
     private _serCotizador: CotizadorService,
@@ -48,18 +48,34 @@ export class FaseComponent {
       (svgContent: string) => {
         const container = this._eleRef.nativeElement.querySelector("#svgContainer");
         container.innerHTML = svgContent;
-        niveles.forEach((element : any) => {
-          this.pintarNivel(element);
+        niveles.forEach((element: any, index_padre: number) => {
+          // this.pintarNivel(element);
           $('#'+element.iEtapa).addClass('nivel');
           $('#'+element.iEtapa).children().each((index : number, element_hijo : any) => {
             $(element_hijo).addClass('hijo');
+            // if(index == 0 && index_padre == 0) {
+            //   $(".nivel"+element.iEtapa).css({
+            //     'display': 'inline-block',
+            //     'top': $(element_hijo).position().top,
+            //     'left': $(element_hijo).position().left,
+            //     'z-index' : 1
+            //   });
+            // }
+            // if(index == 1) {
+            //   $(".nivel"+element.iEtapa).css({
+            //     'display': 'inline-block',
+            //     'top': $(element_hijo).position().top,
+            //     'left': $(element_hijo).position().left,
+            //     'z-index' : 1
+            //   });
+            // }
           });
         });
       });
   }
 
   pintarNivel(nivel : any) {
-    let html=`<div class="nivel${nivel.iEtapa}">${nivel.sEtapa}</div>`;
+    let html=`<div class="nivel${nivel.iEtapa} position-absolute titulo text-secundario">${nivel.sEtapa}</div>`;
     $(".niveles").prepend(html);
   }
 

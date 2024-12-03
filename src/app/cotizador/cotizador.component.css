@@ -40,7 +40,7 @@
 
 .titulo {
     color: white;
-    font-size: 24px;
+    font-size: 16px;
     font-weight: 400;
 }
 
@@ -48,9 +48,9 @@
     border-radius: 5px;
     margin: auto;
     padding: 0px 20px;
-    background-image: url("/assets/Imagenes/Empresas/Ziba/img/patronbg.png");
+    /* background-image: url("/assets/Imagenes/Empresas/Ziba/img/patronbg.png"); */
 }
 .img-main {
-    width: 150px;
+    width: 100px;
 }
 

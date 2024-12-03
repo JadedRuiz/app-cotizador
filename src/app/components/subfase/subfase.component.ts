@@ -115,7 +115,6 @@ export class SubfaseComponent {
         });
       });
     }
-    
   }
 
   abrirModal(event : any) {
