@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CotizadorComponent } from './cotizador.component';
 import { FaseComponent } from '../components/fase/fase.component';
-import { SubfaseComponent } from '../components/subfase/subfase.component';
 
 const routes: Routes = [
   {
@@ -10,14 +9,9 @@ const routes: Routes = [
     component: CotizadorComponent,
     children: [
       {
-        path: 'fase',
+        path: '',
         component: FaseComponent,
         data: { animation: '' }
-      },
-      {
-        path: 'subfase',
-        component: SubfaseComponent,
-        data: { animation: '' } // Esta ruta tiene 'animation', por lo tanto, se animará
       }
     ]
   }

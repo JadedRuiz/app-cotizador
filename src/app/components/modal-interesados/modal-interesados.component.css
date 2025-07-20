@@ -28,7 +28,7 @@
     background-color: #834979;
 }
 .m-header {
-    background-color: #065D62;
+    background-color: var(--secundario);
     color: white;
     padding: 10px 15px;
     display: flex;

@@ -1,37 +1,96 @@
-<div class="card-body">
-    <h4 class="card-title">Proyecto Zibá</h4>
-    <div class="d-flex justify-content-between align-items-center mb-2">
-        <p class="card-title-desc">En este módulo podras administrar los módulos de tu proyecto.</p>
-        <!-- <button class="btn btn-sm btn-success btnAdd" style="padding-bottom: 0px;">
-          <span class="mdi--truck-plus"></span>
-        </button> -->
-    </div>
-    <div class="row">
-        <div class="form-group col-lg-3 col-sm-12">
-            <label for="proyectos" class="label-title">Seleccione el edificio</label>
-            <select class="form-select" id="proyectos">
-                <option selected value="0">No se ha seleccionado un edificio</option>
-            </select>
+<div class="card-body card-lote">
+    <div class="header">
+        <h4 class="card-title">Proyecto Zibá</h4>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <p class="card-title-desc">En este módulo podras administrar los módulos de tu proyecto.</p>
+            <!-- <button class="btn btn-sm btn-success btnAdd" style="padding-bottom: 0px;">
+            <span class="mdi--truck-plus"></span>
+            </button> -->
         </div>
-    </div>
-    <div class="row">
-        <label for="etapas">Etapas</label>
-        <div class="col-12">
-            <div class="card">
-                
+        <div class="row">
+            <div class="form-group col-lg-3 col-sm-12">
+                <label for="proyectos" class="label-title">Seleccione el nivel</label>
+                <select class="form-select" id="proyectos" (change)="cambiarEtapa($event)">
+                    @if(this.arrayEtapas && this.arrayEtapas.length > 0) {
+                        @for(etapa of this.arrayEtapas; track $index) {
+                            @if($index == 0) {
+                                <option selected value="{{etapa.iIdEtapa}}">{{etapa.sEtapa}}</option>
+                            }@else {
+                                <option value="{{etapa.iIdEtapa}}">{{etapa.sEtapa}}</option>
+                            }                        
+                        }
+                    }@else {
+                        <option selected value="0">No se han encontrado niveles configurados</option>
+                    }
+                </select>
             </div>
         </div>
+        <div class="mt-3">
+            Detapartamentos
+            <hr class="py-0 my-0">
+        </div>
+    </div>
+    <div class="row mt-1 departments-container">
+            @if(arrayLotes.length == 0) {                
+                <div class="col-12">
+                    <ul class="list-group sinEtapas text-center">
+                        <li class="list-group-item p-normal text-center">Aún no se han agregado lotes</li>
+                    </ul>
+                </div>
+            } @else {
+                @for(lote_row of arrayLotes; track $index;) {
+                    <div class="col-md-12">
+                        <div class="card m-card-lote mb-2 cp" (click)="editarLote(lote_row)">
+                            <input type="hidden" id="sLote" value="{{ lote_row.sLote }}">
+                            <input type="hidden" id="iStatus" value="{{ lote_row.iStatus }}">
+                            <input type="hidden" id="iLote" value="{{ lote_row.iNotificacion > 0 ? 1 : 0 }}">
+                            <div class="m-card-header d-flex justify-content-between align-items-center py-0">
+                                <p class="title-form py-0 my-0 d-flex align-items-center">
+                                    {{lote_row.sTipoLote}}                                    
+                                </p>
+                                <div class="options d-flex align-items-center">
+                                    @if(lote_row.iStatus == 1) { 
+                                        <span class="badge disponible"><i class="fa fa-circle text-white" aria-hidden="true"></i> Disponible</span>
+                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 2, $event)" class="fa fa-circle i-apartado mx-1" aria-hidden="true" placement="top" ngbTooltip="Apartado" container="body"></i>
+                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 3, $event)" class="fa fa-circle i-vendido mx-1" aria-hidden="true" placement="top" ngbTooltip="Vendido" container="body"></i>
+                                    }
+                                    @if(lote_row.iStatus == 2) {
+                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 1, $event)" class="fa fa-circle i-disponible" aria-hidden="true" placement="top" ngbTooltip="Disponible" container="body"></i> 
+                                        <span class="badge apartado mx-1"><i class="fa fa-circle text-white" aria-hidden="true"></i> Apartado</span>
+                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 3, $event)" class="fa fa-circle i-vendido" aria-hidden="true" placement="top" ngbTooltip="Vendido" container="body"></i>
+                                    }
+                                    @if(lote_row.iStatus == 3) { 
+                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 1, $event)" class="fa fa-circle i-disponible" aria-hidden="true" placement="top" ngbTooltip="Disponible" container="body"></i>
+                                        <i (click)="cambiarStatus($index, lote_row.iIdLote, 2, $event)" class="fa fa-circle i-apartado mx-1" aria-hidden="true" placement="top" ngbTooltip="Apartado" container="body"></i>
+                                        <span class="badge vendido"><i class="fa fa-circle text-white" aria-hidden="true"></i> Vendido</span>
+                                    }
+                                    <a class="btn-lote-close cp mx-2" placement="top" ngbTooltip="Eliminar lote" container="body">
+                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                    </a>
+                                </div>                            
+                            </div>
+                            <div class="subtitle d-flex align-items-center justify-content-between">
+                                <small class="subtitle-card">No. Detpo: {{lote_row.iLote}}</small>
+                                @if(lote_row.iNotificacion > 0) {
+                                    <div class="div notify" placement="top" ngbTooltip="Interesados" container="body" (click)="open($event, lote_row.iIdLote)">
+                                        <span>
+                                            {{ lote_row.iNotificacion > 99 ? '99+' : lote_row.iNotificacion }}
+                                        </span>
+                                        <i class="fa fa-bell position-relative" aria-hidden="true">
+                                            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                                            </span>
+                                        </i>
+                                    </div>                                        
+                                }
+                            </div>
+                            <div class="d-flex justify-content-end mt-1">
+                                <i class="fa fa-picture-o" aria-hidden="true" style="color: #69727D;"></i>
+                            </div>                   
+                            <small class="text-warning alert-lote-{{lote_row.iLote}} d-none alert-error"></small>
+                            <strong class="precio p-normal text-end">{{ lote_row.iPrecioTotal | currency: '$ '}}</strong>
+                        </div>
+                    </div>
+                }
+            }
     </div>
 </div>
-
-<!-- <div class="row h-100 position-relative">
-    
-    @if(loading) {
-        <div class="pantalla-loading">
-            Cargando lotes, espere un momento..
-            <div class="spinner-border text-light mt-3" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-        </div>
-    }
-</div> -->

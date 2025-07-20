@@ -28,6 +28,20 @@
 *::-webkit-scrollbar-thumb:active {
     background-color: #834979;
 }
+.header {
+    flex-shrink: 0; /* No permite que estos elementos se reduzcan */
+    margin-bottom: 1rem; /* Espaciado opcional */
+}
+.departments-container {
+    flex-grow: 1; /* Ocupa el espacio sobrante */
+    overflow-y: auto; /* Habilitar scroll vertical */
+    padding: 0.5rem;
+}
+.card-lote {
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+}
 .label-title {
     font-family: "Montserrat", sans-serif;
     font-size: 14px;
@@ -36,4 +50,146 @@
 .form-select {
     font-family: "Montserrat", sans-serif !important;
     font-size: 14px !important;
+}
+.m-card-lote {
+    padding: 10px 10px;
+}
+.subtitle-card {
+    margin: 0px;
+    padding: 0px;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.btn-lote-close i {
+    color: #c6c6c6;
+    font-size: 24px;
+}
+.tooltip {
+    position: fixed;
+}
+.btn-lote-close i:hover {
+    color: #e57373;
+}
+.disponible {
+    background-color: var(--success);
+    color: white;
+    height: 20px;
+}
+.apartado {
+    background-color: var(--info);
+    color: white;
+    height: 20px;
+}
+.vendido {
+    background-color: var(--danger);
+    color: white;
+    height: 20px;
+}
+.i-disponible {
+    color: var(--success);
+}
+.i-apartado {
+    color: var(--info);
+}
+.i-vendido {
+    color: var(--danger);
+}
+.precio {
+    font-size: 22px !important;
+    font-weight: bold;
+    margin: 0px;
+    color: #834979;
+}
+.cotizacion select {
+    outline: none;
+    margin-top: 10px;
+    color: #000000;
+    text-decoration: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+    border: 1px solid #69727d;
+    background-color: #fff !important;
+    padding: 5px 15px;
+    width: 100%;
+    border-radius: 0px;
+    font-size: 14px;
+    font-weight: bold;
+    appearance: none;
+    background: url("../../../assets/Imagenes/arrows.png") no-repeat right 5px; 
+    background-size: 26px 20px;
+}
+.cotizacion option {
+    font-size: 14px;
+    font-weight: 400;
+}
+.cotizacion input[type="number"] {
+    color: #065D62;
+    font-weight: bold;
+    border: 1px solid #69727d;
+    font-size: 14px;
+    width: 45px;
+    height: 34px;
+    text-align: center;
+    border-radius: 0px !important;
+}
+.cotizacion input[type=number]::-webkit-inner-spin-button {
+    display: none;
+    margin: 0px;
+    padding: 0px;
+}
+.financiamiento {
+    font-size: 14px !important;
+    color: #2d888e;
+    margin: 0px;
+    font-weight: bold;
+}
+.notify {
+    margin-left: 10px;
+    position: relative;
+}
+.notify i {
+    font-size: 16px;
+    color: #69727d;
+}
+.notify span {
+    font-weight: bold;
+    font-size: 14px;
+}
+.accordion-header button{
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px 20px;
+    color: #065D62;
+}
+.searchLotes {
+    font-size: 14px;
+}
+.filters {
+    font-size: 25px;
+    color: #065D62;
+}
+.filter-select {
+    margin-right: 5px;
+}
+.filter-select label {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+.filter-select select {
+    font-size: 15px;
+    padding: 2px 36px 2px 10px;
+    width: fit-content;
+    color: #000;
+}
+.filter-select option {
+    background-color: white;
+    color: black;
+}
+.inp-disabled {
+    background-color: #ccc;
+}
+.alert-error {
+    font-size: 14px;
+    font-weight: bold;
 }

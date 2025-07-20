@@ -1,33 +1,104 @@
+.custom-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 1050;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+}
+
+.custom-modal {
+  width: 95%;
+  max-width: 1200px;
+  height: 95vh;
+  background-color: transparent;
+  position: relative;
+}
+
+.custom-modal-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  z-index: 10;
+}
+
+.custom-close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.custom-modal-body {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 60px; /* Espacio para el header */
+  padding-bottom: 80px; /* Espacio para la leyenda */
+}
+
+/* Estilos existentes que se mantienen */
+.logo-titulo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-titulo h4 {
+  margin: 0;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.instrucciones {
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
 #svgContainerDeptos {
-    width: 70%;
-    margin: auto;
+  width: 70vh;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.contenedor-modal {
-    width: 30px !important;
+
+.leyenda-colores {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
 }
-.modal-content {
-    border-radius: 5px !important;
+
+.leyenda-item {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 1rem;
+  gap: 8px;
 }
-.modal-header {
-    background-color: var(--secundario);
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.modal-title {
-    font-size: 24px !important;
-    margin-left: 15px;
-}
-.modal-body {
-    text-align: center;
-    /* margin: auto; */
-}
+
 .circle {
-    margin-right: 10px;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
 }
 .estatus-disponible .circle {
     background-color: var(--success);
@@ -271,6 +342,10 @@
     display: none !important;
 }
 @media only screen and (max-width: 575px){
+    #svgContainerDeptos {
+        width: 100%;
+        height: auto;
+    }
     .modal-completo {
         height: auto;
     }

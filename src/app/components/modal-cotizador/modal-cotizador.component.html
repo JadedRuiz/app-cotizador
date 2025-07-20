@@ -1,38 +1,54 @@
-<ng-template #cotizadorDeptos let-modalDeptos>
-    <div class="modal-header">
-        <div class="img-info d-flex align-items-center">
-            <img src="./assets/Imagenes/Empresas/Ziba/img/isotipo.png" height="50" width="50">
-            <h4 class="ml-3 modal-title">{{ faseSeleccionada.sEtapa ? faseSeleccionada.sEtapa : '' }}</h4>
+<div class="custom-modal-overlay" *ngIf="isCustomModalVisible">
+    <!-- Encabezado -->
+    <div class="custom-modal-header">
+        <div class="logo-titulo">
+            <img src="./assets/Imagenes/Empresas/Ziba/img/isotipo.png" height="40" width="40" alt="Logo">
+            <h4>{{ faseSeleccionada.sEtapa || 'PLANTA BAJA' }}</h4>
         </div>
-        <img src="./assets/Imagenes/x-circle.svg" aria-label="Close" (click)="modalDeptos.dismiss('Cross click')" height="28" width="28" style="cursor: pointer;">
-        <!-- <button type="button" class="btn-close-default" >
-            <i class="fa fa-times" aria-hidden="true"></i>
-        </button> -->
+        <button class="custom-close-btn" (click)="hideCustomModal()">
+            ✕
+        </button>
     </div>
-    <div class="modal-body my-2">
-        <p>Da click en el mapa y selecciona el apartamento a cotizar</p>
-        <div class="d-flex justify-content-center">
-            <div class=" p-normal d-flex align-items-center estatus-disponible">
-                <div class="circle"></div>DISPONIBLE
+    <div class="custom-modal" (click)="$event.stopPropagation()">    
+        <!-- Cuerpo -->
+        <div class="custom-modal-body">
+            <p class="instrucciones">Da click en el mapa y selecciona el apartamento a cotizar</p>
+            
+            <!-- Contenedor SVG -->
+            <div id="svgContainerDeptos" 
+                (click)="abrirModal($event)" 
+                (mouseover)="mostrarDetalle($event)" 
+                (mouseleave)="esconderDetalle($event)">
             </div>
-            <div class="p-normal d-flex align-items-center mx-3 estatus-apartado">                
-                <div class="circle"></div>APARTADO
-            </div>
-            <div class="p-normal d-flex align-items-center estatus-vendido .circle">                
-                <div class="circle"></div>VENDIDO
+            
+            <!-- Leyenda -->
+            <div class="leyenda-colores">
+                <div class="leyenda-item estatus-disponible">
+                    <div class="circle"></div>
+                    <span>DISPONIBLE</span>
+                </div>
+                <div class="leyenda-item estatus-apartado">
+                    <div class="circle"></div>
+                    <span>APARTADO</span>
+                </div>
+                <div class="leyenda-item estatus-vendido">
+                    <div class="circle"></div>
+                    <span>VENDIDO</span>
+                </div>
             </div>
         </div>
-        <div id="svgContainerDeptos" (click)="abrirModal($event)" (mouseover)="mostrarDetalle($event)" (mouseleave)="esconderDetalle($event)"></div>
     </div>
-</ng-template>
+</div>
+
 <div class="details">
     <p><span>{{ lote ? lote.sTipoLote : '' }}</span></p>
     <p class="d-flex align-items-center">Superficie: <span class="superficie ml-2">{{  lote ? lote.iSuperficie : '' }} ㎡</span></p>
     @if(lote) {
         <p class="d-flex align-items-center">Dimensiones: &nbsp; <span class="dimensions ml-2">{{ lote.bIrregular == 1 ? 'IRREGULAR' : lote.iLargo+" x "+lote.iAncho }}</span></p>
-        <p class="d-flex align-items-center">Precio: <span class="precio ml-2">{{ lote.iSuperficie * lote.iPrecioM2Contado | currency: '$' }}</span></p>
+        <p class="d-flex align-items-center">Precio: <span class="precio ml-2">{{ lote.iPrecioContado| currency: '$' }}</span></p>
     }    
 </div>
+
 <ng-template #cotizadorModal let-modal>
     <div class="container-fluid modal-completo">
         <span class="cerrarModal" (click)="modal.dismiss('Cross click')"><i class="fa fa-times" aria-hidden="true"></i></span>
@@ -65,7 +81,7 @@
                                                 </div>
                                                 <a href="{{ fotografia.sPath }}" target="_blank" rel="nofollow noopener noreferrer">
                                                     <div class="picsum-img-wrapper content-img">
-                                                        <img [src]="fotografia.sPath" />
+                                                        <img [src]="fotografia.sPath" style="width: 100%;" />
                                                     </div>
                                                 </a>
                                             </ng-template>
@@ -74,7 +90,7 @@
                                 </div>
                             } @else {
                                 <div class="col-lg-11 col-sm-12 content-img mt-2">
-                                    <img [src]="lote.objFotografias[0].sPath">
+                                    <img [src]="lote.objFotografias[0].sPath" style="width: 100%;">
                                 </div>
                             }
                             <div class="col-lg-11 col-sm-12 mt-4">

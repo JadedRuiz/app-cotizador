@@ -24,7 +24,7 @@ import Swal from 'sweetalert2';
 })
 export class ModalCotizadorComponent {
   
-  @ViewChild('cotizadorDeptos') _modalDeptos: any;
+  isCustomModalVisible  = false;
   @ViewChild('cotizadorModal') _modal: any;
   @ViewChild('carousel', { static: true }) carousel!: NgbCarousel;
   cotizacion= new Cotizacion();
@@ -74,7 +74,7 @@ export class ModalCotizadorComponent {
   cargaInicial() {
     this._serCotizador.arrayLotes$.subscribe((lotes) => {
       if(lotes.faseSeleccionada != null) {
-        this.openModalDeptos();
+        this.displayCustomModal(); // Usamos el nuevo método
         this.arrayLotes = lotes.objLotes;
         this.faseSeleccionada = lotes.faseSeleccionada;
         this.iMinEnganche = lotes.faseSeleccionada.iMinEnganche;
@@ -88,24 +88,23 @@ export class ModalCotizadorComponent {
       this._http.get(this.faseSeleccionada.sPath, { responseType: 'text'}).subscribe(
         (svgContent: string) => {
         $("#svgContainerDeptos").html(svgContent);
-        let nodos = $("#Capa_1").find('text');
+        let nodos = $("#Capa_1").find('path');
         nodos.each((index : number, value : any) => {
-          let poligono = $(value).prev();
-          let objLote = lotes.find((x : any) => parseInt($(value).html()) == x.iLote);
+          let poligono = $(value);
+          let objLote = lotes.find((x : any) => $(value).attr("id")?.toLowerCase() == "apt"+x.iLote);
           if(objLote) {
             switch(objLote.iStatus) {
               //Disponible
               case 1:
                 $(value).addClass('disponible');
                 $(poligono).addClass('p-disponible');
-                $(poligono).addClass('lote-'+objLote.iLote);
                 break;
               case 2:
                 $(value).addClass('no-disponible');
                 $(poligono).addClass('p-apartado');
                 break;
               case 3:
-                $(value).addClass('mo-disponible');
+                $(value).addClass('no-disponible');
                 $(poligono).addClass('p-vendido');
                 break;
             }
@@ -114,17 +113,17 @@ export class ModalCotizadorComponent {
       });
     }
   }
+
   abrirModal(event : any) {
     let iLote= this.recuerarDepto(event); 
     if(iLote != null) {
       this.lote = this.arrayLotes.find((x: any) => iLote.includes(x.iLote));
       if(this.lote.iStatus && this.lote.iStatus == 1){
-        this.precioM2 = this.lote.iPrecioM2Contado;
-        this.precioTotal = this.lote.iSuperficie * this.lote.iPrecioM2Contado;
+        // this.precioM2 = this.lote.iPrecioM2Contado;
+        this.precioTotal = this.lote.iPrecioContado;
         this.iEnganche = 20;
         this.precioEnganche = this.precioTotal * (this.iEnganche/100); 
         this.precioFinanciado = this.precioTotal * (10/100);
-        this.precioMensualidad = this.precioFinanciado / 42;
         this.precioContraEntrega = this.precioTotal - (this.precioFinanciado + this.precioEnganche);
         this.obtenerPlazosPorEtapa(this.faseSeleccionada.iIdEtapa);
         this.openModal();
@@ -137,9 +136,10 @@ export class ModalCotizadorComponent {
     if(iLote != null && iLote != undefined) {
       this.lote = this.arrayLotes.find((x: any) => iLote == x.iLote);
       if(this.lote && this.lote.iStatus == 1){
+        console.log(this.lote);
         $(".details").css({
-          'top': $(".lote-"+this.lote.iLote).position().top-75,
-          'left': $(".lote-"+this.lote.iLote).position().left
+          'top': $("#apt"+this.lote.iLote).position().top-75,
+          'left': $("#apt"+this.lote.iLote).position().left
         });
         $(".details").show();
       }else{
@@ -163,18 +163,23 @@ export class ModalCotizadorComponent {
   }
 
   recuerarDepto(event : any) {
-    if(event && event.target.localName != "image" && event.target.nextElementSibling != null) { 
-      let arrayString= (event.target.nextElementSibling.outerHTML).split('>');  
-      let iLote = arrayString[1].replaceAll("</text", "");
-      if(!iLote.includes("<p")) {
-        return iLote;
-      }
+    if(event && event.target.id != "svgContainerDeptos" && event.target.id != "Capa_1" && event.target.id != "image1" &&
+      event.target.localName != "eclipse" && event.target.localName != "text" && event.target.localName != "tspan"
+    ) { 
+      return event.target.id.replace(/^apt/, "");
     }
     return null;
   }
 
-  openModalDeptos(){
-    this.modalService.open(this._modalDeptos, {centered: false, backdrop: false, size: 'xl'});
+  // Métodos para mostrar/ocultar el modal
+  displayCustomModal() {
+    this.isCustomModalVisible = true;
+    document.body.style.overflow = 'hidden'; // Deshabilita el scroll
+  }
+
+  hideCustomModal() {
+    this.isCustomModalVisible = false;
+    document.body.style.overflow = ''; // Restaura el scroll
   }
 
   openModal(){
@@ -186,6 +191,7 @@ export class ModalCotizadorComponent {
     .subscribe((resp : any) => {
       if(resp.ok) {
         this.lote.objPlazos = resp.data;
+        this.precioMensualidad = this.precioFinanciado / this.lote.objPlazos[0].iNoPlazo;
       }
     })
   }
@@ -249,8 +255,8 @@ export class ModalCotizadorComponent {
         this.bCotizacion=true;
         return;
       }
-      this.precioM2 = this.lote.iPrecioM2Contado;
-      this.precioTotal = this.lote.iSuperficie * this.lote.iPrecioM2Contado;
+      // this.precioM2 = this.lote.iPrecioM2Contado;
+      this.precioTotal = this.lote.iPrecioContado;
       // this.precioTotalCotizado = this.lote.iSuperficie * this.lote.iPrecioM2Contado;
       this.bCotizacion=false;
   }
@@ -272,12 +278,13 @@ export class ModalCotizadorComponent {
   }
 
   seleccionarEnganche(iEnganche : any) {
+    console.log(this.lote.objPlazos[0].iNoPlazo);
     if(iEnganche == 1) {
         this.iMinEnganche = 10;
         this.iEnganche = 20;
         this.precioEnganche = this.precioTotal * (20/100); 
         this.precioFinanciado = this.precioTotal * (10/100);
-        this.precioMensualidad = this.precioFinanciado / 42;
+        this.precioMensualidad = this.precioFinanciado / this.lote.objPlazos[0].iNoPlazo;
         this.precioContraEntrega = this.precioTotal - (this.precioFinanciado + this.precioEnganche);
       return;
     }
@@ -286,7 +293,7 @@ export class ModalCotizadorComponent {
         this.iEnganche = 30;
         this.precioEnganche = this.precioTotal * (30/100); 
         this.precioFinanciado = this.precioTotal * (20/100);
-        this.precioMensualidad = this.precioFinanciado / 42;
+        this.precioMensualidad = this.precioFinanciado / this.lote.objPlazos[0].iNoPlazo;
         this.precioContraEntrega = this.precioTotal - (this.precioFinanciado + this.precioEnganche);
       return;
     }
@@ -295,7 +302,7 @@ export class ModalCotizadorComponent {
         this.iEnganche = 50;
         this.precioEnganche = this.precioTotal * (50/100); 
         this.precioFinanciado = this.precioTotal * (40/100);
-        this.precioMensualidad = this.precioFinanciado / 42;
+        this.precioMensualidad = this.precioFinanciado / this.lote.objPlazos[0].iNoPlazo;
         this.precioContraEntrega = this.precioTotal - (this.precioFinanciado + this.precioEnganche);
       return;
     }

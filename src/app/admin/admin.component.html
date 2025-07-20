@@ -5,14 +5,14 @@
         <div class="sidebar-brand">
           <a class="cp">{{ currentTime }} </a>
           @if(bShowMenu) {
-            <div id="close-sidebar" (click)="toggleSidebar()">
-              <i class="fa fa-bars"></i>
+            <div id="close-sidebar" class="text-white" (click)="toggleSidebar()">
+              <i class="fa fa-times"></i>
             </div>
           }          
         </div>
         <div class="sidebar-header">
           <div class="user-pic">
-            <img class="" src="./assets/Imagenes/Empresas/Ziba/isotipo.png"
+            <img class="" src="./assets/Imagenes/Empresas/Ziba/img/isotipo.png"
               alt="User picture">
           </div>
         </div>
@@ -92,7 +92,7 @@
         </div>
         <!-- Container wrapper -->
       </nav>
-      <div class="section container">
+      <div class="section container h-100">
         <div class="page-title-box d-flex align-items-center justify-content-between">
           <h4 class="mt-4 mx-0">Mi Proyecto</h4>
           <div class="page-title-right">
@@ -102,13 +102,9 @@
               </ol>
           </div>
         </div>
-        <div class="row">
-          <div class="col-12">
-              <div class="card">
-                <router-outlet/>
-              </div>
+          <div class="card">
+            <router-outlet />
           </div>
         </div>
-      </div>
      </main>
   </div>

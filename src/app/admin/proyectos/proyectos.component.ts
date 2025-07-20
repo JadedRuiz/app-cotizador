@@ -68,7 +68,7 @@ export class ProyectosComponent {
   ) { }
 
   ngOnInit() {
-    this.formEtapa = this._formBuilder.formGroup(Etapa);
+    // this.formEtapa = this._formBuilder.formGroup(Etapa);
     this.cargaInicial();
   }
 
@@ -79,7 +79,7 @@ export class ProyectosComponent {
         this.arrayEtapas=res.data;
         this.etapa= res.data[0];
         this.obtenerLotesXEtapa(res.data[0].iIdEtapa);
-        this.obtenerPlazosEtapa(res.data[0].iIdEtapa)
+        // this.obtenerPlazosEtapa(res.data[0].iIdEtapa)
         return;
       }
       Swal.fire("Ha ocurrido un problema",res.data,"warning");
@@ -119,6 +119,10 @@ export class ProyectosComponent {
     this.formEtapa.reset();
     this.submitted=false;
     this.collapse?.toggle(false);
+  }
+
+  cambiarEtapa(event : any) {
+    this.obtenerLotesXEtapa(event.target.value);
   }
 
   editar(data : any) {

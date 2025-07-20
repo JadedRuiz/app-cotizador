@@ -10,13 +10,12 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AdminComponent {
   bSidebar= false;
-  bShowMenu= false;
+  bShowMenu= true;
   currentTime?: string;
   private timer: any;
 
 
   ngOnInit() {
-    this.configMovil();
     this.configReloj();
   }
 
@@ -32,14 +31,6 @@ export class AdminComponent {
   configMovil() {
     const width = window.innerWidth;
     this.bSidebar = width > 768;
-    this.bShowMenu= !this.bSidebar;
-  }
-
-  // Controlar el estado del sidebar al cambiar el tamaño de la ventana
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
-    const width = window.innerWidth;
-    this.bSidebar = width > 768; // Mostrar sidebar solo en pantallas grandes
     this.bShowMenu= !this.bSidebar;
   }
 

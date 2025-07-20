@@ -13,9 +13,7 @@ import Swal from 'sweetalert2';
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    RxReactiveFormsModule,
-    NgClass,
-    NgIf
+    RxReactiveFormsModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -47,7 +45,6 @@ export class LoginComponent {
   onSubmit() {
     this.alertError.show = false;
     this.loading = true;
-    //Service login
     this._usrService.login(this.form.value)
     .subscribe((resp : any) => {
       if(resp.ok) {

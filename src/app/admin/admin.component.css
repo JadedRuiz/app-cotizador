@@ -129,7 +129,7 @@
     height: calc(100% - 30px);
     overflow-y: auto;
     position: relative;
-    /* background-image: url("../../assets/Imagenes/Empresas/Ziba/bg-sidebar.jpg"); */
+    background-image: url("../../assets/Imagenes/Empresas/Ziba/img/bg-sidebar.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
