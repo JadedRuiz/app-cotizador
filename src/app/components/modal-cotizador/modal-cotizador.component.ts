@@ -41,6 +41,7 @@ export class ModalCotizadorComponent {
   precioContraEntrega=0;
   precioEnganche=0;
   precioMensualidad=0;
+  preciosTotales="";
   iMinEnganche = 0;
   iEnganche=0;
   plazoSeleccionado : any;
@@ -93,6 +94,7 @@ export class ModalCotizadorComponent {
           let poligono = $(value);
           let objLote = lotes.find((x : any) => $(value).attr("id")?.toLowerCase() == "apt"+x.iLote);
           if(objLote) {
+            console.log($(poligono));
             switch(objLote.iStatus) {
               //Disponible
               case 1:
@@ -104,6 +106,7 @@ export class ModalCotizadorComponent {
                 $(poligono).addClass('p-apartado');
                 break;
               case 3:
+                $("#circle"+objLote.iLote).parent().addClass('d-none');
                 $(value).addClass('no-disponible');
                 $(poligono).addClass('p-vendido');
                 break;
@@ -117,10 +120,12 @@ export class ModalCotizadorComponent {
   abrirModal(event : any) {
     let iLote= this.recuerarDepto(event); 
     if(iLote != null) {
+      $(".details").hide();
       this.lote = this.arrayLotes.find((x: any) => iLote.includes(x.iLote));
       if(this.lote.iStatus && this.lote.iStatus == 1){
         // this.precioM2 = this.lote.iPrecioM2Contado;
-        this.precioTotal = this.lote.iPrecioContado;
+        this.preciosTotales = this.lote.iPrecioContado.split('|');
+        this.precioTotal = parseFloat(this.preciosTotales[0]);
         this.iEnganche = 20;
         this.precioEnganche = this.precioTotal * (this.iEnganche/100); 
         this.precioFinanciado = this.precioTotal * (10/100);
@@ -136,7 +141,6 @@ export class ModalCotizadorComponent {
     if(iLote != null && iLote != undefined) {
       this.lote = this.arrayLotes.find((x: any) => iLote == x.iLote);
       if(this.lote && this.lote.iStatus == 1){
-        console.log(this.lote);
         $(".details").css({
           'top': $("#apt"+this.lote.iLote).position().top-75,
           'left': $("#apt"+this.lote.iLote).position().left
@@ -278,8 +282,8 @@ export class ModalCotizadorComponent {
   }
 
   seleccionarEnganche(iEnganche : any) {
-    console.log(this.lote.objPlazos[0].iNoPlazo);
     if(iEnganche == 1) {
+        this.precioTotal = parseFloat(this.preciosTotales[0]);
         this.iMinEnganche = 10;
         this.iEnganche = 20;
         this.precioEnganche = this.precioTotal * (20/100); 
@@ -289,6 +293,7 @@ export class ModalCotizadorComponent {
       return;
     }
     if(iEnganche == 2) {
+        this.precioTotal = parseFloat(this.preciosTotales[1]);
         this.iMinEnganche = 20;
         this.iEnganche = 30;
         this.precioEnganche = this.precioTotal * (30/100); 
@@ -298,6 +303,7 @@ export class ModalCotizadorComponent {
       return;
     }
     if(iEnganche == 3) {
+        this.precioTotal = parseFloat(this.preciosTotales[2]);
         this.iMinEnganche = 40;
         this.iEnganche = 50;
         this.precioEnganche = this.precioTotal * (50/100); 

@@ -21,15 +21,10 @@
 }
 
 .custom-modal-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
-  z-index: 10;
+  width: 100%;
 }
 
 .custom-close-btn {
@@ -47,9 +42,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding-top: 60px; /* Espacio para el header */
-  padding-bottom: 80px; /* Espacio para la leyenda */
+  justify-content: space-between;
 }
 
 /* Estilos existentes que se mantienen */
@@ -58,35 +51,30 @@
   align-items: center;
   gap: 15px;
 }
-
 .logo-titulo h4 {
   margin: 0;
   color: white;
   font-size: 1.5rem;
 }
-
 .instrucciones {
   color: white;
   text-align: center;
   margin-bottom: 20px;
   font-size: 1.2rem;
 }
-
 #svgContainerDeptos {
-  width: 70vh;
-  height: auto;
+  max-width: 90vw;
+  width: 40vw;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 .leyenda-colores {
   display: flex;
   justify-content: center;
   gap: 30px;
   margin-top: 20px;
 }
-
 .leyenda-item {
   display: flex;
   align-items: center;
@@ -94,20 +82,20 @@
   font-size: 1rem;
   gap: 8px;
 }
-
 .circle {
-  width: 14px;
-  height: 14px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
+  border: 1px solid white;
 }
 .estatus-disponible .circle {
-    background-color: var(--success);
+    background-color: var(--principal);
 }
 .estatus-apartado .circle {
-    background-color: var(--info);
+    background-color: var(--secundario);
 }
 .estatus-vendido .circle {
-    background-color: var(--danger);
+    background-color: var(--sb-track-color);
 }
 .is__invalid-input {
     border-color: #eee6e8;
@@ -163,6 +151,11 @@
 }
 .contacto form {
     width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 0px;
 }
 .titleForm {
     font-size: 25px;
@@ -219,7 +212,7 @@
 .cerrarModal i {
     cursor: pointer;
     font-size: 45px;
-    color: white;
+    color: black;
 }
 .btnEnviar {
     text-transform: uppercase();
@@ -238,9 +231,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow-y: auto;
     background-image: url("/assets/Imagenes/Empresas/Ziba/img/patronbg.png");
-    height: 99.8vh;
+    width: 100%;
+    height: 100%;
 }
 .cotizador {
     padding: 20px 15px;
@@ -329,7 +322,7 @@
     display: flex;
     justify-content: center;
 }
-.caro-title h5{
+.caro-title h5 {
     font-size: 18px;
     font-weight: 600;
     color: white;
@@ -341,16 +334,29 @@
 .precioContraEntregaMovil {
     display: none !important;
 }
+.url_footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.bg-padron {
+    background: white;
+    background-size: cover;
+    padding: 15px !important;
+}
+
 @media only screen and (max-width: 575px){
     #svgContainerDeptos {
-        width: 100%;
-        height: auto;
+        width: 90vw;
+    }
+    .details {
+        display: none;
     }
     .modal-completo {
         height: auto;
     }
     .contacto {
-        height: auto;
+        height: 100%;
         padding: 25px 20px;
     }
     .contenido {
@@ -372,9 +378,9 @@
     .carousel-caption {
         display: none;
     }
-    .cerrarModal i{
+    .cerrarModal i {
         font-size: 30px;
-        color: black;
+        color: black !important;
     }
     .info-cotizacion {
         flex-direction: column;
@@ -414,7 +420,18 @@
     .img-cotizacion {
         display: none !important;
     }
+    .url_footer {
+        flex-direction: column;
+        align-items: center;
+    }
+    .bg-padron {
+        padding: 0px !important;
+        background-color: white !important;
+    }
     .details {
         display: none !important;
+    }
+    .custom-modal {
+        height: 100%;
     }
 }
