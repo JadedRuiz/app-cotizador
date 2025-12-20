@@ -126,9 +126,9 @@ export class ModalCotizadorComponent {
         // this.precioM2 = this.lote.iPrecioM2Contado;
         this.preciosTotales = this.lote.iPrecioContado.split('|');
         this.precioTotal = parseFloat(this.preciosTotales[0]);
-        this.iEnganche = 20;
+        this.iEnganche = 5;
         this.precioEnganche = this.precioTotal * (this.iEnganche/100); 
-        this.precioFinanciado = this.precioTotal * (10/100);
+        this.precioFinanciado = this.precioTotal * (15/100);
         this.precioContraEntrega = this.precioTotal - (this.precioFinanciado + this.precioEnganche);
         this.obtenerPlazosPorEtapa(this.faseSeleccionada.iIdEtapa);
         this.openModal();
@@ -272,7 +272,7 @@ export class ModalCotizadorComponent {
   }
 
   calcularMensualidad() {
-    if(this.iMinEnganche < 20) {
+    if(this.iMinEnganche < 5) {
       this.iMinEnganche = this.faseSeleccionada.iMinEnganche;
       this.calcularMensualidad();
       return;
@@ -284,30 +284,30 @@ export class ModalCotizadorComponent {
   seleccionarEnganche(iEnganche : any) {
     if(iEnganche == 1) {
         this.precioTotal = parseFloat(this.preciosTotales[0]);
-        this.iMinEnganche = 10;
-        this.iEnganche = 20;
-        this.precioEnganche = this.precioTotal * (20/100); 
-        this.precioFinanciado = this.precioTotal * (10/100);
+        this.iMinEnganche = 15;
+        this.iEnganche = 5;
+        this.precioEnganche = this.precioTotal * (5/100);     // 5% Enganche
+        this.precioFinanciado = this.precioTotal * (15/100);  //15 % Financiamiento
         this.precioMensualidad = this.precioFinanciado / this.lote.objPlazos[0].iNoPlazo;
         this.precioContraEntrega = this.precioTotal - (this.precioFinanciado + this.precioEnganche);
       return;
     }
     if(iEnganche == 2) {
         this.precioTotal = parseFloat(this.preciosTotales[1]);
-        this.iMinEnganche = 20;
-        this.iEnganche = 30;
-        this.precioEnganche = this.precioTotal * (30/100); 
-        this.precioFinanciado = this.precioTotal * (20/100);
+        this.iMinEnganche = 40;
+        this.iEnganche = 10;
+        this.precioEnganche = this.precioTotal * (10/100);      // 10% Enganche
+        this.precioFinanciado = this.precioTotal * (40/100);    // 40% Financiamiento
         this.precioMensualidad = this.precioFinanciado / this.lote.objPlazos[0].iNoPlazo;
         this.precioContraEntrega = this.precioTotal - (this.precioFinanciado + this.precioEnganche);
       return;
     }
     if(iEnganche == 3) {
         this.precioTotal = parseFloat(this.preciosTotales[2]);
-        this.iMinEnganche = 40;
-        this.iEnganche = 50;
-        this.precioEnganche = this.precioTotal * (50/100); 
-        this.precioFinanciado = this.precioTotal * (40/100);
+        this.iMinEnganche = 70;
+        this.iEnganche = 20;
+        this.precioEnganche = this.precioTotal * (20/100);      // 20% Enganche
+        this.precioFinanciado = this.precioTotal * (70/100);    // 70% Financiamiento
         this.precioMensualidad = this.precioFinanciado / this.lote.objPlazos[0].iNoPlazo;
         this.precioContraEntrega = this.precioTotal - (this.precioFinanciado + this.precioEnganche);
       return;
